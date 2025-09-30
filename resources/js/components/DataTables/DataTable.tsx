@@ -51,7 +51,7 @@ export default function DataTable({
     const [itemToDelete, setItemToDelete] = useState(null);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-    const upadateRoute = (newParams = {}) =>{
+    const updateRoute = (newParams = {}) =>{
         const params = {
             search,
             perPage,
@@ -66,6 +66,45 @@ export default function DataTable({
             preserveScroll: true;
         });
     };
+
+    const handleSearch = (e:any) => {
+        e.preventDefault();
+        updateRoute();
+    }
+
+    const handlePerPageChange = (e:any) => {
+        const newPerPage = e.target.value;
+        setPerPage(newPerPage);
+        updateRoute({ perPage: newPerPage });
+    }
+
+    const handleSort = (columns:any) => {
+        const newDirection = sort === columns && direction === 'asc' ? 'desc' : 'asc';
+        setSort(columns);
+        setDirection(newDirection);
+        updateRoute({ sort: columns, direction:newDirection });
+    }
+
+    const formatDate = (dateString: any) =>{
+        const options = { year: 'numeric', month:'short', day:'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    const formatDate2 = (dateString: any) =>{
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // month is zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    const renderCell= ( item: any, columns: any, index:number ) => {
+        if (!columns.key) return null;
+
+        const getValue = (obj: any, path: any) => {
+            
+        }
+    }
 
     return (
         <div>
