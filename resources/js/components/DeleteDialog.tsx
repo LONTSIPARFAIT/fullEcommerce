@@ -22,8 +22,8 @@ export default function DeleteDialog({
         <p className="mb-5 text-sm text-gray-600"> {message} </p>
       </div>
       <div className="flex items-center justify-end space-x-3">
-        <button className="" onClick={onClose}> {cancelButton} </button>
-        <button className="rounded "
+        <button className="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus-ring-offset-2 focus:outline-none" onClick={onClose}> {cancelButton} </button>
+        <button className="rounded bg-red-500 px-4 py-2 text-sm font-medium text-red-600 focus:ring-2 focus:ring-red-500 focus-ring-offset-2 focus:outline-none"
           onClick={() => {
             onConfirm();
             onClose();
