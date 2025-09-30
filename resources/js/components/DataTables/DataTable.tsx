@@ -1,3 +1,6 @@
+import { usePage } from "@inertiajs/react";
+import { useState } from "react";
+
 interface TableColumn {
     key: string;
     label: string;
@@ -16,19 +19,18 @@ export default function DataTable({
     viewRoute = '',
     canViewResources = false,
     canCreateResources = false,
-    rows,
-}:{
-    data: any[];
-    columns: TableColumn[];
-    resourceName: string;
-    singularName: string;
-    pluralName: string;
-    filters: any;
-    viewRoute: string;
-    canViewResources: boolean;
-    canCreateResources: boolean;
-    rows: React.ReactNode;
+    canEditResources = false,
+    canDeleteResources = false,
+    icon: Icon,
+    createRoute = '',
+    editRoute = '',
+    ondelete,
 }) {
+    const { errors } = usePage().props;
+
+    const [search, setSearch] = useState(filters?.search || '');
+    const [perPage, SetPerPage] = useState(filters?.perPage || 10);
+
     return (
         <div>
             <div className="mb-4 flex items-center justify-between">
@@ -51,5 +53,6 @@ export default function DataTable({
                 </table>
             </div>
         </div>
+
     );
 }
