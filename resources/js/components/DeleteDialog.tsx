@@ -19,11 +19,11 @@ export default function DeleteDialog({
     <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black" aria-model="true">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
         <h3 className="mb-4 text-lg font-medium text-gray-900"> {title} </h3>
-        <p className="mb-5 text-sm bg-red-50 hover:read-only:justify-around space-between"> {message} </p>
+        <p className="mb-5 text-sm text-gray-600"> {message} </p>
       </div>
-      <div className="">
+      <div className="flex items-center justify-end space-x-3">
         <button className="" onClick={onClose}> {cancelButton} </button>
-        <button className=""
+        <button className="rounded "
           onClick={() => {
             onConfirm();
             onClose();
