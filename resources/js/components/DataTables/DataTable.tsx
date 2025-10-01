@@ -254,7 +254,17 @@ export default function DataTable({
                             Search
                         </button>
                     </form>
-                    <div className="flex items-center"></div>
+                    <div className="flex items-center">
+                        <label htmlFor="perPage" className="mr-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            Show
+                        </label>
+                        <select
+                            id="perPage" 
+                            className="rounded-lg"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
