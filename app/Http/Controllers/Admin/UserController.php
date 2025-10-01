@@ -24,6 +24,7 @@ class UserController extends Controller
             ->orWhere('email', 'like', '%'.$search.'%')
             ->orWhere('phone', 'like', '%'.$search.'%');
         })
+        ->where('role', '!=', 'admin')
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
