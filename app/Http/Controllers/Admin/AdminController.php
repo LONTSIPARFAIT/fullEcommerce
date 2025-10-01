@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminStoreRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -49,7 +51,13 @@ class AdminController extends Controller
         return Inertia::render('Admin/Admins/Create');
     }
 
-    public function store(Request $request) : Response {
-        
+    public function store(AdminStoreRequest $request) : RedirectResponse {
+        $data = $request->only(['name', 'email', 'phone', 'password']);
+
+        if($request->hasFile('avatar')){
+            $data['avatar'] = '';
+        }
+
+        User::
     }
 }
