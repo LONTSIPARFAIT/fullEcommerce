@@ -23,9 +23,9 @@ class AdminStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:50',
-            'email' => 'require|email|unique:admins,email',
-            'phone' => 'require|min:10|max:10',
-            'avatar' => 'reauire|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'email' => 'required|email|unique:admins,email',
+            'phone' => 'required|min:10|max:10',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|min:6|max:20',
             'password_confirmation' => 'require|same:password',
         ];
