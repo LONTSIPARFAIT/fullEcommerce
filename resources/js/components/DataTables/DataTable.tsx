@@ -32,6 +32,7 @@ export default function DataTable({
     singularName: string;
     routeName: string;
     filters: any;
+    viewRoute: string;
     canViewResource: boolean;
     canCreateResource: boolean;
     canEditResource: boolean;
@@ -62,12 +63,12 @@ export default function DataTable({
         };
         
         router.get(route(routeName),params, {
-            preserveState: true;
-            preserveScroll: true;
+            preserveState: true,
+            preserveScroll: true,
         });
     };
 
-    const handleSearch = (e:any) => {
+    const handleSearch = (e: any) => {
         e.preventDefault();
         updateRoute();
     }
@@ -174,29 +175,48 @@ export default function DataTable({
     const renderActions = (item: any) => {
         return (
             <div className="flex space-x-2">
-                {canViewResource}
+                {canViewResource && (
+                    <button 
+                        onClick={()=>router.visit(route(viewRoute, item.id))}
+                        className="rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
+                    >
+                        View
+                    </button>
+                )}
+                {canEditResource && (
+                    <button 
+                        onClick={()=>router.visit(route(editRoute, item.id))}
+                        className="rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
+                    >
+                        Edit
+                    </button>
+                )}
+                {canDeleteResource && (
+                    <button 
+                        onClick={()=>{
+                            setItemToDelete(item);
+                            setShowDeleteDialog(true);
+                        }}
+                        className="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-100 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800"
+                    >
+                        Delete
+                    </button>
+                )}
             </div>
-        )
-    }
+        );
+    };
+    
 
     return (
         <div>
             <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-2xl font-semibold">{resourceName}</h2>
-                {canCreateResources && (
-                    <a
-                        href={`/${resourceName}/create`}
-                        className="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:shadow-outline-gray transition ease-in-out duration-150"
-                    >
-                        Create {singularName}
-                    </a>
-                )}
+            
             </div>
             <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">  </thead>   
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {rows}
+                        
                     </tbody>
                 </table>
             </div>
