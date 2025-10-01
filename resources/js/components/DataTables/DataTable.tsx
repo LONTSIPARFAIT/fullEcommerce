@@ -1,4 +1,5 @@
 import { usePage, router } from "@inertiajs/react";
+import { Search } from "lucide-react";
 import React, { useState } from "react";
 
 interface TableColumn {
@@ -241,8 +242,11 @@ export default function DataTable({
                         <input 
                             type="text" 
                             placeholder={`Search...`}
-                            className="" 
+                            className="w-full rounded-lg border border-gray-300 bg-white py-2 pr-4 pl-10 text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                            value={search}
+                            onChange={(e)=>setSearch(e.target.value)} 
                         />
+                        <Search className="absolute top-2.5 left-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
                     </form>
                 </div>
             </div>
