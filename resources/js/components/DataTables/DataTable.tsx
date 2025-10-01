@@ -275,7 +275,20 @@ export default function DataTable({
                 </div>
 
                 <div className="overflow-hidden rounded-lg border border-gray-200 shadow dark:border-gray-700">
-                    
+                    <table className="min-w-full divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
+                        <thead>
+                            <tr className="bg-gray-50 dark:bg-gray-800">
+                                {tableColumns.map((column)=>(
+                                    <th 
+                                      key={column.key}
+                                      className=""
+                                    >
+
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
 
             </div>
