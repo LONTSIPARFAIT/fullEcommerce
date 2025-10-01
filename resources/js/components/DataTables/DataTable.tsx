@@ -27,7 +27,7 @@ export default function DataTable({
     onDelete,
 }: {
     data : any;
-    columns: TableColumns[];
+    columns: TableColumn[];
     resourceName: string;
     singularName: string;
     routeName: string;
@@ -78,11 +78,11 @@ export default function DataTable({
         updateRoute({ perPage: newPerPage });
     }
 
-    const handleSort = (columns:any) => {
-        const newDirection = sort === columns && direction === 'asc' ? 'desc' : 'asc';
-        setSort(columns);
+    const handleSort = (column:any) => {
+        const newDirection = sort === column && direction === 'asc' ? 'desc' : 'asc';
+        setSort(column);
         setDirection(newDirection);
-        updateRoute({ sort: columns, direction:newDirection });
+        updateRoute({ sort: column, direction:newDirection });
     }
 
     const formatDate = (dateString: any) =>{
@@ -105,7 +105,7 @@ export default function DataTable({
             return path.split('.').reduce((acc: any, path:any) => acc && acc[path], obj);
         }
 
-        const value = getValue(item, columns.key);
+        const value = getValue(item, column.key);
 
         if(column.type === 'date' && value) {
             return formatDate(value);
@@ -134,8 +134,8 @@ export default function DataTable({
                 />
             )
         }
-        
-        if(column.type === 'image' && column.design === 'rec'){
+
+        if(column.type === 'image' && column.design === 'circle'){
             return (
                 <img 
                     src={value} 
@@ -146,7 +146,19 @@ export default function DataTable({
                     }}
                     className="h-10 w-10 rounded-full" 
                 />
-            )
+            );
+        }
+
+        if(column.type === 'boolean'){
+            return value ? (
+                <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                    Yes
+                </span>
+            ) : (
+                <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
+                    No
+                </span>
+            );
         }
         
     }
