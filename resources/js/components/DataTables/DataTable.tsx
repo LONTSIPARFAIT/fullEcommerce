@@ -98,12 +98,57 @@ export default function DataTable({
         return `${year}-${month}-${day}`;
     }
 
-    const renderCell= ( item: any, columns: any, index:number ) => {
-        if (!columns.key) return null;
+    const renderCell= ( item: any, column: any, index:number ) => {
+        if (!column.key) return null;
 
         const getValue = (obj: any, path: any) => {
-            
+            return path.split('.').reduce((acc: any, path:any) => acc && acc[path], obj);
         }
+
+        const value = getValue(item, columns.key);
+
+        if(column.type === 'date' && value) {
+            return formatDate(value);
+        }
+        if(column.type === 'date2' && value) {
+            return formatDate2(value);
+        }
+        if(column.type === 'badge') {
+            return (
+                <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
+                    {value}
+                </span>
+            );
+        }
+
+        if(column.type === 'image' && column.design === 'rec'){
+            return (
+                <img 
+                    src={value} 
+                    alt={item.name} 
+                    onError={(e)=>{
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = '/placeholder.png'
+                    }}
+                    className="h-10 w-10" 
+                />
+            )
+        }
+        
+        if(column.type === 'image' && column.design === 'rec'){
+            return (
+                <img 
+                    src={value} 
+                    alt={item.name} 
+                    onError={(e)=>{
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = '/placeholder.png'
+                    }}
+                    className="h-10 w-10 rounded-full" 
+                />
+            )
+        }
+        
     }
 
     return (
