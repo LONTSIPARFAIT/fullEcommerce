@@ -361,6 +361,30 @@ export default function DataTable({
 
                                 // try to parse label as a number
                                 const pageNum = parseInt(link.label);
+                                if (isNaN(pageNum) && link.label.includes('...')) {
+                                    return (
+                                        <span 
+                                          key={index}
+                                          className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                        >
+                                            ...
+                                        </span>
+                                    );
+                                }
+
+                                return (
+                                    <button 
+                                      key={index}
+                                      className={`relative inline-flex items-center rounded-md px-4 py-2 text-sm font-medium ${
+                                        link.active
+                                        ?'bg-blue-600 text-white dark:bg-blue-700'
+                                        :'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                                      } `}
+                                      onClick={()=>router.visit(link.url)}
+                                    >
+                                        d
+                                    </button>
+                                );
                             })
                         }
                     </div>
