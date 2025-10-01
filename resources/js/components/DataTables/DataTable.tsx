@@ -164,8 +164,10 @@ export default function DataTable({
             return column.render(item);
         }
         if (column.type === 'IndexColumn' && column.render) {
-            return column.render(item);
+            return column.render(item, index);
         }
+
+        return value;
         
     }
 
