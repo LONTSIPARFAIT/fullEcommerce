@@ -237,6 +237,7 @@ export default function DataTable({
                         </a>
                     )}
                 </div>
+
                 <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                     <form onSubmit={handleSearch} className="relative flex w-full max-w-md">
                         <input 
@@ -260,12 +261,23 @@ export default function DataTable({
                         </label>
                         <select
                             id="perPage" 
-                            className="rounded-lg"
+                            className="rounded-lg border border-gray-300 bg-white py-2 pr-8 pl-3 text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                            value={perPage}
+                            onChange={handlePerPageChange}
                         >
-                            <option value=""></option>
+                            <option value="5">5 per page</option>
+                            <option value="10">10 per page</option>
+                            <option value="25">25 per page</option>
+                            <option value="50">50 per page</option>
+                            <option value="100">100 per page</option>
                         </select>
                     </div>
                 </div>
+
+                <div className="overflow-hidden rounded-lg border border-gray-200 shadow dark:border-gray-700">
+                    
+                </div>
+
             </div>
         </div>
 
