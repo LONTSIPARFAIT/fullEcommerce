@@ -1,6 +1,7 @@
 import DataTable from "@/components/DataTables/DataTable";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
+import { Users } from "lucide-react";
 
 export default function UserIndex(){
     const {users, filters, can } = usePage().props;
@@ -18,7 +19,7 @@ export default function UserIndex(){
         { Key: 'name', label: 'Name', sortable: true },
         { Key: 'email', label: 'Email', sortable: true },
         { Key: 'phone', label: 'Phone', sortable: true },
-        { Key: 'create_at', label: 'Create At', sortable: true },
+        { Key: 'create_at', type: 'date', label: 'Create At', sortable: true },
         // { Key: 'action', label: 'Action', sortable: true },
     ];
 
@@ -50,9 +51,11 @@ export default function UserIndex(){
                       canCreateResource={false}
                       canEditResource={false}
                       canDeleteResource={false}
-                      viewRoute={route('admin.users.show')}
-                      editRoute={route('admin.users.edit')}
+                      viewRoute="admin.users.show"
+                      editRoute="admin.users.edit"
                       onDelete={handleDelete}
+                      icon={Users}
+                      createRoute="admin.user.create"
                     />                    
                 </div>
             </div>

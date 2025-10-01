@@ -25,5 +25,27 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'status' => 'active',
         ]);
+        User::create([
+            'name' => 'Seller',
+            'username' => 'seller',
+            'avatar' => 'default.svg',
+            'phone' => '679324517',
+            'address' => '123 seller St, City, Country',
+            'email' => 'seller@gmail.com',
+            'password' => Hash::make('admin123'),
+            'role' => 'seller',
+            'status' => 'active',
+        ]);
+        User::create([
+            'name' => 'User',
+            'username' => 'user',
+            'avatar' => 'default.svg',
+            'phone' => '679324517',
+            'address' => '123 User St, City, Country',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('admin123'),
+            'role' => 'user',
+            'status' => 'active',
+        ]);
     }
 }
