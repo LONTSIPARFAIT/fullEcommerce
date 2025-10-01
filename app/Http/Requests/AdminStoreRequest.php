@@ -22,7 +22,12 @@ class AdminStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|min:3|max:50',
+            'email' => 'require|email|unique:admins,email',
+            'phone' => 'require|min:10|max:10',
+            'avatar' => 'reauire|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' => 'required|min:6|max:20',
+            'password_confirmation' => 'require|same:password',
         ];
     }
 }
