@@ -405,7 +405,10 @@ export default function DataTable({
               isOpen={showDeleteDialog}
               onClose={() => setShowDeleteDialog(false)}
               onConfirm={() => onDelete(itemToDelete?.id)}
-              message="Are you sure to delete this items? This action cannot be undone"
+              title="Delete Item"
+              message="Are you sure to delete this items? This action cannot be undone."
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
             />
         </div>
 

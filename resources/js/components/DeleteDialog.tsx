@@ -7,7 +7,7 @@ export default function DeleteDialog({
     confirmButtonText,
     cancelButton,
 }: {
-    idOpen: string;
+    idOpen: boolean;
     onClose: () => void;
     onConfirm: () => void;
     title: string;
