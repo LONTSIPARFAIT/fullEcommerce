@@ -222,8 +222,12 @@ export default function DataTable({
     return (
         <div className="w-full bg-white dark:bg-gray-900">
             <div className="px-6 py-4">
-                <div className="mb-6">
-                    c
+                <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                    <div className="flex items-center">
+                        {Icon && <Icon className='mr-3 h-6 w-6 text-blue-600 dark:text-blue-400'/>}
+                        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200"> {resourceName} </h2>
+                    </div>
+                    {}
                 </div>
             </div>
         </div>
