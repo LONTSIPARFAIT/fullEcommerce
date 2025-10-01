@@ -381,12 +381,22 @@ export default function DataTable({
                                         :'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                                       } `}
                                       onClick={()=>router.visit(link.url)}
+                                      disabled={!link.url}
                                     >
-                                        d
+                                        {pageNum || link.label}
                                     </button>
                                 );
                             })
-                        }
+                        } 
+
+                        <button
+                          onClick={()=>data.prev_page_url && router.visit(data.prev_page_url)} 
+                          disabled={!data.prev_page_url}
+                          className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                        </button>
+
                     </div>
                 </div>
 
