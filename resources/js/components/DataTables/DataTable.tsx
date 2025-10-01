@@ -359,7 +359,8 @@ export default function DataTable({
                                     return null;
                                 }
 
-                                // try to parse label
+                                // try to parse label as a number
+                                const pageNum = parseInt(link.label);
                             })
                         }
                     </div>
