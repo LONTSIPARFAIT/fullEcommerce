@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -75,24 +76,28 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(AdminStoreRequest $request, $id) : RedirectResponse  
+    public function update(AdminUpdateRequest $request, $id) : RedirectResponse  
     {
         $admin = User::findOrFail($id);
         $data = $request->only('name', 'email', 'phone');
 
         if($request->hasFile('avatar')){
-            ImageUploader::deleteImage($admin->image);
+            ImageUploader::deleteImage($admin->avatar);
             $data['avatar'] = ImageUploader::uploadImage($request->file('avatar'), 'admins');
-        }
-
-        if($request->filled('password')){
-            $data['password'] = bcrypt($request->input('password'));
         }
 
         $admin->update($data);
         // $data['status'] = 'active';
 
         User::create($data);
-        return redirect()->route('admin.admins.index')->with('success', 'Admin creer avec success');
+        return redirect()->route('admin.admins.index')->with('success', 'Admin modifier avec success');
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        $admin = User::findOrFail($id);
+        ImageUploader::deleteImage($admin->avatar);
+        $admin->delete();
+        return redirect()->route('admin.admins.index')->with('success', 'Admin Supprimer avec success');
     }
 }
