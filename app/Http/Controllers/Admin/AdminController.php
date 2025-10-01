@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreRequest;
 use App\Models\User;
@@ -55,11 +56,40 @@ class AdminController extends Controller
         $data = $request->only(['name', 'email', 'phone', 'password']);
 
         if($request->hasFile('avatar')){
-            $data['avatar'] = '';
+            $data['avatar'] = ImageUploader::uploadImage($request->file('avatar'), 'admins');
         }
 
         $data['password'] = bcrypt($data['password']);
         $data['role'] = 'admin';
+        // $data['status'] = 'active';
+
+        User::create($data);
+        return redirect()->route('admin.admins.index')->with('success', 'Admin creer avec success');
+    }
+
+    public function edit($id): Response 
+    {
+        $admin = User::findOrFail($id);
+        return Inertia::render('Admin/Admins/Edit', [
+            'admin' => $admin
+        ]);
+    }
+
+    public function update(AdminStoreRequest $request, $id) : RedirectResponse  
+    {
+        $admin = User::findOrFail($id);
+        $data = $request->only('name', 'email', 'phone');
+
+        if($request->hasFile('avatar')){
+            ImageUploader::deleteImage($admin->image);
+            $data['avatar'] = ImageUploader::uploadImage($request->file('avatar'), 'admins');
+        }
+
+        if($request->filled('password')){
+            $data['password'] = bcrypt($request->input('password'));
+        }
+
+        $admin->update($data);
         // $data['status'] = 'active';
 
         User::create($data);
