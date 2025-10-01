@@ -205,20 +205,26 @@ export default function DataTable({
             </div>
         );
     };
-    
+
+    let tableColumns:TableColumn[] = [];
+    tableColumns = [...columns];
+
+    if (canEditResource || canDeleteResource || canViewResource) {
+        tableColumns.push({
+            key: 'actions',
+            label: 'Actions',
+            type: 'custom',
+            sortable: false,
+            render: renderActions,
+        });
+    }
 
     return (
-        <div>
-            <div className="mb-4 flex items-center justify-between">
-            
-            </div>
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">  </thead>   
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        
-                    </tbody>
-                </table>
+        <div className="w-full bg-white dark:bg-gray-900">
+            <div className="px-6 py-4">
+                <div className="mb-6">
+                    c
+                </div>
             </div>
         </div>
 
