@@ -1,5 +1,5 @@
 import { usePage, router } from "@inertiajs/react";
-import { Search } from "lucide-react";
+import { ArrowDown, ArrowUp, Search } from "lucide-react";
 import React, { useState } from "react";
 
 interface TableColumn {
@@ -281,15 +281,64 @@ export default function DataTable({
                                 {tableColumns.map((column)=>(
                                     <th 
                                       key={column.key}
-                                      className=""
+                                      className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300"
+                                      style={column.width ? {width: column.width } : {}}
                                     >
-
+                                        {column.sortable !== false ? (
+                                            <button className="group inline-flex items-center" onClick={()=>handleSort(column.key)}>
+                                                {column.label}
+                                                <span className="ml-2">
+                                                    {sort === column.key ? (
+                                                        direction === 'asc' ? (
+                                                            <ArrowUp className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+                                                        ): (
+                                                            <ArrowDown className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+                                                        )
+                                                    ) : (
+                                                        <span className="opacity-0 group-hover:opacity-50">
+                                                            <ArrowUp className="h-4 w-4" />
+                                                        </span>
+                                                    )}
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            column.label
+                                        )}
                                     </th>
                                 ))}
                             </tr>
                         </thead>
+                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                            {data.data.length > 0 ? (
+                                data.data.map((item: any, index: number)=>(
+                                    <tr key={item.id} className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        {tableColumns.map((column)=>(
+                                            <td 
+                                              key={`${item.id}-${column.key}`}
+                                              className="px-6 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-300"
+                                            >
+                                                {renderCell(item, column, index)}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="">
+                                    <td colSpan={tableColumns.length} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+                                        <div className="flex flex-col items-center justify-center">
+                                            {Icon && <Icon className="mb-2 h-10 w-10 text-gray-400 dark:text-gray-600" />}
+                                            <p className="font-medium">No {resourceName.toLowerCase()} Found </p>
+                                            <p className="mt-1 text-gray-400 dark:text-gray-500"> Try adjusting your search criteria </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
                     </table>
                 </div>
+
+                {/* pagination section */}
+                <div className="mt-6"></div>
 
             </div>
         </div>
