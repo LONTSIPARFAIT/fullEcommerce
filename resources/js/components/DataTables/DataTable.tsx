@@ -353,8 +353,13 @@ export default function DataTable({
                         </button>
 
                         {data.links && 
-                            data.links.map((link:any, index: number) => {
-                                j
+                            data.links.map((link: any, index: number) => {
+                                // skip "prev" and "next" buttons
+                                if (link.label.includes('Previous') || link.label.includes('Next')) {
+                                    return null;
+                                }
+
+                                // try to parse label
                             })
                         }
                     </div>
