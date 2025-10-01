@@ -58,6 +58,11 @@ class AdminController extends Controller
             $data['avatar'] = '';
         }
 
-        User::
+        $data['password'] = bcrypt($data['password']);
+        $data['role'] = 'admin';
+        // $data['status'] = 'active';
+
+        User::create($data);
+        return redirect()->route('admin.admins.index')->with('success', 'Admin creer avec success');
     }
 }
