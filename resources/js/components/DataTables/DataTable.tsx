@@ -17,10 +17,10 @@ export default function DataTable({
     pluralName = '',
     filters = {},
     viewRoute = '',
-    canViewResources = false,
-    canCreateResources = false,
-    canEditResources = false,
-    canDeleteResources = false,
+    canViewResource = false,
+    canCreateResource = false,
+    canEditResource = false,
+    canDeleteResource = false,
     icon: Icon,
     createRoute = '',
     editRoute = '',
@@ -32,10 +32,10 @@ export default function DataTable({
     singularName: string;
     routeName: string;
     filters: any;
-    canViewResources: boolean;
-    canCreateResources: boolean;
-    canEditResources: boolean;
-    canDeleteResources: boolean;
+    canViewResource: boolean;
+    canCreateResource: boolean;
+    canEditResource: boolean;
+    canDeleteResource: boolean;
     icon: React.ElementType;
     createRoute: string;
     editRoute: string;
@@ -169,6 +169,14 @@ export default function DataTable({
 
         return value;
         
+    }
+
+    const renderActions = (item: any) => {
+        return (
+            <div className="flex space-x-2">
+                {canViewResource}
+            </div>
+        )
     }
 
     return (
