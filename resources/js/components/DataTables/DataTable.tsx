@@ -160,6 +160,12 @@ export default function DataTable({
                 </span>
             );
         }
+        if (column.type === 'custum' && column.render) {
+            return column.render(item);
+        }
+        if (column.type === 'IndexColumn' && column.render) {
+            return column.render(item);
+        }
         
     }
 
