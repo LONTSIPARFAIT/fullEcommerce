@@ -247,7 +247,14 @@ export default function DataTable({
                             onChange={(e)=>setSearch(e.target.value)} 
                         />
                         <Search className="absolute top-2.5 left-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
+                        <button 
+                        type="submit"
+                        className="ml-2 rounded-lg bg-blue-600 text-white transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
+                        >
+                            Search
+                        </button>
                     </form>
+                    <div className="flex items-center"></div>
                 </div>
             </div>
         </div>
