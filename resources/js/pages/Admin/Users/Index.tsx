@@ -1,5 +1,6 @@
+import DataTable from "@/components/DataTables/DataTable";
 import AppLayout from "@/layouts/app-layout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 
 export default function UserIndex(){
     const {users, filters, can } = usePage().props;
@@ -21,12 +22,38 @@ export default function UserIndex(){
         // { Key: 'action', label: 'Action', sortable: true },
     ];
 
+    const handleDelete = (id: string) => {
+        router.delete(route('admin.users.destroy', id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // toast.success('User delete sucessfuly')
+            },
+            onError: ()=>{
+                // toast.success('User deletion failed')                
+            }
+        })
+    }
+
     return (
         <AppLayout>
             <Head title="Users" />
             <div className="py-6">
                 <div className="mx-auto">
-                    <Head title="Users" />                    
+                    <DataTable
+                      data={users}
+                      columns={columns}
+                      resourceName="Users"
+                      singularName="User"
+                      routeName="admin.users.index"
+                      filters={filters}
+                      canViewResource={false}
+                      canCreateResource={false}
+                      canEditResource={false}
+                      canDeleteResource={false}
+                      viewRoute={route('admin.users.show')}
+                      editRoute={route('admin.users.edit')}
+                      onDelete={handleDelete}
+                    />                    
                 </div>
             </div>
         </AppLayout>

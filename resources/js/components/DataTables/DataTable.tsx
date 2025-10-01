@@ -16,7 +16,7 @@ export default function DataTable({
     columns = [],
     resourceName = '',
     singularName = '',
-    pluralName = '',
+    // pluralName = '',
     filters = {},
     viewRoute = '',
     canViewResource = false,
@@ -29,7 +29,7 @@ export default function DataTable({
     onDelete,
 }: {
     data : any;
-    columns: TableColumn[];
+    columns: any;
     resourceName: string;
     singularName: string;
     routeName: string;
