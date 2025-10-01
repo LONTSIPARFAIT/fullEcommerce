@@ -13,13 +13,14 @@ export default function UserIndex(){
             type: 'IndexColumn',
             width: '80px',
             render: (item: any, index: number) => {
-                return (filters.page - 1) * filters.page + index + 1 ;
+                return (filters.page - 1) * filters.perPage + index + 1; // Correction ici
+                // return (filters.page - 1) * filters.page + index + 1 ;
             }
         },
-        { Key: 'name', label: 'Name', sortable: true },
-        { Key: 'email', label: 'Email', sortable: true },
-        { Key: 'phone', label: 'Phone', sortable: true },
-        { Key: 'create_at', type: 'date', label: 'Create At', sortable: true },
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'email', label: 'Email', sortable: true },
+        { key: 'phone', label: 'Phone', sortable: true },
+        { key: 'created_at', type: 'date', label: 'Create At', sortable: true },
         // { Key: 'action', label: 'Action', sortable: true },
     ];
 
@@ -34,6 +35,7 @@ export default function UserIndex(){
             }
         })
     }
+    console.log(users);
 
     return (
         <AppLayout>

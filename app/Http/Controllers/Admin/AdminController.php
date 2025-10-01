@@ -18,18 +18,18 @@ class AdminController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $users = User::select('id', 'name', 'email', 'phone', 'created_at')
+        $admins = User::select('id', 'name', 'email','image', 'phone', 'created_at')
         ->when($search, function ($query, $search) {
             $query->where('name', 'like', '%'.$search.'%')
             ->orWhere('email', 'like', '%'.$search.'%')
             ->orWhere('phone', 'like', '%'.$search.'%');
         })
-        ->where('role', '!=', 'admin')
+        ->where('role', '=', 'admin')
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
-        return Inertia::render('Admin/Users/Index', [
-            'users' => $users,
+        return Inertia::render('Admin/Admins/Index', [
+            'admins' => $admins,
             'filters' => [
                 'search' => $search,
                 'sort' => $sort,
