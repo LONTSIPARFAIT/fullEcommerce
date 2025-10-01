@@ -11,7 +11,7 @@ class AdminUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class AdminUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:50',
-            'email' => 'require|email|unique:admins,email',
-            'phone' => 'require|min:10|max:10',
+            'email' => 'required|email|unique:admins,email',
+            'phone' => 'required|min:10|max:10',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
