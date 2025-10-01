@@ -338,7 +338,21 @@ export default function DataTable({
                 </div>
 
                 {/* pagination section */}
-                <div className="mt-6"></div>
+                <div className="mt-6 flex items-center justify-between">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Showing <span className="font-medium">{data.from || 0}</span> to <span className="font-medium">{data.to || 0}</span> of{' '} <span className="font-medium">{data.total}</span> results
+                    </p>
+
+                    <div className="flex items-center space-x-1">
+                        <button
+                          onClick={()=>data.prev_page_url && router.visit(data.prev_page_url)} 
+                          disabled={!data.prev_page_url}
+                          className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium"
+                        >
+                            s
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>
