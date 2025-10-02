@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -162,7 +162,12 @@ export default function Create() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor=""></label>
+                        <label 
+                          htmlFor="image"
+                          className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
+                        >
+                            <ImageIcon/>
+                        </label>
                       </div>
                     </div>
                   </form>
