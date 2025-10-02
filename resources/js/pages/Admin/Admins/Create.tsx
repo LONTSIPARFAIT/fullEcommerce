@@ -190,8 +190,20 @@ export default function Create() {
                                             <Button
                                               type='button'
                                               variant='secondary'
+                                              size='sm'
+                                              className="rounded-full"
+                                              onclick={()=>fileInputRef.current?.click()}
                                             >
                                                 <Upload size={16} />
+                                            </Button>
+                                            <Button
+                                              type='button'
+                                              variant='secondary'
+                                              size='sm'
+                                              className="rounded-full"
+                                              onclick={clearImage}
+                                            >
+                                                <Trash2 size={16} />
                                             </Button>
                                         </div>
                                     </div>
