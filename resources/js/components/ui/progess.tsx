@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react'
 
 export function Progess({
@@ -7,7 +8,14 @@ export function Progess({
     value?: number;
     className?: string;
 }){
-    return 
+    return (
+        <div className={clsx('relative h-2 w-full overflow-hidden rounded bg-gray-200 dark:bg-gray-700', className)} >
+            <div
+              className="absolute left-0 top-0 h-full bg-primary dark:bg-primary-light transition-all duration-300" 
+              style={{ width: `${value}%` }}
+            />
+        </div>
+    )
 }
 
 
