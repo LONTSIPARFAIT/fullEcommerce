@@ -59,7 +59,8 @@ export default function AdminIndex(){
                       editRoute="admin.admins.edit"
                       onDelete={handleDelete}
                       icon={Users}
-                      createRoute="admin.admins.create"
+                      createRoute="admin/create"
+                    //   createRoute="admin.admins.create"
                     />
                 </div>
             </div>

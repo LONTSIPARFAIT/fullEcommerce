@@ -5,12 +5,13 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Save, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Admins', href: route('admin.admins.index') },
+  { title: 'Admins', href: 'admin/admins/index' },
+//   { title: 'Admins', href: route('admin.admins.index') },
   { title: 'Create Admin', href: '' },
 ];
 
@@ -103,7 +104,8 @@ export default function Create() {
                     </div>
 
                     <Link
-                      href={route('admin.admins.index')}
+                      href='/index'
+                    //   href={route('admin.admins.index')}
                     >
                       <Button
                         variant="ghost"
@@ -145,7 +147,7 @@ export default function Create() {
                               setData('name', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder={t('Entrer le nom',)}
+                            placeholder='Entrer le nom'
                             required
                             autoFocus
                           />
@@ -155,10 +157,48 @@ export default function Create() {
                             />
                         </div>
 
-                        {error.name && (
+                        {error?.name && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.name} </span>
+                            <span> {error} </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="email"
+                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                        >
+                          <User
+                            size={14}
+                            className="dark:primary-light text-primary"
+                          />
+                            Name
+                        </label>
+
+                        <div className="group relative">
+                          <Input
+                            id="name"
+                            name="name"
+                            value={data.name}
+                            onChange={(e) =>
+                              setData('name', e.target.value,)
+                            }
+                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
+                            placeholder='Entrer le nom'
+                            required
+                            autoFocus
+                          />
+                            <User
+                              size={18}
+                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                            />
+                        </div>
+
+                        {error?.name && (
+                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
+                            <AlertCircle size={14} />
+                            <span> {error} </span>
                           </div>
                         )}
                       </div>
@@ -168,7 +208,7 @@ export default function Create() {
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Category Name
+                            Admin Name
                         </label>
 
                         <div className="group relative">
@@ -223,10 +263,21 @@ export default function Create() {
                         {
                             isUploading && data.image && (
                                 <div className="mt-2">
-                                    <Progress />
+                                    <Progress value={uploadProgress} className='h-2 w-full bg-gray-200 dark:bg-gray-700' />
+                                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400"> {uploadProgress}% uploaded</p>
                                 </div>
-                            )
-                        }
+                            )}
+
+                        {error?.image && (
+                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/20 dark:text-red-400"></div>
+                        )}
+                      </div>
+
+                      <div className="pt-4">
+                        <Button type='submit' className='w-full' disabled={processing} >
+                            <Save size={16} className='mr-2' />
+                            Save Admin
+                        </Button>
                       </div>
                     </div>
                   </form>
