@@ -179,7 +179,7 @@ export default function DataTable({
             <div className="flex space-x-2">
                 {canViewResource && (
                     <button 
-                        onClick={()=>router.visit(route(viewRoute, item.id))}
+                        onClick={() => router.visit(route(viewRoute, item.id))}
                         className="rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
                     >
                         View
@@ -187,7 +187,7 @@ export default function DataTable({
                 )}
                 {canEditResource && (
                     <button 
-                        onClick={()=>router.visit(route(editRoute, item.id))}
+                        onClick={() => router.visit(route(editRoute, item.id))}
                         className="rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
                     >
                         Edit
@@ -195,7 +195,7 @@ export default function DataTable({
                 )}
                 {canDeleteResource && (
                     <button 
-                        onClick={()=>{
+                        onClick={() => {
                             setItemToDelete(item);
                             setShowDeleteDialog(true);
                         }}
@@ -232,7 +232,7 @@ export default function DataTable({
                     {canCreateResource && (
                         <a 
                             // href={route(createRoute)}
-                            href='#'
+                            href={createRoute}
                             className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
                         >
                             Add {singularName}

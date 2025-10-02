@@ -31,11 +31,13 @@ export default function AdminIndex(){
                 // toast.success('User delete sucessfuly')
             },
             onError: ()=>{
-                // toast.success('User deletion failed')                
+                // toast.success('User deletion failed')
             }
         })
     }
     console.log(admins);
+    console.log(can);
+
 
     return (
         <AppLayout>
@@ -53,12 +55,12 @@ export default function AdminIndex(){
                       canCreateResource={true}
                       canEditResource={true}
                       canDeleteResource={true}
-                      viewRoute="admin.admins.show"
+                    //   viewRoute="admin.admins.show"
                       editRoute="admin.admins.edit"
                       onDelete={handleDelete}
                       icon={Users}
                       createRoute="admin.admins.create"
-                    />                    
+                    />
                 </div>
             </div>
         </AppLayout>
