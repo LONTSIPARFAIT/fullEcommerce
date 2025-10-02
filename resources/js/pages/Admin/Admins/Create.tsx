@@ -186,7 +186,14 @@ export default function Create() {
                                 <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
                                     <img src={imagePreview} alt="Admin preview" className="h-full w-full objet-cover" />
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all hover:bg-black/40">
-                                        <div className=""></div>
+                                        <div className="flex gap-2 opacity-0 hover:opacity-100">
+                                            <Button
+                                              type='button'
+                                              variant='secondary'
+                                            >
+                                                <Upload size={16} />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             )}
