@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -162,12 +162,32 @@ export default function Create() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <label 
+                        <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
-                            <ImageIcon/>
+                            <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
+                            Category Name
                         </label>
+
+                        <div className="group relative">
+                            {!imagePreview ? (
+                                <div 
+                                  className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white/80 p-4 text-center transition-all hover:border-gray-300 dark:border-gray-600 dark:bg-gray-800/80 dark:hover:border-gray-500"
+                                  onClick={()=> fileInputRef.current?.click()}
+                                >
+                                    <Upload size={24} className='mb-2 text-gray-500 dark:text-gray-400' />
+                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Click to upload</p>
+                                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                        {t('PNG, JPG, GIF up to SMB')}
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
+                                    
+                                </div>
+                            )}
+                        </div>
                       </div>
                     </div>
                   </form>
