@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -192,7 +193,7 @@ export default function Create() {
                                               variant='secondary'
                                               size='sm'
                                               className="rounded-full"
-                                              onclick={()=>fileInputRef.current?.click()}
+                                              onClick={()=>fileInputRef.current?.click()}
                                             >
                                                 <Upload size={16} />
                                             </Button>
@@ -201,7 +202,7 @@ export default function Create() {
                                               variant='secondary'
                                               size='sm'
                                               className="rounded-full"
-                                              onclick={clearImage}
+                                              onClick={clearImage}
                                             >
                                                 <Trash2 size={16} />
                                             </Button>
@@ -209,7 +210,23 @@ export default function Create() {
                                     </div>
                                 </div>
                             )}
+                            <input 
+                              ref={fileInputRef}
+                              type="file" 
+                              id='image'
+                              name='image'
+                              accept='image/*'
+                              onChange={handleFileChange}
+                            />
                         </div>
+
+                        {
+                            isUploading && data.image && (
+                                <div className="mt-2">
+                                    <Progress />
+                                </div>
+                            )
+                        }
                       </div>
                     </div>
                   </form>

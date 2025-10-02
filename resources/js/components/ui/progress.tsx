@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react'
 
-export function Progess({
+export function Progress({
     value = 0,
     className,
 }:{
