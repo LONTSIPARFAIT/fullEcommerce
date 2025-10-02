@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Save, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Mail, Save, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -126,6 +126,7 @@ export default function Create() {
                     className="p-6"
                   >
                     <div className="mx-auto max-w-xl space-y-6">
+                        
                       <div className="space-y-2">
                         <label
                           htmlFor="name"
@@ -147,7 +148,7 @@ export default function Create() {
                               setData('name', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='Entrer le nom'
+                            placeholder='Perfect Ali'
                             required
                             autoFocus
                           />
@@ -160,32 +161,33 @@ export default function Create() {
                         {error?.name && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error} </span>
+                            <span> {error.name} </span>
                           </div>
                         )}
                       </div>
+
                       <div className="space-y-2">
                         <label
                           htmlFor="email"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
-                          <User
+                          <Mail
                             size={14}
                             className="dark:primary-light text-primary"
                           />
-                            Name
+                            Email
                         </label>
 
                         <div className="group relative">
                           <Input
-                            id="name"
-                            name="name"
-                            value={data.name}
+                            id="email"
+                            name="email"
+                            value={data.email}
                             onChange={(e) =>
-                              setData('name', e.target.value,)
+                              setData('email', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='Entrer le nom'
+                            placeholder='perfect@gmail.com'
                             required
                             autoFocus
                           />
@@ -195,20 +197,21 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.name && (
+                        {error?.email && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error} </span>
+                            <span> {error.email} </span>
                           </div>
                         )}
                       </div>
+
                       <div className="space-y-2">
                         <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Admin Name
+                            Admin Avatar
                         </label>
 
                         <div className="group relative">
