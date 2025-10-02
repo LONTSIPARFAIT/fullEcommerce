@@ -22,7 +22,7 @@ class AdminController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $admins = User::select('id', 'name', 'email','image', 'phone', 'created_at')
+        $admins = User::select('id', 'name', 'email','avatar', 'phone', 'created_at')
         ->when($search, function ($query, $search) {
             $query->where('name', 'like', '%'.$search.'%')
             ->orWhere('email', 'like', '%'.$search.'%')

@@ -3,8 +3,8 @@ import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
 import { Users } from "lucide-react";
 
-export default function UserIndex(){
-    const {users, filters, can } = usePage().props;
+export default function AdminIndex(){
+    const {admins, filters, can } = usePage().props;
     const columns = [
         {
             key: "index",
@@ -35,29 +35,29 @@ export default function UserIndex(){
             }
         })
     }
-    console.log(users);
+    console.log(admins);
 
     return (
         <AppLayout>
-            <Head title="Users" />
+            <Head title="Admins" />
             <div className="py-6">
                 <div className="mx-auto">
                     <DataTable
-                      data={users}
+                      data={admins}
                       columns={columns}
-                      resourceName="Users"
-                      singularName="User"
-                      routeName="admin.users.index"
+                      resourceName="Admins"
+                      singularName="Admin"
+                      routeName="admin.admins.index"
                       filters={filters}
                       canViewResource={false}
-                      canCreateResource={false}
-                      canEditResource={false}
-                      canDeleteResource={false}
-                      viewRoute="admin.users.show"
-                      editRoute="admin.users.edit"
+                      canCreateResource={true}
+                      canEditResource={true}
+                      canDeleteResource={true}
+                      viewRoute="admin.admins.show"
+                      editRoute="admin.admins.edit"
                       onDelete={handleDelete}
                       icon={Users}
-                      createRoute="admin.user.create"
+                      createRoute="admin.admins.create"
                     />                    
                 </div>
             </div>
