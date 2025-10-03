@@ -102,4 +102,8 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('category.categories.index')->with('success', 'category Supprimer avec success');
     }
+
+    public function flattenCategories($categories, $prefix = '', $result = [] ){
+        forEach
+    }
 }
