@@ -1,12 +1,12 @@
 -<?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\category;
 
 use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminStoreRequest;
-use App\Http\Requests\AdminUpdateRequest;
-use App\Models\User;
+use App\Http\Requests\CategoryStoreUpdateRequest;
+use App\Http\Requests\categoryUpdateRequest;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,23 +22,20 @@ class CategoryController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $admins = User::select('id', 'name', 'email','avatar', 'phone', 'created_at')
+        $categories = Category::select('id', 'name', 'slug','image',)
         ->when($search, function ($query, $search) {
-            $query->where('name', 'like', '%'.$search.'%')
-            ->orWhere('email', 'like', '%'.$search.'%')
-            ->orWhere('phone', 'like', '%'.$search.'%');
+            $query->where('name', 'like', '%'.$search.'%');
         })
-        ->where('role', '=', 'admin')
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
-        $admins->getCollection()->transform(function ($admin){
-            $admin->avatar= asset('storage/' . $admin->avatar);
-            return $admin;
+        $categories->getCollection()->transform(function ($category){
+            $category->image= asset('storage/' . $category->image);
+            return $category;
         });
 
-        return Inertia::render('Admin/Admins/Index', [
-            'admins' => $admins,
+        return Inertia::render('category/categories/Index', [
+            'categories' => $categories,
             'filters' => [
                 'search' => $search,
                 'sort' => $sort,
@@ -55,55 +52,54 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request) : Response {
-        return Inertia::render('Admin/Admins/Create');
+        $categories = Category::select('id','name')->with("descentents")->isParent()->get();
+        $flattenedCategories = $this->flattenCategories($categories);
+
+        return Inertia::render('category/categories/Create');
     }
 
-    public function store(AdminStoreRequest $request) : RedirectResponse {
-        $data = $request->only(['name', 'email', 'phone', 'password']);
+    public function store(CategoryStoreUpdateRequest $request) : RedirectResponse {
+        $data = $request->only(['name',]);
 
-        if($request->hasFile('avatar')){
-            $data['avatar'] = ImageUploader::uploadImage($request->file('avatar'), 'admins');
-        }
+        if($request->hasFile('image')){
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'categories');
+        };
 
-        $data['password'] = bcrypt($data['password']);
-        $data['role'] = 'admin';
-        // $data['status'] = 'active';
-
-        User::create($data);
-        return redirect()->route('admin.admins.index')->with('success', 'Admin creer avec success');
+        Category::create($data);
+        return redirect()->route('category.categories.index')->with('success', 'category creer avec success');
     }
 
     public function edit($id): Response
     {
-        $admin = User::findOrFail($id);
-        $admin->avatar= asset('storage/' . $admin->avatar);
-        return Inertia::render('Admin/Admins/Edit', [
-            'admin' => $admin
+        $category = Category::findOrFail($id);
+        $category->image= asset('storage/' . $category->image);
+        return Inertia::render('category/categories/Edit', [
+            'category' => $category
         ]);
     }
 
-    public function update(AdminUpdateRequest $request, User $admin) : RedirectResponse
+    public function update(CategoryStoreUpdateRequest $request, Category $category) : RedirectResponse
     {
-        // $admin = User::findOrFail($id);
-        $data = $request->only('name', 'email', 'phone');
+        // $category = Category::findOrFail($id);
+        $data = $request->only('name',);
 
-        if($request->hasFile('avatar')){
-            ImageUploader::deleteImage($admin->avatar);
-            $data['avatar'] = ImageUploader::uploadImage($request->file('avatar'), 'admins');
+        if($request->hasFile('image')){
+            ImageUploader::deleteImage($category->image);
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'categories');
         }
 
-        $admin->update($data);
+        $category->update($data);
         // $data['status'] = 'active';
 
-        User::create($data);
-        return redirect()->route('admin.admins.index')->with('success', 'Admin modifier avec success');
+        Category::create($data);
+        return redirect()->route('category.categories.index')->with('success', 'category modifier avec success');
     }
 
     public function destroy($id): RedirectResponse
     {
-        $admin = User::findOrFail($id);
-        ImageUploader::deleteImage($admin->avatar);
-        $admin->delete();
-        return redirect()->route('admin.admins.index')->with('success', 'Admin Supprimer avec success');
+        $category = Category::findOrFail($id);
+        ImageUploader::deleteImage($category->image);
+        $category->delete();
+        return redirect()->route('category.categories.index')->with('success', 'category Supprimer avec success');
     }
 }
