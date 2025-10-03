@@ -1,11 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, FileText, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -182,7 +184,26 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
 
                       <div className="space-y-2">
-                        
+                        <Label
+                          htmlFor='description'
+                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                        >
+                            <FileText size={14} className='text-primary dark:text-primary-foreground'/>
+                        </Label>
+                        <Textarea
+                            id='description'
+                            name='description'
+                            value={data.description}
+                            onChange={(e) => setData('description', e.target.value)}
+                            className="focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/20 min-h-[120px] w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 "
+                            placeholder='Entrez la description de la categorie'
+                        />
+                        {errors.description && (
+                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
+                                <AlertCircle size={14} />
+                                <span> {errors.description} </span>
+                            </div>
+                        )}
                       </div>
 
                       <div className="space-y-2">
