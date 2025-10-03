@@ -40,7 +40,7 @@ export default function Edit({admin}: { admin: Admin }) {
     e.preventDefault();
     setIsUploading(true);
 
-    post(route('admin.admins.update', { admin.id }), {
+    post(route('admin.admins.update', admin.id ), {
     // post(('admin/admins/update'), {
       data: {
         ...data,
@@ -106,7 +106,7 @@ export default function Edit({admin}: { admin: Admin }) {
                           Edit Admin
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Add new admin
+                          Edit admin
                         </p>
                       </div>
                     </div>

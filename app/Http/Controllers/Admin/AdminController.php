@@ -76,6 +76,7 @@ class AdminController extends Controller
     public function edit($id): Response
     {
         $admin = User::findOrFail($id);
+        $admin->avatar= asset('storage/' . $admin->avatar);
         return Inertia::render('Admin/Admins/Edit', [
             'admin' => $admin
         ]);
