@@ -3,8 +3,8 @@ import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
 import { Users } from "lucide-react";
 
-export default function AdminIndex(){
-    const {admins, filters, can } = usePage().props;
+export default function CategoryIndex(){
+    const { categories, filters, can } = usePage().props;
     const columns = [
         {
             key: "index",
@@ -17,7 +17,7 @@ export default function AdminIndex(){
                 // return (filters.page - 1) * filters.page + index + 1 ;
             }
         },
-        { key: 'avatar', label: 'Avatar', sortable: false, type: 'image', design: 'circle' },
+        { key: 'image', label: 'image', sortable: false, type: 'image', design: 'rec' },
         { key: 'name', label: 'Name', sortable: true },
         { key: 'email', label: 'Email', sortable: true },
         { key: 'phone', label: 'Phone', sortable: true },
