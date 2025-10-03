@@ -32,6 +32,11 @@ class AdminController extends Controller
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
+        $admins->getCollection()->transform(function ($admin){
+            $admin->avatar= asset('storage', . $admin->avatar);
+            return $admin;
+        });
+
         return Inertia::render('Admin/Admins/Index', [
             'admins' => $admins,
             'filters' => [

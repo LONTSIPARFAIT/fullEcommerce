@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Mail, Save, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Lock, Mail, Phone, Save, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -33,7 +33,8 @@ export default function Create() {
     e.preventDefault();
     setIsUploading(true);
 
-    post(route('admin.admins.store'), {
+    // post(route('admin.admins.store'), {
+    post(('admin/admins/store'), {
       data: {
         ...data,
       },
@@ -168,7 +169,7 @@ export default function Create() {
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="email"
+                          htmlFor="name"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                           <Mail
@@ -191,7 +192,7 @@ export default function Create() {
                             required
                             autoFocus
                           />
-                            <User
+                            <Mail
                               size={18}
                               className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
                             />
@@ -207,39 +208,80 @@ export default function Create() {
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="email"
+                          htmlFor="name"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
-                          <Mail
+                          <Phone
                             size={14}
                             className="dark:primary-light text-primary"
                           />
-                            Email
+                            Phone
                         </label>
 
                         <div className="group relative">
                           <Input
-                            id="email"
-                            name="email"
-                            value={data.email}
+                            id="phone"
+                            name="phone"
+                            // type='number'
+                            value={data.phone}
                             onChange={(e) =>
-                              setData('email', e.target.value,)
+                              setData('phone', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='perfect@gmail.com'
+                            placeholder='679324517'
                             required
                             autoFocus
                           />
-                            <User
+                            <Phone
                               size={18}
                               className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
                             />
                         </div>
 
-                        {error?.email && (
+                        {error?.phone && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.email} </span>
+                            <span> {error.phone} </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="space-y-2"> 
+                        <label
+                          htmlFor="name"
+                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                        >
+                          <Lock
+                            size={14}
+                            className="dark:primary-light text-primary"
+                          />
+                            Password
+                        </label>
+
+                        <div className="group relative">
+                          <Input
+                            id="password"
+                            name="password"
+                            type='password'
+                            value={data.password}
+                            onChange={(e) =>
+                              setData('password', e.target.value,)
+                            }
+                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
+                            placeholder='password'
+                            required
+                            autoFocus
+                          />
+                            <Lock
+                              size={18}
+                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                            />
+                        </div>
+
+                        {error?.password && (
+                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
+                            <AlertCircle size={14} />
+                            <span> {error.password} </span>
                           </div>
                         )}
                       </div>
@@ -249,75 +291,37 @@ export default function Create() {
                           htmlFor="email"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
-                          <Mail
+                          <Lock
                             size={14}
                             className="dark:primary-light text-primary"
                           />
-                            Email
+                            Confirm Password
                         </label>
 
                         <div className="group relative">
                           <Input
-                            id="email"
-                            name="email"
-                            value={data.email}
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            type='password'
+                            value={data.password_confirmation}
                             onChange={(e) =>
-                              setData('email', e.target.value,)
+                              setData('password_confirmation', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='perfect@gmail.com'
+                            placeholder='password_confirmation'
                             required
                             autoFocus
                           />
-                            <User
+                            <Lock
                               size={18}
                               className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
                             />
                         </div>
 
-                        {error?.email && (
+                        {error?.password_confirmation && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.email} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Mail
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Email
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="email"
-                            name="email"
-                            value={data.email}
-                            onChange={(e) =>
-                              setData('email', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='perfect@gmail.com'
-                            required
-                            autoFocus
-                          />
-                            <User
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {error?.email && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {error.email} </span>
+                            <span> {error.password_confirmation} </span>
                           </div>
                         )}
                       </div>

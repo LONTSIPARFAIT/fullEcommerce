@@ -17,6 +17,7 @@ export default function AdminIndex(){
                 // return (filters.page - 1) * filters.page + index + 1 ;
             }
         },
+        { key: 'avatar', label: 'Avatar', sortable: false    },
         { key: 'name', label: 'Name', sortable: true },
         { key: 'email', label: 'Email', sortable: true },
         { key: 'phone', label: 'Phone', sortable: true },
@@ -59,7 +60,7 @@ export default function AdminIndex(){
                       editRoute="admin.admins.edit"
                       onDelete={handleDelete}
                       icon={Users}
-                      createRoute="admin/create"
+                      createRoute="admins/create"
                     //   createRoute="admin.admins.create"
                     />
                 </div>
