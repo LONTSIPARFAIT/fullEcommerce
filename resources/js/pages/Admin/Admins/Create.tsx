@@ -59,7 +59,7 @@ export default function Create() {
     const file = e.target.files?.[0] || null;
 
     if (file) {
-      setData('image', file);
+      setData('avatar', file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreview(e.target?.result as string);
@@ -69,7 +69,7 @@ export default function Create() {
   };
 
   const clearImage = () => {
-    setData('image', null);
+    setData('avatar', null);
     setImagePreview(null);
 
     if (fileInputRef.current) {

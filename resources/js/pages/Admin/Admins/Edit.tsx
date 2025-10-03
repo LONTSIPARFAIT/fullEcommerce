@@ -17,20 +17,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface Admin {
     id: number,
-    name: number,
-    id: number,
-    id: number,
+    name: string,
+    email: string,
+    phone: string,
+    avatar: string,
 }
 
-export default function Edit({admin}: { admin: any }) {
+export default function Edit({admin}: { admin: Admin }) {
   const { data, setData, post, processing, errors } = useForm({
     _method: 'put',
-    name: '',
-    email: '',
-    phone: '',
+    name: admin.name || '',
+    email: admin.email || '',
+    phone: admin.phone || '',
     avatar: null as File | null,
   });
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(admin.avatar || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -39,7 +40,7 @@ export default function Edit({admin}: { admin: any }) {
     e.preventDefault();
     setIsUploading(true);
 
-    post(route('admin.admins.update', {id: data.id}), {
+    post(route('admin.admins.update', { admin.id }), {
     // post(('admin/admins/update'), {
       data: {
         ...data,
@@ -65,7 +66,7 @@ export default function Edit({admin}: { admin: any }) {
     const file = e.target.files?.[0] || null;
 
     if (file) {
-      setData('image', file);
+      setData('avatar', file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreview(e.target?.result as string);
@@ -75,7 +76,7 @@ export default function Edit({admin}: { admin: any }) {
   };
 
   const clearImage = () => {
-    setData('image', null);
+    setData('avatar', null);
     setImagePreview(null);
 
     if (fileInputRef.current) {
@@ -85,7 +86,7 @@ export default function Edit({admin}: { admin: any }) {
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Create Admin" />
+      <Head title="Edit Admin" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -102,7 +103,7 @@ export default function Edit({admin}: { admin: any }) {
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Create Admin
+                          Edit Admin
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
                           Add new admin
