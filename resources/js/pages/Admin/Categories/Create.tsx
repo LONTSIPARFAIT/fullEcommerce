@@ -10,15 +10,29 @@ import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-//   { title: 'Admins', href: 'admin/admins/index' },
-  { title: 'Admins', href: route('admin.admins.index') },
-  { title: 'Create Admin', href: '' },
+  { title: 'Categories', href: 'admin/categories/index' },
+//   { title: 'Categories', href: route('admin.categories.index') },
+  { title: 'Create Category', href: '' },
 ];
+interface Category{
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+    parent_id: number | null;
+    created_at: string;
+    updated_at: string;
+}
 
-export default function Create() {
+interface CategoryWithPath extends Category {
+    path: string;
+    level: number;
+}
+
+export default function Create({categories}: { categories: CategoryWithPath[] }) {
   const { data, setData, post, processing, errors } = useForm({
     name: '',
-    email: '',
+    description: '',
     phone: '',
     password: '',
     password_confirmation: '',
@@ -33,8 +47,8 @@ export default function Create() {
     e.preventDefault();
     setIsUploading(true);
 
-    post(route('admin.admins.store'), {
-    // post(('admin/admins/store'), {
+    // post(route('admin.categories.store'), {
+    post(('admin/categories/store'), {
       data: {
         ...data,
       },

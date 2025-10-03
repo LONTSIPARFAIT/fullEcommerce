@@ -38,7 +38,7 @@ class Category extends Model
         return $this->children()->with('descendents');
     }
 
-    public function scorpeIsParent($query){
+    public function scopeIsParent($query){
         return $query->whereNull('parent_id');
     }
 }
