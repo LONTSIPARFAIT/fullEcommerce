@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $categories = Category::select('id', 'name', 'slug','image',)
+        $categories = Category::select('id', 'name', 'parent_id', 'slug','image',)
         ->when($search, function ($query, $search) {
             $query->where('name', 'like', '%'.$search.'%');
         })
@@ -30,6 +30,12 @@ class CategoryController extends Controller
 
         $categories->getCollection()->transform(function ($category){
             $category->image= asset('storage/' . $category->image);
+            if($category->parent_id){
+                // $parent = Category::find($category->parent_id);
+                $category->parent_name = $category->parent->name;
+            } else {
+                $category->parent_name = null;
+            }
             return $category;
         });
 
@@ -51,28 +57,30 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request) : Response {
-        $categories = Category::select('id','name')->with("descendents")->isParent()->get();
+        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
         $flattenedCategories = $this->flattenCategories($categories);
 
-        return Inertia::render('Admin/Categories/Create');
+        return Inertia::render('Admin/Categories/Create',[
+            'categories' => $flattenedCategories,
+        ]);
     }
 
     public function store(CategoryStoreUpdateRequest $request) : RedirectResponse {
-        $data = $request->only(['name',]);
+        $data = $request->only(['name', 'description', 'parent_id']);
 
         if($request->hasFile('image')){
             $data['image'] = ImageUploader::uploadImage($request->file('image'), 'categories');
         };
 
         Category::create($data);
-        return redirect()->route('category.categories.index')->with('success', 'category creer avec success');
+        return redirect()->route('admin.categories.index')->with('success', 'category creer avec success');
     }
 
     public function edit($id): Response
     {
         $category = Category::findOrFail($id);
         $category->image= asset('storage/' . $category->image);
-        return Inertia::render('category/categories/Edit', [
+        return Inertia::render('Admin/Categories/Edit', [
             'category' => $category
         ]);
     }
@@ -80,7 +88,7 @@ class CategoryController extends Controller
     public function update(CategoryStoreUpdateRequest $request, Category $category) : RedirectResponse
     {
         // $category = Category::findOrFail($id);
-        $data = $request->only('name',);
+        $data = $request->only('name', 'description', 'parent_id');
 
         if($request->hasFile('image')){
             ImageUploader::deleteImage($category->image);
@@ -91,7 +99,7 @@ class CategoryController extends Controller
         // $data['status'] = 'active';
 
         Category::create($data);
-        return redirect()->route('category.categories.index')->with('success', 'category modifier avec success');
+        return redirect()->route('admin.categories.index')->with('success', 'category modifier avec success');
     }
 
     public function destroy($id): RedirectResponse
@@ -99,7 +107,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         ImageUploader::deleteImage($category->image);
         $category->delete();
-        return redirect()->route('category.categories.index')->with('success', 'category Supprimer avec success');
+        return redirect()->route('admin.categories.index')->with('success', 'category Supprimer avec success');
     }
 
     public function flattenCategories($categories, $prefix = '', $result = [] ){
@@ -113,8 +121,8 @@ class CategoryController extends Controller
                 'level' => substr_count($path, ">"),
             ]; 
 
-            if ($category->descendents && $category->descendents->count() > 0) {
-                $result = $this->flattenCategories($category->descendents, $path, $result);
+            if ($category->descendants && $category->descendants->count() > 0) {
+                $result = $this->flattenCategories($category->descendants, $path, $result);
             }
         }
 

@@ -20,12 +20,13 @@ export default function CategoryIndex(){
         { key: 'image', label: 'image', sortable: false, type: 'image', design: 'rec' },
         { key: 'name', label: 'Name', sortable: true },
         { key: 'slug', label: 'Slug', sortable: false },
+        { key: 'parent_name', label: 'Parent Name', sortable: true },
         { key: 'created_at', type: 'date', label: 'Create At', sortable: true },
         // { Key: 'action', label: 'Action', sortable: true },
     ];
 
     const handleDelete = (id: string) => {
-        router.delete(route('admin.admins.destroy', id), {
+        router.delete(route('admin.categories.destroy', id), {
             preserveScroll: true,
             onSuccess: () => {
                 // toast.success('User delete sucessfuly')

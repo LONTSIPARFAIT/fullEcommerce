@@ -42,12 +42,15 @@ class ImageUploader
         }
     }
 
-    public static function deleteImage(string $path): bool
+    public static function deleteImage($path): bool
     {
         try {
-            if (!Storage::disk('public')->exists($path)) {
-                return false;
+            if($path){
+                if (!Storage::disk('public')->exists($path)) {
+                    return false;
+                }
             }
+
             Storage::disk('public')->delete($path);
             return true;
         } catch (\Exception $e) {

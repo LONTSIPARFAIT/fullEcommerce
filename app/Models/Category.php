@@ -27,7 +27,7 @@ class Category extends Model
     }
 
     public function parent(){
-        return $this->belongTO(Category::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function children(){
@@ -35,7 +35,7 @@ class Category extends Model
     }
 
     public function descendants(){
-        return $this->children()->with('descendents');
+        return $this->children()->with('descendants');
     }
 
     public function scopeIsParent($query){

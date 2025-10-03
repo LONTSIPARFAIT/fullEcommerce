@@ -169,7 +169,7 @@ export default function Create() {
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="name"
+                          htmlFor="email"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                           <Mail
@@ -208,7 +208,7 @@ export default function Create() {
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="name"
+                          htmlFor="phone"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                           <Phone
@@ -248,7 +248,7 @@ export default function Create() {
 
                       <div className="space-y-2"> 
                         <label
-                          htmlFor="name"
+                          htmlFor="password"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                           <Lock
@@ -288,7 +288,7 @@ export default function Create() {
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="email"
+                          htmlFor="password_confirmation"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                           <Lock
