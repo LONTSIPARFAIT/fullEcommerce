@@ -10,13 +10,13 @@ import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Admins', href: 'admin/admins/index' },
-//   { title: 'Admins', href: route('admin.admins.index') },
+//   { title: 'Admins', href: 'admin/admins/index' },
+  { title: 'Admins', href: route('admin.admins.index') },
   { title: 'Create Admin', href: '' },
 ];
 
 export default function Create() {
-  const { data, setData, post, processing, error } = useForm({
+  const { data, setData, post, processing, errors } = useForm({
     name: '',
     email: '',
     phone: '',
@@ -33,8 +33,8 @@ export default function Create() {
     e.preventDefault();
     setIsUploading(true);
 
-    // post(route('admin.admins.store'), {
-    post(('admin/admins/store'), {
+    post(route('admin.admins.store'), {
+    // post(('admin/admins/store'), {
       data: {
         ...data,
       },
@@ -159,10 +159,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.name && (
+                        {errors.name && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.name} </span>
+                            <span> {errors.name} </span>
                           </div>
                         )}
                       </div>
@@ -198,10 +198,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.email && (
+                        {errors.email && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.email} </span>
+                            <span> {errors.email} </span>
                           </div>
                         )}
                       </div>
@@ -238,10 +238,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.phone && (
+                        {errors.phone && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.phone} </span>
+                            <span> {errors.phone} </span>
                           </div>
                         )}
                       </div>
@@ -278,10 +278,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.password && (
+                        {errors.password && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.password} </span>
+                            <span> {errors.password} </span>
                           </div>
                         )}
                       </div>
@@ -318,10 +318,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.password_confirmation && (
+                        {errors.password_confirmation && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.password_confirmation} </span>
+                            <span> {errors.password_confirmation} </span>
                           </div>
                         )}
                       </div>
@@ -392,7 +392,7 @@ export default function Create() {
                                 </div>
                             )}
 
-                        {error?.image && (
+                        {errors.image && (
                             <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/20 dark:text-red-400"></div>
                         )}
                       </div>

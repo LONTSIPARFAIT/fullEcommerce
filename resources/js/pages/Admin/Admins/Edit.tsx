@@ -10,18 +10,24 @@ import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Admins', href: 'admin/admins/index' },
-//   { title: 'Admins', href: route('admin.admins.index') },
-  { title: 'Create Admin', href: '' },
+//   { title: 'Admins', href: 'admin/admins/index' },
+  { title: 'Admins', href: route('admin.admins.index') },
+  { title: 'Edit Admin', href: '' },
 ];
 
-export default function Create() {
-  const { data, setData, post, processing, error } = useForm({
+interface Admin {
+    id: number,
+    name: number,
+    id: number,
+    id: number,
+}
+
+export default function Edit({admin}: { admin: any }) {
+  const { data, setData, post, processing, errors } = useForm({
+    _method: 'put',
     name: '',
     email: '',
     phone: '',
-    password: '',
-    password_confirmation: '',
     avatar: null as File | null,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -33,8 +39,8 @@ export default function Create() {
     e.preventDefault();
     setIsUploading(true);
 
-    // post(route('admin.admins.store'), {
-    post(('admin/admins/store'), {
+    post(route('admin.admins.update', {id: data.id}), {
+    // post(('admin/admins/update'), {
       data: {
         ...data,
       },
@@ -159,10 +165,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.name && (
+                        {errors.name && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.name} </span>
+                            <span> {errors.name} </span>
                           </div>
                         )}
                       </div>
@@ -198,10 +204,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.email && (
+                        {errors.email && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.email} </span>
+                            <span> {errors.email} </span>
                           </div>
                         )}
                       </div>
@@ -238,90 +244,10 @@ export default function Create() {
                             />
                         </div>
 
-                        {error?.phone && (
+                        {errors.phone && (
                           <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
                             <AlertCircle size={14} />
-                            <span> {error.phone} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2"> 
-                        <label
-                          htmlFor="name"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Lock
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Password
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="password"
-                            name="password"
-                            type='password'
-                            value={data.password}
-                            onChange={(e) =>
-                              setData('password', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='password'
-                            required
-                            autoFocus
-                          />
-                            <Lock
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {error?.password && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {error.password} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Lock
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Confirm Password
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            type='password'
-                            value={data.password_confirmation}
-                            onChange={(e) =>
-                              setData('password_confirmation', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='password_confirmation'
-                            required
-                            autoFocus
-                          />
-                            <Lock
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {error?.password_confirmation && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {error.password_confirmation} </span>
+                            <span> {errors.phone} </span>
                           </div>
                         )}
                       </div>
@@ -392,7 +318,7 @@ export default function Create() {
                                 </div>
                             )}
 
-                        {error?.image && (
+                        {errors.image && (
                             <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/20 dark:text-red-400"></div>
                         )}
                       </div>
