@@ -189,6 +189,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                             <FileText size={14} className='text-primary dark:text-primary-foreground'/>
+                            Description
                         </Label>
                         <Textarea
                             id='description'
