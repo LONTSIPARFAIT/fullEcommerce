@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Spatie\Sluggable\SlugOptions; // Exemple d'importation
+use Spatie\Sluggable\HasSlug; // Exemple d'importation
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -20,7 +22,7 @@ class Category extends Model
 
     public function getSlugOptions(): SlugOptions{
         return SlugOptions::create()
-        ->generateSlugForm('name')
+        ->generateSlugsFrom('name')
         ->saveSlugsTo('slug');
     }
 
@@ -30,5 +32,9 @@ class Category extends Model
 
     public function children(){
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function descendants(){
+        return $this->children()->with('descendents');
     }
 }

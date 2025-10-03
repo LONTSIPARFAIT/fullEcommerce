@@ -52,7 +52,7 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request) : Response {
-        $categories = Category::select('id','name')->with("descentents")->isParent()->get();
+        $categories = Category::select('id','name')->with("descendents")->isParent()->get();
         $flattenedCategories = $this->flattenCategories($categories);
 
         return Inertia::render('category/categories/Create');
@@ -114,8 +114,8 @@ class CategoryController extends Controller
                 'level' => substr_count($path, ">"),
             ]; 
 
-            if ($category->descendats && $category->descendats->count() > 0) {
-                $result = $this->flattenCategories($category->descendats, $path, $result);
+            if ($category->descendents && $category->descendents->count() > 0) {
+                $result = $this->flattenCategories($category->descendents, $path, $result);
             }
         }
 
