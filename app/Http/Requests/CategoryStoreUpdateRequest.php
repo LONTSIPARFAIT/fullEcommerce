@@ -11,7 +11,7 @@ class CategoryStoreUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class CategoryStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'require|min:2|max:50',
+            // 'slug' => 'require|unique:categories,slug,' . $this->route('category')->id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:categories,id',
         ];
     }
 }
