@@ -1,4 +1,4 @@
--<?php
+<?php
 
 namespace App\Http\Controllers\category;
 
@@ -107,7 +107,18 @@ class CategoryController extends Controller
         foreach ($categories as $category) {
             $path = $prefix ? "$prefix > $category->name" : $category->name;
 
-            $result
+            $result[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'path' => $path,
+                'level' => substr_count($path, ">"),
+            ]; 
+
+            if ($category->descendats && $category->descendats->count() > 0) {
+                $result = $this->flattenCategories($category->descendats, $path, $result);
+            }
         }
+
+        return $result;
     }
 }
