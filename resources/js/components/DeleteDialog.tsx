@@ -1,12 +1,14 @@
 export default function DeleteDialog({
-    idOpen = false,
+    isOpen = false,
     onClose = false,
     onConfirm = false,
-    title: string,
-    message: string,
-    confirmButtonText: string,
-    cancelButton: string,
+    title = 'Corfirm Delection',
+    message = 'Are you sure to delete this item? this action cannot be undone',
+    confirmButtonText = 'Delete',
+    cancelButtonText = 'Cancel',
 }) {
+    if(!isOpen) return null;
+
   return (
     <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black" aria-model="true">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
@@ -14,7 +16,7 @@ export default function DeleteDialog({
         <p className="mb-5 text-sm text-gray-600"> {message} </p>
       </div>
       <div className="flex items-center justify-end space-x-3">
-        <button className="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus-ring-offset-2 focus:outline-none" onClick={onClose}> {cancelButton} </button>
+        <button className="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus-ring-offset-2 focus:outline-none" onClick={onClose}> {cancelButtonText} </button>
         <button className="rounded bg-red-500 px-4 py-2 text-sm font-medium text-red-600 focus:ring-2 focus:ring-red-500 focus-ring-offset-2 focus:outline-none"
           onClick={() => {
             onConfirm();
