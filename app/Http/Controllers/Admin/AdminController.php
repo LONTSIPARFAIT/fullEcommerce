@@ -82,9 +82,9 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(AdminUpdateRequest $request, $id) : RedirectResponse
+    public function update(AdminUpdateRequest $request, User $admin) : RedirectResponse
     {
-        $admin = User::findOrFail($id);
+        // $admin = User::findOrFail($id);
         $data = $request->only('name', 'email', 'phone');
 
         if($request->hasFile('avatar')){

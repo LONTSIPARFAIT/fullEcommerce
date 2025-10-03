@@ -327,7 +327,7 @@ export default function Edit({admin}: { admin: Admin }) {
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Save Admin
+                            Update Admin
                         </Button>
                       </div>
                     </div>
