@@ -37,4 +37,8 @@ class Category extends Model
     public function descendants(){
         return $this->children()->with('descendents');
     }
+
+    public function scorpeIsParent($query){
+        return $query->whereNull('parent_id');
+    }
 }
