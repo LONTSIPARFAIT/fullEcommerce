@@ -182,6 +182,10 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
 
                       <div className="space-y-2">
+                        
+                      </div>
+
+                      <div className="space-y-2">
                         <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
