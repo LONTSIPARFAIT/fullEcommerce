@@ -26,7 +26,7 @@ export default function AdminIndex(){
     ];
 
     const handleDelete = (id: string) => {
-        router.delete(route('admin.users.destroy', id), {
+        router.delete(route('admin.admins.destroy', id), {
             preserveScroll: true,
             onSuccess: () => {
                 // toast.success('User delete sucessfuly')
