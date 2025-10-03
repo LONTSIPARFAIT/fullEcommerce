@@ -10,8 +10,8 @@ import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-//   { title: 'Admins', href: 'admin/admins/index' },
-  { title: 'Admins', href: route('admin.admins.index') },
+  { title: 'Admins', href: 'admin/admins/index' },
+  // { title: 'Admins', href: route('admin.admins.index') },
   { title: 'Edit Admin', href: '' },
 ];
 
@@ -40,8 +40,8 @@ export default function Edit({admin}: { admin: Admin }) {
     e.preventDefault();
     setIsUploading(true);
 
-    post(route('admin.admins.update', admin.id ), {
-    // post(('admin/admins/update'), {
+    // post(route('admin.admins.update', admin.id ), {
+    post(('admin/admins/update'), {
       data: {
         ...data,
       },

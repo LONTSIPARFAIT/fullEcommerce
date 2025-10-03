@@ -24,10 +24,10 @@ class AdminStoreRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:50',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|min:10|max:10',
+            'phone' => 'required|min:9|max:20',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|min:6|max:20',
-            'password_confirmation' => 'require|same:password',
+            'password_confirmation' => 'required|same:password',
         ];
     }
 }
