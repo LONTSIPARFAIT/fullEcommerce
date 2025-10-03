@@ -1,7 +1,7 @@
 import DataTable from "@/components/DataTables/DataTable";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
-import { Users } from "lucide-react";
+import { TagIcon } from "lucide-react";
 
 export default function CategoryIndex(){
     const { categories, filters, can } = usePage().props;
@@ -19,8 +19,7 @@ export default function CategoryIndex(){
         },
         { key: 'image', label: 'image', sortable: false, type: 'image', design: 'rec' },
         { key: 'name', label: 'Name', sortable: true },
-        { key: 'email', label: 'Email', sortable: true },
-        { key: 'phone', label: 'Phone', sortable: true },
+        { key: 'slug', label: 'Slug', sortable: false },
         { key: 'created_at', type: 'date', label: 'Create At', sortable: true },
         // { Key: 'action', label: 'Action', sortable: true },
     ];
@@ -36,32 +35,32 @@ export default function CategoryIndex(){
             }
         })
     }
-    console.log(admins);
+
     console.log(can);
 
 
     return (
         <AppLayout>
-            <Head title="Admins" />
+            <Head title="Categories" />
             <div className="py-6">
                 <div className="mx-auto">
                     <DataTable
-                      data={admins}
+                      data={categories}
                       columns={columns}
-                      resourceName="Admins"
-                      singularName="Admin"
-                      routeName="admin.admins.index"
+                      resourceName="Categories"
+                      singularName="Category"
+                      routeName="admin.categories.index"
                       filters={filters}
                       canViewResource={false}
                       canCreateResource={true}
                       canEditResource={true}
                       canDeleteResource={true}
-                    //   viewRoute="admin.admins.show"
-                      editRoute="admin.admins.edit"
+                    //   viewRoute="admin.categories.show"
+                      editRoute="admin.categories.edit"
                       onDelete={handleDelete}
-                      icon={Users}
-                      createRoute="admins/create"
-                    //   createRoute="admin.admins.create"
+                      icon={TagIcon}
+                      createRoute="categories/create"
+                    //   createRoute="admin.categories.create"
                     />
                 </div>
             </div>

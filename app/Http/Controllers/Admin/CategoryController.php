@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\category;
+namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreUpdateRequest;
-use App\Http\Requests\categoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +33,7 @@ class CategoryController extends Controller
             return $category;
         });
 
-        return Inertia::render('category/categories/Index', [
+        return Inertia::render('Admin/Categories/Index', [
             'categories' => $categories,
             'filters' => [
                 'search' => $search,
@@ -55,7 +54,7 @@ class CategoryController extends Controller
         $categories = Category::select('id','name')->with("descendents")->isParent()->get();
         $flattenedCategories = $this->flattenCategories($categories);
 
-        return Inertia::render('category/categories/Create');
+        return Inertia::render('Admin/Categories/Create');
     }
 
     public function store(CategoryStoreUpdateRequest $request) : RedirectResponse {

@@ -1,7 +1,7 @@
 import DataTable from "@/components/DataTables/DataTable";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
-import { Users } from "lucide-react";
+import { User } from "lucide-react";
 
 export default function AdminIndex(){
     const {admins, filters, can } = usePage().props;
@@ -59,7 +59,7 @@ export default function AdminIndex(){
                     //   viewRoute="admin.admins.show"
                       editRoute="admin.admins.edit"
                       onDelete={handleDelete}
-                      icon={Users}
+                      icon={User}
                       createRoute="admins/create"
                     //   createRoute="admin.admins.create"
                     />

@@ -131,7 +131,7 @@ export default function DataTable({
                     alt={item.name} 
                     onError={(e)=>{
                         e.currentTarget.onerror = null
-                        e.currentTarget.src = '/placeholder.png'
+                        e.currentTarget.src = '/placeholder.jpeg'
                     }}
                     className="h-10 w-10" 
                 />
@@ -145,7 +145,7 @@ export default function DataTable({
                     alt={item.name} 
                     onError={(e)=>{
                         e.currentTarget.onerror = null
-                        e.currentTarget.src = '/placeholder.png'
+                        e.currentTarget.src = '/placeholder.jpeg'
                     }}
                     className="h-10 w-10 rounded-full" 
                 />
