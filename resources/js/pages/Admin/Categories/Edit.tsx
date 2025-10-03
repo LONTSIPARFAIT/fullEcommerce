@@ -16,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
   { title: 'Categories', href: 'admin/categories/index' },
 //   { title: 'Categories', href: route('admin.categories.index') },
-  { title: 'Create Category', href: '' },
+  { title: 'Edit Category', href: '' },
 ];
 interface Category{
     id: number;
@@ -33,17 +33,18 @@ interface CategoryWithPath extends Category {
     level: number;
 }
 
-export default function Create({categories}: { categories: CategoryWithPath[] }) {
+export default function Create({category, categories}: { category:Category, categories: CategoryWithPath[] }) {
   const { data, setData, post, processing, errors } = useForm({
-    name: '',
-    description: '',
-    parent_id: '',
+    _methd:'PUT',
+    name: category.name,
+    description: category.description,
+    parent_id: category.parent_id===null ? String(category.parent_id) : none,
     image: null as File | null,
   });
   
   console.log(categories); // categories with path and level
 
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(category.image || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -101,7 +102,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Create Category" />
+      <Head title="Edit Category" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -112,16 +113,16 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                     <div className="flex items-center gap-4">
                       <div className="rounded-xl bg-primary/20 p-3 shadow-sm backdrop-blur-sm dark:bg-primary/20">
                         <User
-                          className="dark:text-primary-light text-primary"
+                          className="dark:text-primary-foreground text-primary"
                           size={24}
                         />
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Create Category
+                          Edit Category
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Add new Category
+                          Edit Category
                         </p>
                       </div>
                     </div>
@@ -326,7 +327,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Save Category
+                            Update Category
                         </Button>
                       </div>
                     </div>

@@ -80,8 +80,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->image= asset('storage/' . $category->image);
+        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
+        $flattenedCategories = $this->flattenCategories($categories);
+
         return Inertia::render('Admin/Categories/Edit', [
-            'category' => $category
+            'category' => $category,
+            'categories' => $flattenedCategories,
         ]);
     }
 
