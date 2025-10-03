@@ -17,7 +17,7 @@ export default function AdminIndex(){
                 // return (filters.page - 1) * filters.page + index + 1 ;
             }
         },
-        { key: 'avatar', label: 'Avatar', sortable: false    },
+        { key: 'avatar', label: 'Avatar', sortable: false, type: 'image', design: 'circle' },
         { key: 'name', label: 'Name', sortable: true },
         { key: 'email', label: 'Email', sortable: true },
         { key: 'phone', label: 'Phone', sortable: true },

@@ -1,19 +1,11 @@
 export default function DeleteDialog({
-    idOpen,
-    onClose,
-    onConfirm,
-    title,
-    message,
-    confirmButtonText,
-    cancelButton,
-}: {
-    idOpen: boolean;
-    onClose: () => void;
-    onConfirm: () => void;
-    title: string;
-    message: string;
-    confirmButtonText: string;
-    cancelButton: string;
+    idOpen = false,
+    onClose = false,
+    onConfirm = false,
+    title: string,
+    message: string,
+    confirmButtonText: string,
+    cancelButton: string,
 }) {
   return (
     <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black" aria-model="true">

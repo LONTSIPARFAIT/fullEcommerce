@@ -33,7 +33,7 @@ class AdminController extends Controller
         ->paginate($perPage)->withQueryString();
 
         $admins->getCollection()->transform(function ($admin){
-            $admin->avatar= asset('storage', . $admin->avatar);
+            $admin->avatar= asset('storage/' . $admin->avatar);
             return $admin;
         });
 
@@ -73,7 +73,7 @@ class AdminController extends Controller
         return redirect()->route('admin.admins.index')->with('success', 'Admin creer avec success');
     }
 
-    public function edit($id): Response 
+    public function edit($id): Response
     {
         $admin = User::findOrFail($id);
         return Inertia::render('Admin/Admins/Edit', [
@@ -81,7 +81,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(AdminUpdateRequest $request, $id) : RedirectResponse  
+    public function update(AdminUpdateRequest $request, $id) : RedirectResponse
     {
         $admin = User::findOrFail($id);
         $data = $request->only('name', 'email', 'phone');
