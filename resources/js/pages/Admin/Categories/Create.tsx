@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Lock, Mail, Phone, Save, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -36,7 +36,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
     phone: '',
     password: '',
     password_confirmation: '',
-    avatar: null as File | null,
+    image: null as File | null,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -73,7 +73,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
     const file = e.target.files?.[0] || null;
 
     if (file) {
-      setData('avatar', file);
+      setData('image', file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreview(e.target?.result as string);
@@ -83,7 +83,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
   };
 
   const clearImage = () => {
-    setData('avatar', null);
+    setData('image', null);
     setImagePreview(null);
 
     if (fileInputRef.current) {
@@ -93,7 +93,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Create Admin" />
+      <Head title="Create Category" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -110,17 +110,17 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Create Admin
+                          Create Category
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Add new admin
+                          Add new Category
                         </p>
                       </div>
                     </div>
 
                     <Link
                       href='/index'
-                    //   href={route('admin.admins.index')}
+                    //   href={route('admin.categories.index')}
                     >
                       <Button
                         variant="ghost"
@@ -147,7 +147,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                           htmlFor="name"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
-                          <User
+                          <TagIcon
                             size={14}
                             className="dark:primary-light text-primary"
                           />
@@ -163,11 +163,11 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                               setData('name', e.target.value,)
                             }
                             className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='Perfect Ali'
+                            placeholder='Instruments, Electronics, etc'
                             required
                             autoFocus
                           />
-                            <User
+                            <TagIcon
                               size={18}
                               className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
                             />
@@ -183,170 +183,11 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
 
                       <div className="space-y-2">
                         <label
-                          htmlFor="name"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Mail
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Email
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="email"
-                            name="email"
-                            value={data.email}
-                            onChange={(e) =>
-                              setData('email', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='perfect@gmail.com'
-                            required
-                            autoFocus
-                          />
-                            <Mail
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {errors.email && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {errors.email} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="name"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Phone
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Phone
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="phone"
-                            name="phone"
-                            // type='number'
-                            value={data.phone}
-                            onChange={(e) =>
-                              setData('phone', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='679324517'
-                            required
-                            autoFocus
-                          />
-                            <Phone
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {errors.phone && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {errors.phone} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2"> 
-                        <label
-                          htmlFor="name"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Lock
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Password
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="password"
-                            name="password"
-                            type='password'
-                            value={data.password}
-                            onChange={(e) =>
-                              setData('password', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='password'
-                            required
-                            autoFocus
-                          />
-                            <Lock
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {errors.password && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {errors.password} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                          <Lock
-                            size={14}
-                            className="dark:primary-light text-primary"
-                          />
-                            Confirm Password
-                        </label>
-
-                        <div className="group relative">
-                          <Input
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            type='password'
-                            value={data.password_confirmation}
-                            onChange={(e) =>
-                              setData('password_confirmation', e.target.value,)
-                            }
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground "
-                            placeholder='password_confirmation'
-                            required
-                            autoFocus
-                          />
-                            <Lock
-                              size={18}
-                              className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                        </div>
-
-                        {errors.password_confirmation && (
-                          <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                            <AlertCircle size={14} />
-                            <span> {errors.password_confirmation} </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Admin Avatar
+                            Category image
                         </label>
 
                         <div className="group relative">
@@ -363,7 +204,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                                 </div>
                             ) : (
                                 <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
-                                    <img src={imagePreview} alt="Admin preview" className="h-full w-full objet-cover" />
+                                    <img src={imagePreview} alt="Category preview" className="h-full w-full objet-cover" />
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all hover:bg-black/40">
                                         <div className="flex gap-2 opacity-0 hover:opacity-100">
                                             <Button
@@ -414,7 +255,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Save Admin
+                            Save Category
                         </Button>
                       </div>
                     </div>
