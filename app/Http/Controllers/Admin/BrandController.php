@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryStoreUpdateRequest;
-use App\Models\Category;
+use App\Http\Requests\BrandStoreUpdateRequest;
+use App\Models\Brand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,26 +21,21 @@ class BrandController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $categories = Category::select('id', 'name', 'parent_id', 'slug','image',)
+        $brands = Brand::select('id', 'name', 'slug','image',)
         ->when($search, function ($query, $search) {
             $query->where('name', 'like', '%'.$search.'%');
         })
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
-        $categories->getCollection()->transform(function ($category){
-            $category->image= asset('storage/' . $category->image);
-            if($category->parent_id){
-                // $parent = Category::find($category->parent_id);
-                $category->parent_name = $category->parent->name;
-            } else {
-                $category->parent_name = null;
-            }
-            return $category;
+        $brands->getCollection()->transform(function ($brand){
+            $brand->image= asset('storage/' . $brand->image);
+            
+            return $brand;
         });
 
-        return Inertia::render('Admin/Categories/Index', [
-            'categories' => $categories,
+        return Inertia::render('Admin/Brands/Index', [
+            'brands' => $brands,
             'filters' => [
                 'search' => $search,
                 'sort' => $sort,
@@ -57,76 +52,67 @@ class BrandController extends Controller
     }
 
     public function create(Request $request) : Response {
-        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
-        $flattenedCategories = $this->flattenCategories($categories);
-
-        return Inertia::render('Admin/Categories/Create',[
-            'categories' => $flattenedCategories,
-        ]);
+        return Inertia::render('Admin/Brands/Create',);
     }
 
-    public function store(CategoryStoreUpdateRequest $request) : RedirectResponse {
-        $data = $request->only(['name', 'description', 'parent_id']);
+    public function store(BrandStoreUpdateRequest $request) : RedirectResponse {
+        $data = $request->only(['name',]);
 
         if($request->hasFile('image')){
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'categories');
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'brands');
         };
 
-        Category::create($data);
-        return redirect()->route('admin.categories.index')->with('success', 'category creer avec success');
+        Brand::create($data);
+        return redirect()->route('admin.brands.index')->with('success', 'Brand creer avec success');
     }
 
     public function edit($id): Response
     {
-        $category = Category::findOrFail($id);
-        $category->image= asset('storage/' . $category->image);
-        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
-        $flattenedCategories = $this->flattenCategories($categories);
+        $brand = Brand::findOrFail($id);
+        $brand->image= asset('storage/' . $brand->image);
 
-        return Inertia::render('Admin/Categories/Edit', [
-            'category' => $category,
-            'categories' => $flattenedCategories,
+        return Inertia::render('Admin/Brands/Edit', [
+            'brand' => $brand,
         ]);
     }
 
-    public function update(CategoryStoreUpdateRequest $request, Category $category) : RedirectResponse
+    public function update(BrandStoreUpdateRequest $request, Brand $brand) : RedirectResponse
     {
-        // $category = Category::findOrFail($id);
-        $data = $request->only('name', 'description', 'parent_id');
+        // $brand = Brand::findOrFail($id);
+        $data = $request->only('name',);
 
         if($request->hasFile('image')){
-            ImageUploader::deleteImage($category->image);
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'categories');
+            ImageUploader::deleteImage($brand->image);
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'brands');
         }
 
-        $category->update($data);
+        $brand->update($data);
         // $data['status'] = 'active';
 
-        Category::create($data);
-        return redirect()->route('admin.categories.index')->with('success', 'category modifier avec success');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand modifier avec success');
     }
 
     public function destroy($id): RedirectResponse
     {
-        $category = Category::findOrFail($id);
-        ImageUploader::deleteImage($category->image);
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'category Supprimer avec success');
+        $brand = Brand::findOrFail($id);
+        ImageUploader::deleteImage($brand->image);
+        $brand->delete();
+        return redirect()->route('admin.brands.index')->with('success', 'Brand Supprimer avec success');
     }
 
-    public function flattenCategories($categories, $prefix = '', $result = [] ){
-        foreach ($categories as $category) {
-            $path = $prefix ? "$prefix > $category->name" : $category->name;
+    public function flattenbrands($brands, $prefix = '', $result = [] ){
+        foreach ($brands as $Brand) {
+            $path = $prefix ? "$prefix > $Brand->name" : $Brand->name;
 
             $result[] = [
-                'id' => $category->id,
-                'name' => $category->name,
+                'id' => $Brand->id,
+                'name' => $Brand->name,
                 'path' => $path,
                 'level' => substr_count($path, ">"),
             ]; 
 
-            if ($category->descendants && $category->descendants->count() > 0) {
-                $result = $this->flattenCategories($category->descendants, $path, $result);
+            if ($Brand->descendants && $Brand->descendants->count() > 0) {
+                $result = $this->flattenbrands($Brand->descendants, $path, $result);
             }
         }
 

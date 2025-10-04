@@ -25,7 +25,7 @@ class Brand extends Model
         ->saveSlugsTo('slug');
     }
 
-    public function getImageUrlAttribute(){
-        return $this->image ;
-    }
+    // public function getImageUrlAttribute(){
+    //     return $this->image ;
+    // }
 }
