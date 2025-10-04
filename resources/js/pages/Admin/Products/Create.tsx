@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, Diamond, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { Diamond } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -86,9 +86,17 @@ export default function Create() {
                             <Diamond className='text-primary dark:text-primary' size={24}/>
                         </div>
                         <div className="">
-                            <h1></h1>
+                            <h1 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>Create Product</h1>
+                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">Add new product to your store</p>
                         </div>
                     </div>
+
+                    <Link href='#'>
+                    {/* <Link href={route('admin.products.index')}> */}
+                        <Button>
+                            d
+                        </Button>
+                    </Link>
                 </div>
             </CardHeader>
         </Card>
