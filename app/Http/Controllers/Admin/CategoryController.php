@@ -102,7 +102,7 @@ class CategoryController extends Controller
         $category->update($data);
         // $data['status'] = 'active';
 
-        Category::create($data);
+        // Category::create($data);
         return redirect()->route('admin.categories.index')->with('success', 'category modifier avec success');
     }
 
