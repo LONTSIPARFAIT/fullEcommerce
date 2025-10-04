@@ -134,9 +134,8 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                         size="sm"
                         className="flex items-center gap-2 text-gray-700 transition-all hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
-                        <ArrowLeft size={16}>
+                        <ArrowLeft size={16}/>
                           Back
-                        </ArrowLeft>
                       </Button>
                     </Link>
                   </div>

@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Diamond } from 'lucide-react';
+import { ArrowLeft, Diamond } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -93,11 +93,20 @@ export default function Create() {
 
                     <Link href='#'>
                     {/* <Link href={route('admin.products.index')}> */}
-                        <Button>
-                            d
+                        <Button
+                          variant='ghost'
+                          size='sm'  
+                          className='flex items-center gap-2 text-gray-700 transition-all hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'                      
+                        >
+                            <ArrowLeft size={16} />
+                            Back
                         </Button>
                     </Link>
                 </div>
+            </CardHeader>
+
+            <CardHeader className="p-1">
+                form
             </CardHeader>
         </Card>
       </div>
