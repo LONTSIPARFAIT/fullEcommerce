@@ -22,7 +22,10 @@ class BrandStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|255',
+            // 'slug' => 'required|string|max:255|unique:brands,slug,' . $this->route('brand')->id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required|boolean',
         ];
     }
 }
