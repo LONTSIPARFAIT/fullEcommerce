@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ImageUploader;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BrandStoreUpdateRequest;
-use App\Models\Brand;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductStoreUpdateRequest;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,21 +23,21 @@ class ProductController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
-        $brands = Brand::select('id', 'name', 'slug','image',)
+        $products = Product::select('id', 'name', 'slug',)
         ->when($search, function ($query, $search) {
             $query->where('name', 'like', '%'.$search.'%');
         })
         ->orderBy($sort, $direction)
         ->paginate($perPage)->withQueryString();
 
-        $brands->getCollection()->transform(function ($brand){
-            $brand->image= asset('storage/' . $brand->image);
+        $products->getCollection()->transform(function ($product){
+            $product->image= asset('storage/' . $product->image);
             
-            return $brand;
+            return $product;
         });
 
-        return Inertia::render('Admin/Brands/Index', [
-            'brands' => $brands,
+        return Inertia::render('Admin/Products/Index', [
+            'products' => $products,
             'filters' => [
                 'search' => $search,
                 'sort' => $sort,
@@ -52,52 +54,52 @@ class ProductController extends Controller
     }
 
     public function create(Request $request) : Response {
-        return Inertia::render('Admin/Brands/Create',);
+        return Inertia::render('Admin/Products/Create',);
     }
 
-    public function store(BrandStoreUpdateRequest $request) : RedirectResponse {
+    public function store(ProductStoreRequest $request) : RedirectResponse {
         $data = $request->only(['name',]);
 
         if($request->hasFile('image')){
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'brands');
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'Products');
         };
 
-        Brand::create($data);
-        return redirect()->route('admin.brands.index')->with('success', 'Brand creer avec success');
+        Product::create($data);
+        return redirect()->route('admin.products.index')->with('success', 'Product creer avec success');
     }
 
     public function edit($id): Response
     {
-        $brand = Brand::findOrFail($id);
-        $brand->image= asset('storage/' . $brand->image);
+        $product = Product::findOrFail($id);
+        $product->image= asset('storage/' . $product->image);
 
-        return Inertia::render('Admin/Brands/Edit', [
-            'brand' => $brand,
+        return Inertia::render('Admin/Products/Edit', [
+            'product' => $product,
         ]);
     }
 
-    public function update(BrandStoreUpdateRequest $request, Brand $brand) : RedirectResponse
+    public function update(ProductUpdateRequest $request, Product $Product) : RedirectResponse
     {
-        // $brand = Brand::findOrFail($id);
+        // $product = Product::findOrFail($id);
         $data = $request->only('name',);
 
         if($request->hasFile('image')){
-            ImageUploader::deleteImage($brand->image);
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'brands');
+            ImageUploader::deleteImage($Product->image);
+            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'Products');
         }
 
-        $brand->update($data);
+        $Product->update($data);
         // $data['status'] = 'active';
 
-        return redirect()->route('admin.brands.index')->with('success', 'Brand modifier avec success');
+        return redirect()->route('admin.Products.index')->with('success', 'Product modifier avec success');
     }
 
     public function destroy($id): RedirectResponse
     {
-        $brand = Brand::findOrFail($id);
-        ImageUploader::deleteImage($brand->image);
-        $brand->delete();
-        return redirect()->route('admin.brands.index')->with('success', 'Brand Supprimer avec success');
+        $Product = Product::findOrFail($id);
+        ImageUploader::deleteImage($Product->image);
+        $Product->delete();
+        return redirect()->route('admin.Products.index')->with('success', 'Product Supprimer avec success');
     }
 
 }
