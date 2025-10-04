@@ -23,6 +23,7 @@ interface Category{
     slug: string;
     description: string;
     parent_id: number | null;
+    image: string;
     created_at: string;
     updated_at: string;
 }
@@ -32,7 +33,7 @@ interface CategoryWithPath extends Category {
     level: number;
 }
 
-export default function Create({category, categories}: { category:Category, categories: CategoryWithPath[] }) {
+export default function Create({category, categories}: { category:Category; categories: CategoryWithPath[] }) {
   const { data, setData, post, processing, errors } = useForm({
     _methd:'PUT',
     name: category.name,

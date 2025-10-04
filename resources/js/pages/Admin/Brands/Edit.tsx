@@ -21,27 +21,17 @@ interface Brand{
     id: number;
     name: string;
     slug: string;
-    description: string;
-    parent_id: number | null;
+    image: string;
     created_at: string;
     updated_at: string;
 }
 
-interface brandWithPath extends brand {
-    path: string;
-    level: number;
-}
-
-export default function Create({brand, brands}: { brand:brand, brands: brandWithPath[] }) {
+export default function Create({brand,}: { brand:Brand; }) {
   const { data, setData, post, processing, errors } = useForm({
     _methd:'PUT',
     name: brand.name,
-    description: brand.description,
-    parent_id: brand.parent_id===null ? String(brand.parent_id) : none,
     image: null as File | null,
   });
-  
-  console.log(brands); // brands with path and level
 
   const [imagePreview, setImagePreview] = useState<string | null>(brand.image || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -52,13 +42,10 @@ export default function Create({brand, brands}: { brand:brand, brands: brandWith
     e.preventDefault();
     setIsUploading(true);
 
-    const normalizeParentId = data.parent_id === 'none' ? null : Number(data.parent_id);
-
     // post(route('admin.brands.store'), {
     post(('admin/brands/store'), {
       data: {
         ...data,
-        parent_id: normalizeParentId,
       },
       preserveScroll: true,
       onProgress: (progress) => {
@@ -118,10 +105,10 @@ export default function Create({brand, brands}: { brand:brand, brands: brandWith
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Edit brand
+                          Edit Brand
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Edit brand
+                          Edit a brand
                         </p>
                       </div>
                     </div>
@@ -190,75 +177,12 @@ export default function Create({brand, brands}: { brand:brand, brands: brandWith
                       </div>
 
                       <div className="space-y-2">
-                        <Label
-                          htmlFor='description'
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                            <FileText size={14} className='text-primary dark:text-primary-foreground'/>
-                            Description
-                        </Label>
-                        <Textarea
-                            id='description'
-                            name='description'
-                            value={data.description}
-                            onChange={(e) => setData('description', e.target.value)}
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/20 min-h-[120px] w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 "
-                            placeholder='Entrez la description de la categorie'
-                        />
-                        {errors.description && (
-                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                                <AlertCircle size={14} />
-                                <span> {errors.description} </span>
-                            </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor='parent_id'
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                            <TagIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Parent brand
-                        </Label>
-
-                        <Select
-                            value={data.parent_id??'none'}
-                            onChange={(value)=> setData('parent_id', value )}
-                        >
-                            <SelectTrigger className="h-12 w-full">
-                                <SelectValue placeholder="Select parent brand" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value='none' className='text-gray-500'>No Parent brand</SelectItem>
-                                {brands &&
-                                 brands.map((brand) => (
-                                    <SelectItem key={brand.id} value={String(brand.id)} className='pl-2'>
-                                        <span className='inline-block' style={{
-                                            marginLeft: `${brand.level * 12}px`,
-                                        }} >
-                                            {brand.level > 0 && '↳ '} {brand.name}
-                                        </span>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
-                        {errors.parent_id && (
-                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                                <AlertCircle size={14} />
-                                <span> {errors.parent_id} </span>
-                            </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
                         <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            brand image
+                            Brand Image
                         </label>
 
                         <div className="group relative">
@@ -326,7 +250,7 @@ export default function Create({brand, brands}: { brand:brand, brands: brandWith
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Update brand
+                            Update Brand
                         </Button>
                       </div>
                     </div>
