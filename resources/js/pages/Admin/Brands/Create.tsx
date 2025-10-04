@@ -89,7 +89,7 @@ export default function Create() {
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-4">
                       <div className="rounded-xl bg-primary/20 p-3 shadow-sm backdrop-blur-sm dark:bg-primary/20">
-                        <User
+                        <TagIcon
                           className="dark:text-primary-light text-primary"
                           size={24}
                         />

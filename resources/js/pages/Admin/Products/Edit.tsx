@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Save, Diamond, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -139,7 +139,7 @@ export default function Create({product,}: { product:Product; }) {
                           htmlFor="name"
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
-                          <TagIcon
+                          <Diamond
                             size={14}
                             className="dark:primary-light text-primary"
                           />
@@ -159,7 +159,7 @@ export default function Create({product,}: { product:Product; }) {
                             required
                             autoFocus
                           />
-                            <TagIcon
+                            <Diamond
                               size={18}
                               className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
                             />

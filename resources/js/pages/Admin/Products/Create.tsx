@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Diamond, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -82,7 +82,12 @@ export default function Create() {
             <CardHeader className=''>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-4">
-                        <div className=""></div>
+                        <div className="bg-primary/20 dark:bg-primary/30 rounded-xl p-3 shadow-sm backdrop-blur-sm">
+                            <Diamond className='text-primary dark:text-primary' size={24}/>
+                        </div>
+                        <div className="">
+                            <h1></h1>
+                        </div>
                     </div>
                 </div>
             </CardHeader>

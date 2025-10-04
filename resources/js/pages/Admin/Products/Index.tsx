@@ -1,7 +1,7 @@
 import DataTable from "@/components/DataTables/DataTable";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
-import { TagIcon } from "lucide-react";
+import { Diamond } from "lucide-react";
 
 export default function ProductIndex(){
     const { products, filters, can } = usePage().props;
@@ -58,7 +58,7 @@ export default function ProductIndex(){
                       viewRoute="admin.products.show"
                       editRoute="admin.products.edit"
                       onDelete={handleDelete}
-                      icon={TagIcon}
+                      icon={Diamond}
                       createRoute="products/create"
                     //   createRoute="admin.products.create"
                     />
