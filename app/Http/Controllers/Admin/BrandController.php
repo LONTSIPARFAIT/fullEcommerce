@@ -100,22 +100,4 @@ class BrandController extends Controller
         return redirect()->route('admin.brands.index')->with('success', 'Brand Supprimer avec success');
     }
 
-    public function flattenbrands($brands, $prefix = '', $result = [] ){
-        foreach ($brands as $Brand) {
-            $path = $prefix ? "$prefix > $Brand->name" : $Brand->name;
-
-            $result[] = [
-                'id' => $Brand->id,
-                'name' => $Brand->name,
-                'path' => $path,
-                'level' => substr_count($path, ">"),
-            ]; 
-
-            if ($Brand->descendants && $Brand->descendants->count() > 0) {
-                $result = $this->flattenbrands($Brand->descendants, $path, $result);
-            }
-        }
-
-        return $result;
-    }
 }
