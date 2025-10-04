@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -24,5 +25,20 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('thumb')->width(100);
         $this->addMediaConversion('small')->width(480);
         $this->addMediaConversion('large')->width(1200);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', ProductStatusEnum::Publiched->value);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
