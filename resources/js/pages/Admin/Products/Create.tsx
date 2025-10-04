@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Diamond } from 'lucide-react';
+import { ArrowLeft, Diamond, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -106,7 +107,21 @@ export default function Create() {
             </CardHeader>
 
             <CardHeader className="p-1">
-                form
+                <form onSubmit={handleSubmit} className='p-6'>
+                    <div className="mx-auto max-w-3xl space-y-6">
+                        {/* for the name field */}
+                        <div className="space-y-2">
+                            <Label htmlFor='name' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
+                                <TagIcon size={14} className='text-primary dark:text-primary-foreground'/>
+                                Product Name
+                            </Label>
+                            <div className="group relative">
+                                <Input 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </CardHeader>
         </Card>
       </div>
