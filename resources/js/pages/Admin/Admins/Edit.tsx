@@ -25,7 +25,7 @@ interface Admin {
 
 export default function Edit({admin}: { admin: Admin }) {
   const { data, setData, post, processing, errors } = useForm({
-    _method: 'put',
+    _method: 'PUT',
     name: admin.name || '',
     email: admin.email || '',
     phone: admin.phone || '',

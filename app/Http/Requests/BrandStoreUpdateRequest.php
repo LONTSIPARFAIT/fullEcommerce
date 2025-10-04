@@ -11,7 +11,7 @@ class BrandStoreUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class BrandStoreUpdateRequest extends FormRequest
             'name' => 'required|string|255',
             // 'slug' => 'required|string|max:255|unique:brands,slug,' . $this->route('brand')->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'required|boolean',
+            // 'status' => 'required|boolean',
         ];
     }
 }

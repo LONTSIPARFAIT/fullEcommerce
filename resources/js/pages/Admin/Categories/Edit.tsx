@@ -35,7 +35,7 @@ interface CategoryWithPath extends Category {
 
 export default function Create({category, categories}: { category:Category; categories: CategoryWithPath[] }) {
   const { data, setData, post, processing, errors } = useForm({
-    _methd:'PUT',
+    _method:'PUT',
     name: category.name,
     description: category.description,
     parent_id: category.parent_id===null ? String(category.parent_id) : none,
@@ -55,8 +55,8 @@ export default function Create({category, categories}: { category:Category; cate
 
     const normalizeParentId = data.parent_id === 'none' ? null : Number(data.parent_id);
 
-    // post(route('admin.categories.store'), {
-    post(('admin/categories/store'), {
+    // post(route('admin.categories.update'), {
+    post(('admin/categories/update'), {
       data: {
         ...data,
         parent_id: normalizeParentId,

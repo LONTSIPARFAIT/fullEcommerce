@@ -28,7 +28,7 @@ interface Brand{
 
 export default function Create({brand,}: { brand:Brand; }) {
   const { data, setData, post, processing, errors } = useForm({
-    _methd:'PUT',
+    _method:'PUT',
     name: brand.name,
     image: null as File | null,
   });
@@ -42,8 +42,8 @@ export default function Create({brand,}: { brand:Brand; }) {
     e.preventDefault();
     setIsUploading(true);
 
-    // post(route('admin.brands.store'), {
-    post(('admin/brands/store'), {
+    // post(route('admin.brands.update'), {
+    post(('admin/brands/update'), {
       data: {
         ...data,
       },
