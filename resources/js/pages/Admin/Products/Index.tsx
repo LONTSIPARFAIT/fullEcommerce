@@ -3,8 +3,8 @@ import AppLayout from "@/layouts/app-layout";
 import { Head, router, usePage } from "@inertiajs/react";
 import { TagIcon } from "lucide-react";
 
-export default function BrandIndex(){
-    const { brands, filters, can } = usePage().props;
+export default function ProductIndex(){
+    const { products, filters, can } = usePage().props;
     const columns = [
         {
             key: "index",
@@ -25,7 +25,7 @@ export default function BrandIndex(){
     ];
 
     const handleDelete = (id: string) => {
-        router.delete(route('admin.brands.destroy', id), {
+        router.delete(route('admin.products.destroy', id), {
             preserveScroll: true,
             onSuccess: () => {
                 // toast.success('User delete sucessfuly')
@@ -41,26 +41,26 @@ export default function BrandIndex(){
 
     return (
         <AppLayout>
-            <Head title="brands" />
+            <Head title="Products" />
             <div className="py-6">
                 <div className="mx-auto">
                     <DataTable
-                      data={brands}
+                      data={products}
                       columns={columns}
-                      resourceName="Brands"
-                      singularName="Brand"
-                      routeName="admin.brands.index"
+                      resourceName="Products"
+                      singularName="Product"
+                      routeName="admin.products.index"
                       filters={filters}
                       canViewResource={false}
                       canCreateResource={true}
                       canEditResource={true}
                       canDeleteResource={true}
-                      viewRoute="admin.brands.show"
-                      editRoute="admin.brands.edit"
+                      viewRoute="admin.products.show"
+                      editRoute="admin.products.edit"
                       onDelete={handleDelete}
                       icon={TagIcon}
-                      createRoute="brands/create"
-                    //   createRoute="admin.brands.create"
+                      createRoute="products/create"
+                    //   createRoute="admin.products.create"
                     />
                 </div>
             </div>

@@ -10,11 +10,11 @@ import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Brands', href: 'admin/brands/index' },
-//   { title: 'Brands', href: route('admin.brands.index') },
-  { title: 'Edit Brand', href: '' },
+  { title: 'Products', href: 'admin/Products/index' },
+//   { title: 'Products', href: route('admin.products.index') },
+  { title: 'Edit Product', href: '' },
 ];
-interface Brand{
+interface Product{
     id: number;
     name: string;
     slug: string;
@@ -23,14 +23,14 @@ interface Brand{
     updated_at: string;
 }
 
-export default function Create({brand,}: { brand:Brand; }) {
+export default function Create({product,}: { product:Product; }) {
   const { data, setData, post, processing, errors } = useForm({
     _method:'PUT',
-    name: brand.name,
+    name: product.name,
     image: null as File | null,
   });
 
-  const [imagePreview, setImagePreview] = useState<string | null>(brand.image || null);
+  const [imagePreview, setImagePreview] = useState<string | null>(product.image || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -39,8 +39,8 @@ export default function Create({brand,}: { brand:Brand; }) {
     e.preventDefault();
     setIsUploading(true);
 
-    // post(route('admin.brands.update'), {
-    post(('admin/brands/update'), {
+    // post(route('admin.products.update'), {
+    post(('admin/Products/update'), {
       data: {
         ...data,
       },
@@ -85,7 +85,7 @@ export default function Create({brand,}: { brand:Brand; }) {
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Edit brand" />
+      <Head title="Edit Product" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -102,17 +102,17 @@ export default function Create({brand,}: { brand:Brand; }) {
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Edit Brand
+                          Edit Product
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Edit a brand
+                          Edit a product
                         </p>
                       </div>
                     </div>
 
                     <Link
                       href='/index'
-                    //   href={route('admin.brands.index')}
+                    //   href={route('admin.products.index')}
                     >
                       <Button
                         variant="ghost"
@@ -179,7 +179,7 @@ export default function Create({brand,}: { brand:Brand; }) {
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Brand Image
+                            Product Image
                         </label>
 
                         <div className="group relative">
@@ -196,7 +196,7 @@ export default function Create({brand,}: { brand:Brand; }) {
                                 </div>
                             ) : (
                                 <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
-                                    <img src={imagePreview} alt="brand preview" className="h-full w-full objet-cover" />
+                                    <img src={imagePreview} alt="Product preview" className="h-full w-full objet-cover" />
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all hover:bg-black/40">
                                         <div className="flex gap-2 opacity-0 hover:opacity-100">
                                             <Button
@@ -247,7 +247,7 @@ export default function Create({brand,}: { brand:Brand; }) {
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Update Brand
+                            Update Product
                         </Button>
                       </div>
                     </div>

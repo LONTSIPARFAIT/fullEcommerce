@@ -91,7 +91,7 @@ class ProductController extends Controller
         $Product->update($data);
         // $data['status'] = 'active';
 
-        return redirect()->route('admin.Products.index')->with('success', 'Product modifier avec success');
+        return redirect()->route('admin.products.index')->with('success', 'Product modifier avec success');
     }
 
     public function destroy($id): RedirectResponse
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $Product = Product::findOrFail($id);
         ImageUploader::deleteImage($Product->image);
         $Product->delete();
-        return redirect()->route('admin.Products.index')->with('success', 'Product Supprimer avec success');
+        return redirect()->route('admin.products.index')->with('success', 'Product Supprimer avec success');
     }
 
 }
