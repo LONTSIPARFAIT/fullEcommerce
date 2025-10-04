@@ -14,7 +14,7 @@ import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 // import { BookOpen, Folder, LayoutGrid, User  } from 'lucide-react';
-import { LayoutGrid, TagIcon, User, Users  } from 'lucide-react';
+import { Cat, Diamond, LayoutGrid, TagIcon, User, Users  } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -31,7 +31,12 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Categories',
         href: '/admin/categories',
-        icon: TagIcon,
+        icon: Cat,
+    },
+    {
+        title: 'Products',
+        href: '/admin/products',
+        icon: Diamond,
     },
     {
         title: 'Users',

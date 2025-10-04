@@ -12,13 +12,13 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::controller(ProductController::class)->group(function () {
-            Route::group(['prefix' => 'products'], function (){
-                Route::get('products', 'index')->name('products.index');
-                Route::get('products/create', 'create')->name('products.create');
-                Route::post('products', 'store')->name('products.store');
-                Route::get('products/{product}', 'edit')->name('products.edit');
-                Route::put('products/{product}', 'update')->name('products.update');
-                Route::delete('products/{product}', 'destroy')->name('products.destroy');
+            Route::group(['prefix' => 'products','as' => 'products.'], function (){
+                Route::get('/', 'index')->name('products.index');
+                Route::get('/create', 'create')->name('products.create');
+                Route::post('/', 'store')->name('products.store');
+                Route::get('/{product}/edit', 'edit')->name('products.edit');
+                Route::put('/{product}', 'update')->name('products.update');
+                Route::delete('/{product}', 'destroy')->name('products.destroy');
             });
         });
 
