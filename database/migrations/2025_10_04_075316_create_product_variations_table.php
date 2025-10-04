@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('variation_types', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->index()->constrained('products')->cascadeOnDelete();
+            $table->string('name', 2000);
+            $table->string('type', 2000);
+            $table->timestamps();
+        });
+
+        Schema::create('variation_type_options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('variation_type_id')->index()->constrained('products')->cascadeOnDelete();
+            $table->string('name', 2000);
+            $table->string('type', 2000);
             $table->timestamps();
         });
 
