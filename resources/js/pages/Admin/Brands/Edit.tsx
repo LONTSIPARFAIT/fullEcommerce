@@ -8,17 +8,16 @@ import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Value } from '@radix-ui/react-select';
-import { AlertCircle, ArrowLeft, FileText, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, FileText, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Categories', href: 'admin/categories/index' },
-//   { title: 'Categories', href: route('admin.categories.index') },
-  { title: 'Edit Category', href: '' },
+  { title: 'Brands', href: 'admin/brands/index' },
+//   { title: 'Brands', href: route('admin.brands.index') },
+  { title: 'Edit Brand', href: '' },
 ];
-interface Category{
+interface Brand{
     id: number;
     name: string;
     slug: string;
@@ -28,23 +27,23 @@ interface Category{
     updated_at: string;
 }
 
-interface CategoryWithPath extends Category {
+interface brandWithPath extends brand {
     path: string;
     level: number;
 }
 
-export default function Create({category, categories}: { category:Category, categories: CategoryWithPath[] }) {
+export default function Create({brand, brands}: { brand:brand, brands: brandWithPath[] }) {
   const { data, setData, post, processing, errors } = useForm({
     _methd:'PUT',
-    name: category.name,
-    description: category.description,
-    parent_id: category.parent_id===null ? String(category.parent_id) : none,
+    name: brand.name,
+    description: brand.description,
+    parent_id: brand.parent_id===null ? String(brand.parent_id) : none,
     image: null as File | null,
   });
   
-  console.log(categories); // categories with path and level
+  console.log(brands); // brands with path and level
 
-  const [imagePreview, setImagePreview] = useState<string | null>(category.image || null);
+  const [imagePreview, setImagePreview] = useState<string | null>(brand.image || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -55,8 +54,8 @@ export default function Create({category, categories}: { category:Category, cate
 
     const normalizeParentId = data.parent_id === 'none' ? null : Number(data.parent_id);
 
-    // post(route('admin.categories.store'), {
-    post(('admin/categories/store'), {
+    // post(route('admin.brands.store'), {
+    post(('admin/brands/store'), {
       data: {
         ...data,
         parent_id: normalizeParentId,
@@ -102,7 +101,7 @@ export default function Create({category, categories}: { category:Category, cate
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Edit Category" />
+      <Head title="Edit brand" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -119,17 +118,17 @@ export default function Create({category, categories}: { category:Category, cate
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Edit Category
+                          Edit brand
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Edit Category
+                          Edit brand
                         </p>
                       </div>
                     </div>
 
                     <Link
                       href='/index'
-                    //   href={route('admin.categories.index')}
+                    //   href={route('admin.brands.index')}
                     >
                       <Button
                         variant="ghost"
@@ -220,7 +219,7 @@ export default function Create({category, categories}: { category:Category, cate
                           className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                         >
                             <TagIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Parent Category
+                            Parent brand
                         </Label>
 
                         <Select
@@ -228,17 +227,17 @@ export default function Create({category, categories}: { category:Category, cate
                             onChange={(value)=> setData('parent_id', value )}
                         >
                             <SelectTrigger className="h-12 w-full">
-                                <SelectValue placeholder="Select parent category" />
+                                <SelectValue placeholder="Select parent brand" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value='none' className='text-gray-500'>No Parent Category</SelectItem>
-                                {categories &&
-                                 categories.map((category) => (
-                                    <SelectItem key={category.id} value={String(category.id)} className='pl-2'>
+                                <SelectItem value='none' className='text-gray-500'>No Parent brand</SelectItem>
+                                {brands &&
+                                 brands.map((brand) => (
+                                    <SelectItem key={brand.id} value={String(brand.id)} className='pl-2'>
                                         <span className='inline-block' style={{
-                                            marginLeft: `${category.level * 12}px`,
+                                            marginLeft: `${brand.level * 12}px`,
                                         }} >
-                                            {category.level > 0 && '↳ '} {category.name}
+                                            {brand.level > 0 && '↳ '} {brand.name}
                                         </span>
                                     </SelectItem>
                                 ))}
@@ -259,7 +258,7 @@ export default function Create({category, categories}: { category:Category, cate
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Category image
+                            brand image
                         </label>
 
                         <div className="group relative">
@@ -276,7 +275,7 @@ export default function Create({category, categories}: { category:Category, cate
                                 </div>
                             ) : (
                                 <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
-                                    <img src={imagePreview} alt="Category preview" className="h-full w-full objet-cover" />
+                                    <img src={imagePreview} alt="brand preview" className="h-full w-full objet-cover" />
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all hover:bg-black/40">
                                         <div className="flex gap-2 opacity-0 hover:opacity-100">
                                             <Button
@@ -327,7 +326,7 @@ export default function Create({category, categories}: { category:Category, cate
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Update Category
+                            Update brand
                         </Button>
                       </div>
                     </div>

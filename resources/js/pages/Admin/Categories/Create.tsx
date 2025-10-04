@@ -8,8 +8,7 @@ import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Value } from '@radix-ui/react-select';
-import { AlertCircle, ArrowLeft, FileText, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, FileText, ImageIcon,  Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [

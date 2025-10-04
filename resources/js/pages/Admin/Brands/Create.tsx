@@ -8,40 +8,21 @@ import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Value } from '@radix-ui/react-select';
-import { AlertCircle, ArrowLeft, FileText, ImageIcon, Lock, Mail, Phone, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, FileText, ImageIcon, Save, TagIcon, Trash2, Upload, User } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Categories', href: 'admin/categories/index' },
-//   { title: 'Categories', href: route('admin.categories.index') },
-  { title: 'Create Category', href: '' },
+  { title: 'Brands', href: 'admin/brands/index' },
+//   { title: 'brands', href: route('admin.brands.index') },
+  { title: 'Create Brands', href: '' },
 ];
-interface Category{
-    id: number;
-    name: string;
-    slug: string;
-    description: string;
-    parent_id: number | null;
-    created_at: string;
-    updated_at: string;
-}
 
-interface CategoryWithPath extends Category {
-    path: string;
-    level: number;
-}
-
-export default function Create({categories}: { categories: CategoryWithPath[] }) {
+export default function Create() {
   const { data, setData, post, processing, errors } = useForm({
     name: '',
-    description: '',
-    parent_id: '',
     image: null as File | null,
   });
-  
-  console.log(categories); // categories with path and level
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -52,13 +33,10 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
     e.preventDefault();
     setIsUploading(true);
 
-    const normalizeParentId = data.parent_id === 'none' ? null : Number(data.parent_id);
-
-    // post(route('admin.categories.store'), {
-    post(('admin/categories/store'), {
+    // post(route('admin.brands.store'), {
+    post(('admin/brands/store'), {
       data: {
         ...data,
-        parent_id: normalizeParentId,
       },
       preserveScroll: true,
       onProgress: (progress) => {
@@ -101,7 +79,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Create Category" />
+      <Head title="Create Brand" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <Card className="overflow-hidden border-none bg-white shadow-xl dark:bg-gray-800">
           <CardHeader>
@@ -118,17 +96,17 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
                       <div className="">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          Create Category
+                          Create Brand
                         </h1>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
-                          Add new Category
+                          Add new brand
                         </p>
                       </div>
                     </div>
 
                     <Link
                       href='/index'
-                    //   href={route('admin.categories.index')}
+                    //   href={route('admin.brands.index')}
                     >
                       <Button
                         variant="ghost"
@@ -190,75 +168,12 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
 
                       <div className="space-y-2">
-                        <Label
-                          htmlFor='description'
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                            <FileText size={14} className='text-primary dark:text-primary-foreground'/>
-                            Description
-                        </Label>
-                        <Textarea
-                            id='description'
-                            name='description'
-                            value={data.description}
-                            onChange={(e) => setData('description', e.target.value)}
-                            className="focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/20 min-h-[120px] w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 "
-                            placeholder='Entrez la description de la categorie'
-                        />
-                        {errors.description && (
-                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                                <AlertCircle size={14} />
-                                <span> {errors.description} </span>
-                            </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor='parent_id'
-                          className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                        >
-                            <TagIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Parent Category
-                        </Label>
-
-                        <Select
-                            value={data.parent_id??'none'}
-                            onChange={(value)=> setData('parent_id', value )}
-                        >
-                            <SelectTrigger className="h-12 w-full">
-                                <SelectValue placeholder="Select parent category" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value='none' className='text-gray-500'>No Parent Category</SelectItem>
-                                {categories &&
-                                 categories.map((category) => (
-                                    <SelectItem key={category.id} value={String(category.id)} className='pl-2'>
-                                        <span className='inline-block' style={{
-                                            marginLeft: `${category.level * 12}px`,
-                                        }} >
-                                            {category.level > 0 && '↳ '} {category.name}
-                                        </span>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
-                        {errors.parent_id && (
-                            <div className="mt-2 flex items-center gap-2 rounded-md bg-red-50 p-2 text-sm text-red-600 dark:bg-red-200/10 dark:text-red-400">
-                                <AlertCircle size={14} />
-                                <span> {errors.parent_id} </span>
-                            </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
                         <label
                           htmlFor="image"
                           className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'
                         >
                             <ImageIcon size={14} className='text-primary dark:text-primary-foreground'/>
-                            Category image
+                            Brand image
                         </label>
 
                         <div className="group relative">
@@ -275,7 +190,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                                 </div>
                             ) : (
                                 <div className="relative h-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-white/80 transition-all dark:border-gray-600 dark:bg-gray-800/80">
-                                    <img src={imagePreview} alt="Category preview" className="h-full w-full objet-cover" />
+                                    <img src={imagePreview} alt="brand preview" className="h-full w-full objet-cover" />
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all hover:bg-black/40">
                                         <div className="flex gap-2 opacity-0 hover:opacity-100">
                                             <Button
@@ -326,7 +241,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       <div className="pt-4">
                         <Button type='submit' className='w-full' disabled={processing} >
                             <Save size={16} className='mr-2' />
-                            Save Category
+                            Save Brand
                         </Button>
                       </div>
                     </div>
