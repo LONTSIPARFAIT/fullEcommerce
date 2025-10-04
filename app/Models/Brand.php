@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions; 
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
@@ -18,5 +19,13 @@ class Brand extends Model
         'status' => 'boolean',
     ];
 
-    public function getUrlImage
+        public function getSlugOptions(): SlugOptions{
+        return SlugOptions::create()
+        ->generateSlugsFrom('name')
+        ->saveSlugsTo('slug');
+    }
+
+    public function getImageUrlAttribute(){
+        return $this->image ;
+    }
 }
