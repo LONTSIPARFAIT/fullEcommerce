@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class BrandController extends Controller
+class ProductControlle extends Controller
 {
     public function index(Request $request): Response{
 
