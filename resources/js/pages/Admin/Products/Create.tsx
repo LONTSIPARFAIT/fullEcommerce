@@ -47,7 +47,7 @@ export default function Create({categories, brands}: Props) {
     sku: '',
     barcode: '',
     status: 'draft',
-    quality: '',
+    quantity: '',
     image: null as File | null,
   });
 
@@ -233,15 +233,21 @@ export default function Create({categories, brands}: Props) {
                                     Price
                                 </Label>
 
-                                <Input
-                                  id="price"
-                                  type="number"
-                                //   step="0.01"
-                                  value={data.price}
-                                  onChange={(e)=>setData('price', e.target.value)}
-                                  className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
-                                  placeholder='0'
-                                />
+                                <div className="group relative">
+                                    <Input 
+                                    id='price'
+                                    type='number'
+                                    value={data.price}
+                                    onChange={(e)=>setData('price', e.target.value)}
+                                    //   step='0.01'
+                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
+                                    placeholder='0'
+                                    />
+                                    <File
+                                    size={18}
+                                    className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                                    />
+                                </div>
 
                                 {errors.price && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
@@ -259,15 +265,21 @@ export default function Create({categories, brands}: Props) {
                                     Price
                                 </Label>
 
-                                <Input
-                                  id="price"
-                                  type="number"
-                                //   step="0.01"
-                                  value={data.price}
-                                  onChange={(e)=>setData('price', e.target.value)}
-                                  className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
-                                  placeholder='0'
-                                />
+                                <div className="group relative">
+                                    <Input 
+                                    id='price'
+                                    type='number'
+                                    value={data.price}
+                                    onChange={(e)=>setData('price', e.target.value)}
+                                    //   step='0.01'
+                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
+                                    placeholder='0'
+                                    />
+                                    <File
+                                    size={18}
+                                    className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                                    />
+                                </div>
 
                                 {errors.price && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
