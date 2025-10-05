@@ -66,20 +66,19 @@ class ProductController extends Controller
     }
 
     public function store(ProductStoreRequest $request) : RedirectResponse {
-        $data = $request->only(['name',]);
+        $data = $request->only(['name','description','status', 'brand_id', 'category_id', 'price', 'quantity', 'barcode' , 'sku' ]);
+        $product = Product::create($data);
 
-        if($request->hasFile('image')){
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'Products');
-        };
-
-        Product::create($data);
-        return redirect()->route('admin.products.index')->with('success', 'Product creer avec success');
+        return redirect()->route('admin.products.index', $product->id)->with('success', 'Product creer avec success');
     }
 
     public function edit($id): Response
     {
         $product = Product::findOrFail($id);
         $product->image= asset('storage/' . $product->image);
+        $brands = Brand::select('id', 'name')->get();
+        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
+        $flattenedCategories = $this->flattenCategories($categories);
 
         return Inertia::render('Admin/Products/Edit', [
             'product' => $product,

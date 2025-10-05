@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, Diamond, File, List, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Diamond, File, List, Save, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -387,6 +387,7 @@ export default function Create({categories, brands}: Props) {
                                     </div>
                                 )}
                             </div>
+                        </div>
                             {/* description */}
                             <div className="space-y-2">
                                 <Label
@@ -412,7 +413,13 @@ export default function Create({categories, brands}: Props) {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                            {/* button */}
+                            <div className="pt-4 flex items-center justify-center" >
+                                <Button type='submit' className='' disabled={processing} >
+                                    <Save size={16} className='mr-2' />
+                                    {processing ? 'Saving...' : 'Save Product'}
+                                </Button>
+                            </div>
                     </div>
                 </form>
             </CardContent>
