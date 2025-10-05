@@ -10,6 +10,7 @@ import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { AlertCircle, ArrowLeft, Diamond, File, List, Save, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
+import JoditEditor from 'jodit-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -57,57 +58,13 @@ export default function Create({categories, brands}: Props) {
     image: null as File | null,
   });
 
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const editor = useRef(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsUploading(true);
 
     // post(route('admin.product.store'), {
-    post(('admin/Product/store'), {
-      data: {
-        ...data,
-      },
-      preserveScroll: true,
-      onProgress: (progress) => {
-        if (progress.percentage) {
-          setUploadProgress(progress.percentage);
-        }
-      },
-       onSuccess: () => {
-        setIsUploading(false);
-        setUploadProgress(0);
-      },
-      onError: () => {
-        setIsUploading(false);
-        setUploadProgress(0);
-      },
-    });
-  };
-
-  const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-
-    if (file) {
-      setData('image', file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const clearImage = () => {
-    setData('image', null);
-    setImagePreview(null);
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    post(('admin/Product/store'), );
   };
 
   return (
@@ -397,14 +354,26 @@ export default function Create({categories, brands}: Props) {
                                     <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
                                     Description
                                 </Label>
+
+                                <JoditEditor  
+                                  ref={editor}
+                                  value={data.description}
+                                  config={{
+                                    readonly:false,
+                                    placeholder:'Enter product description...',
+                                    height:400,
+                                    toolbarButtonSize:'medium',
+                                    theme:'default',
+                                  }}
+                                />
                                 
-                                <Textarea 
+                                {/* <Textarea 
                                     id='description'
                                     value={data.description }
                                     onChange={(e)=>setData('barcode', e.target.value)}
                                     className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-32 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
                                     placeholder='Enter product description'
-                                />
+                                /> */}
 
                                 {errors.description && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
