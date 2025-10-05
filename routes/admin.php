@@ -5,27 +5,38 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\ProductVariationController;
+use App\Http\Controllers\Admin\ProductVariationTypeController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-
-        Route::controller(ProductImageController::class)->group(function () {
-            Route::group(['prefix' => 'products','as' => 'products.'], function (){
-                Route::post('image/uplaod', 'upload')->name('products.upload');
-                Route::delete('image/delete', 'destroy')->name('products.delete');
+        
+        Route::group(['prefix' => 'products','as' => 'products.'], function (): void{
+            Route::controller(ProductImageController::class)->group(function () {
+                Route::group(['prefix' => 'images','as' => 'images.'], function (){
+                    Route::post('/{product}', 'index')->name('index');
+                    Route::post('/{product}/store', 'store')->name('store');
+                    Route::delete('/{product}/delete/{destroy}', 'destroy')->name('image.delete');
+                });
             });
-        });
 
-        Route::controller(ProductController::class)->group(function () {
-            Route::group(['prefix' => 'products','as' => 'products.'], function (){
-                // Route::get('/', 'index')->name('products.index');
-                // Route::get('/create', 'create')->name('products.create');
-                // Route::post('/', 'store')->name('products.store');
-                // Route::get('/{product}/edit', 'edit')->name('products.edit');
-                // Route::put('/{product}', 'update')->name('products.update');
-                // Route::delete('/{product}', 'destroy')->name('products.destroy');
+            Route::controller(ProductVariationTypeController::class)->group(function () {
+                Route::group(['prefix' => 'variation-type','as' => 'variation-type.'], function (){
+                    Route::post('/{product}', 'index')->name('index');
+                    Route::post('/{product}/store', 'store')->name('store');
+                    Route::delete('/{product}/delete/{variationType}', 'destroy')->name('image.delete');
+                });
+            });
+
+            Route::controller(ProductVariationController::class)->group(function () {
+                Route::group(['prefix' => 'variation','as' => 'variation.'], function (){
+                    Route::post('/{product}', 'index')->name('index');
+                    Route::post('/{product}/store', 'store')->name('store');
+                    Route::delete('/{product}/delete/{variation}', 'destroy')->name('image.delete');
+                });
             });
         });
 
@@ -37,4 +48,5 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
             'products' => ProductController::class,
         ]);
     });
+
 });
