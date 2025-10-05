@@ -364,6 +364,15 @@ export default function Create({categories, brands}: Props) {
                                     height:400,
                                     toolbarButtonSize:'medium',
                                     theme:'default',
+                                    enableDragAndDropFile: false,
+                                    statusbar: false,
+                                    askBeforePasteFromWord: false,
+                                    defaultMode: 1,
+                                    buttons: [
+                                        'bold',
+                                        'bold',
+                                        'bold',
+                                    ]
                                   }}
                                 />
                                 
