@@ -370,8 +370,23 @@ export default function Create({categories, brands}: Props) {
                                     defaultMode: 1,
                                     buttons: [
                                         'bold',
-                                        'bold',
-                                        'bold',
+                                        'italic',
+                                        'underline',
+                                        'strikethrough',
+                                        '|',
+                                        'font',
+                                        'fontsize',
+                                        'paragraph',
+                                        '|',
+                                        'align',
+                                        '|',
+                                        'ul',
+                                        'ol',
+                                        '|',
+                                        'link',
+                                        '|',
+                                        'undo',
+                                        'redo',
                                     ]
                                   }}
                                 />
