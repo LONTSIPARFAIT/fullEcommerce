@@ -387,7 +387,24 @@ export default function Create({categories, brands}: Props) {
                                         '|',
                                         'undo',
                                         'redo',
-                                    ]
+                                    ],
+                                    colors: { 
+                                        background: ['#ff0000', '#00ff00', '#0000ff'],
+                                        text: ['#000000', '#ffffff', '#333333'],
+                                    },
+                                    showXPathInStatusbar: false,
+                                    showCharsCounter: false,
+                                    showWordsCounter: false,
+                                    enter: 'P',
+                                  }}
+                                  tabIndex={1}
+                                  onBlur={(newContent) => {
+                                    if (newContent !== data.description) {
+                                        setData('description', newContent);
+                                    }
+                                  }}
+                                  onChange={(newContent) => {
+                                    setData('description', newContent);
                                   }}
                                 />
                                 
