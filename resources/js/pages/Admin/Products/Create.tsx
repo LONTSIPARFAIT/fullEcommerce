@@ -24,10 +24,13 @@ interface Category{
     level: string;
 }
 
-interface
+interface Brand {
+    id: number;
+    name: string;
+}
 
 interface Props {
-    categories: {id:number; path:string }[];
+    categories: Category[];
     brands: {id:number; name:string }[];
 }
 

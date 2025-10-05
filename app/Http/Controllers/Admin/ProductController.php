@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductStoreUpdateRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,7 +34,7 @@ class ProductController extends Controller
 
         $products->getCollection()->transform(function ($product){
             $product->image= asset('storage/' . $product->image);
-            
+
             return $product;
         });
 
@@ -54,7 +56,12 @@ class ProductController extends Controller
     }
 
     public function create(Request $request) : Response {
-        return Inertia::render('Admin/Products/Create',);
+        $brands = Brand::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->with('descendants')->get();
+        return Inertia::render('Admin/Products/Create',[
+            'brands' => $brands,
+            'categories' => $categories,
+        ]);
     }
 
     public function store(ProductStoreRequest $request) : RedirectResponse {
