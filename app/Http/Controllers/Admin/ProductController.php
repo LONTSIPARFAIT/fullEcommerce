@@ -57,7 +57,8 @@ class ProductController extends Controller
 
     public function create(Request $request) : Response {
         $brands = Brand::select('id', 'name')->get();
-        $categories = Category::select('id', 'name')->with('descendants')->get();
+        $categories = Category::select('id','name')->with("descendants")->isParent()->get();
+        $flattenedCategories = $this->flattenCategories($categories);
         return Inertia::render('Admin/Products/Create',[
             'brands' => $brands,
             'categories' => $categories,
@@ -107,6 +108,25 @@ class ProductController extends Controller
         ImageUploader::deleteImage($Product->image);
         $Product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product Supprimer avec success');
+    }
+
+    public function flattenCategories($categories, $prefix = '', $result = [] ){
+        foreach ($categories as $category) {
+            $path = $prefix ? "$prefix > $category->name" : $category->name;
+
+            $result[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'path' => $path,
+                'level' => substr_count($path, ">"),
+            ]; 
+
+            if ($category->descendants && $category->descendants->count() > 0) {
+                $result = $this->flattenCategories($category->descendants, $path, $result);
+            }
+        }
+
+        return $result;
     }
 
 }
