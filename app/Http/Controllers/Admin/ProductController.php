@@ -61,7 +61,7 @@ class ProductController extends Controller
         $flattenedCategories = $this->flattenCategories($categories);
         return Inertia::render('Admin/Products/Create',[
             'brands' => $brands,
-            'categories' => $categories,
+            'categories' => $flattenedCategories,
         ]);
     }
 
@@ -112,7 +112,7 @@ class ProductController extends Controller
 
     public function flattenCategories($categories, $prefix = '', $result = [] ){
         foreach ($categories as $category) {
-            $path = $prefix ? "$prefix > $category->name" : $category->name;
+            $path = $prefix?"$prefix > $category->name" : $category->name;
 
             $result[] = [
                 'id' => $category->id,

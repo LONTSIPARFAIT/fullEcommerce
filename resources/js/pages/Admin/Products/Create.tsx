@@ -31,10 +31,13 @@ interface Brand {
 
 interface Props {
     categories: Category[];
-    brands: {id:number; name:string }[];
+    brands: Brand[];
 }
 
 export default function Create({categories, brands}: Props) {
+    // console.log(categories);
+    // console.log(brands);
+    
   const { data, setData, post, processing, errors } = useForm({
     name: '',
     category_id: '',
@@ -162,7 +165,7 @@ export default function Create({categories, brands}: Props) {
                                 </div>
                             )}
                         </div>
-                        {/* brand section */}
+                        {/* category & brand section */}
                         <div className="grid gap-6 md:grid-cols-2">
                             {/* category */}
                             <div className="space-y-2">
@@ -205,7 +208,7 @@ export default function Create({categories, brands}: Props) {
                                     <SelectContent>
                                         {brands.map((brand)=>(
                                             <SelectItem key={brand.id} value={brand.id.toString()}>
-                                                {brand.path}
+                                                {brand.name}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -218,6 +221,10 @@ export default function Create({categories, brands}: Props) {
                                     </div>
                                 )}
                             </div>
+                        </div>
+                        {/* Pricing */}
+                        <div className="grid gap-6 md:grid-cols-3">
+                            fd
                         </div>
                     </div>
                 </form>
