@@ -82,6 +82,8 @@ class ProductController extends Controller
 
         return Inertia::render('Admin/Products/Edit', [
             'product' => $product,
+            'brands' => $brands,
+            'categories' => $flattenedCategories,
         ]);
     }
 
