@@ -161,17 +161,17 @@ export default function Edit({product,categories,brands}: Props) {
                                 </Label>
 
                                 <div className="group relative">
-                                  <Select value={data.category_id} onValueChange={(value)=>setData('category_id', value)}>
-                                    <SelectTrigger className='h-12 w-full dark:border-gray-800 dark:bg-gray-800/80'>
-                                        <SelectValue placeholder="Select Category" />
+                                  <Select 
+                                    id="department"
+                                    name="department"
+                                    value={data.department}
+                                    onChange={(value)=>setData('department', value)}
+                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
+                                    required
+                                  >
+                                    <SelectTrigger>
+                                      <SelectValue pl></SelectValue>
                                     </SelectTrigger>
-                                    <SelectContent>
-                                        {categories.map((category)=>(
-                                            <SelectItem key={category.id} value={category.id.toString()}>
-                                                {category.path}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
                                   </Select>
                                 </div>
                                 
