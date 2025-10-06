@@ -4,12 +4,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/texarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { AlertCircle, ArrowLeft, Diamond, File, List, Save, TagIcon } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import JoditEditor from 'jodit-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -364,8 +363,9 @@ export default function Create({categories, brands}: Props) {
                                     height:400,
                                     toolbarButtonSize:'medium',
                                     theme:'default',
-                                    enableDragAndDropFile: false,
+                                    enableDragAndDropFileToEditor: true,
                                     statusbar: false,
+                                    askBeforePasteHTML: false,
                                     askBeforePasteFromWord: false,
                                     defaultMode: 1,
                                     buttons: [
@@ -395,7 +395,7 @@ export default function Create({categories, brands}: Props) {
                                     showXPathInStatusbar: false,
                                     showCharsCounter: false,
                                     showWordsCounter: false,
-                                    enter: 'P',
+                                    enter: 'p',
                                   }}
                                   tabIndex={1}
                                   onBlur={(newContent) => {
@@ -404,17 +404,9 @@ export default function Create({categories, brands}: Props) {
                                     }
                                   }}
                                   onChange={(newContent) => {
-                                    setData('description', newContent);
+                                    // setData('description', newContent);
                                   }}
                                 />
-                                
-                                {/* <Textarea 
-                                    id='description'
-                                    value={data.description }
-                                    onChange={(e)=>setData('barcode', e.target.value)}
-                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-32 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
-                                    placeholder='Enter product description'
-                                /> */}
 
                                 {errors.description && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">

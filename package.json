@@ -48,6 +48,8 @@
         "concurrently": "^9.0.1",
         "globals": "^15.14.0",
         "input-otp": "^1.4.2",
+        "jodit": "^4.6.13",
+        "jodit-react": "^5.2.26",
         "laravel-vite-plugin": "^2.0",
         "lucide-react": "^0.475.0",
         "react": "^19.0.0",
