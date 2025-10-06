@@ -99,7 +99,16 @@ export default function Edit({product,categories,brands}: Props) {
                       <p className="text-sm text-gray-500 dark:text-gray-300">Update product details</p>
                     </div>
                   </div>
-                  <Link href={router(admin.products.index)} prefetch></Link>
+                  <Link href={route('admin.products.index')} prefetch>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                    >
+                      <ArrowLeft size={16}/>
+                      Back
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Card>
