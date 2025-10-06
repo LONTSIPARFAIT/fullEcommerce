@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Select } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, File, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, File, List, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -152,33 +153,35 @@ export default function Edit({product,categories,brands}: Props) {
                                 </div>
                             )}
                         </div>
-                        {/* for the name field */}
-                        <div className="space-y-2">
-                            <Label htmlFor='name' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
-                                <File size={14} className='text-primary dark:text-primary-foreground'/>
-                                Product Name
-                            </Label>
-                            <div className="group relative">
-                                <Input 
-                                  id='name'
-                                  value={data.name}
-                                  onChange={(e)=>setData('name', e.target.value)}
-                                  className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
-                                  placeholder='Enter product name'
-                                />
-                                <File
-                                size={18}
-                                className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
-                            />
-                            </div>
+                          {/* category */}
+                          <div className="space-y-2">
+                                <Label htmlFor='department' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
+                                    <List size={14} className='text-primary dark:text-primary-foreground'/>
+                                    Departement
+                                </Label>
 
-                            {errors.name && (
-                                <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
-                                    <AlertCircle size={14} />
-                                    <span>{errors.name}</span>
+                                <div className="group relative">
+                                  <Select value={data.category_id} onValueChange={(value)=>setData('category_id', value)}>
+                                    <SelectTrigger className='h-12 w-full dark:border-gray-800 dark:bg-gray-800/80'>
+                                        <SelectValue placeholder="Select Category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((category)=>(
+                                            <SelectItem key={category.id} value={category.id.toString()}>
+                                                {category.path}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                  </Select>
                                 </div>
-                            )}
-                        </div>
+                                
+                                {errors.category_id && (
+                                    <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
+                                        <AlertCircle size={14} />
+                                        <span>{errors.category_id}</span>
+                                    </div>
+                                )}
+                          </div>
                       </div>
                     </form>
                 </div>
