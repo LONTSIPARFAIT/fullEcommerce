@@ -87,8 +87,14 @@ export default function Edit({product,categories,brands}: Props) {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
         <div className="grid grid-cols-12 gap-4 sm:gap-6">
           <div className="col-span-9">
-            <Card>
-              d
+            <Card className="border-none bg-white shadow-xl dark:bg-gray-800">
+              <div className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary/20 dark:bg-primary/20" ></div>
+                  </div>
+                </div>
+              </div>
             </Card>
           </div>
           <div className="col-span-3">
