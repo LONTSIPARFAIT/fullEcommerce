@@ -344,8 +344,8 @@ export default function Create({categories, brands}: Props) {
                                 )}
                             </div>
                         </div>
-                            {/* description */}
-                            <div className="space-y-2">
+                        {/* description */}
+                        <div className="space-y-2">
                                 <Label
                                   htmlFor='description'
                                   className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
@@ -414,14 +414,14 @@ export default function Create({categories, brands}: Props) {
                                         <span>{errors.description}</span>
                                     </div>
                                 )}
-                            </div>
-                            {/* button */}
-                            <div className="pt-4 flex items-center justify-center" >
+                        </div>
+                        {/* button */}
+                        <div className="pt-4 flex items-center justify-center" >
                                 <Button type='submit' className='' disabled={processing} >
                                     <Save size={16} className='mr-2' />
                                     {processing ? 'Saving...' : 'Save Product'}
                                 </Button>
-                            </div>
+                        </div>
                     </div>
                 </form>
             </CardContent>
