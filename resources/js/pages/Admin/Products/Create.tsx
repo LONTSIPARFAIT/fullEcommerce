@@ -83,8 +83,8 @@ export default function Create({categories, brands}: Props) {
                         </div>
                     </div>
 
-                    <Link href='#'>
-                    {/* <Link href={route('admin.products.index')}> */}
+                    <Link href='#' prefetch>
+                    {/* <Link href={route('admin.products.index')} prefetch> */}
                         <Button
                           variant='ghost'
                           size='sm'  

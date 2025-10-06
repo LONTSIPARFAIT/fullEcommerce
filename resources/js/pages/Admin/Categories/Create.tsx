@@ -125,7 +125,7 @@ export default function Create({categories}: { categories: CategoryWithPath[] })
                       </div>
                     </div>
 
-                    <Link
+                    <Link prefetch
                       href='/index'
                     //   href={route('admin.categories.index')}
                     >

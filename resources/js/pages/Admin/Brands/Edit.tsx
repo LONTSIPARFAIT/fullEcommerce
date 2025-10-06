@@ -110,7 +110,7 @@ export default function Create({brand,}: { brand:Brand; }) {
                       </div>
                     </div>
 
-                    <Link
+                    <Link prefetch
                       href='/index'
                     //   href={route('admin.brands.index')}
                     >

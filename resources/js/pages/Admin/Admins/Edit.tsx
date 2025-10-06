@@ -111,7 +111,7 @@ export default function Edit({admin}: { admin: Admin }) {
                       </div>
                     </div>
 
-                    <Link
+                    <Link prefetch
                       href='/index'
                     //   href={route('admin.admins.index')}
                     >

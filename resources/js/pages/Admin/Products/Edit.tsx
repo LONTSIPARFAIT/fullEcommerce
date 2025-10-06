@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, ImageIcon, Save, Diamond, Trash2, Upload, User } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ImageIcon, Save, Diamond, Trash2, Upload, User, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -91,8 +91,15 @@ export default function Edit({product,categories,brands}: Props) {
               <div className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary/20 dark:bg-primary/20" ></div>
+                    <div className="bg-primary/20 dark:bg-primary/20 rounded-xl ml-2 p-2 shadow-sm backdrop-blur-sm">
+                      <TagIcon className="text-primary dark:text-primary-foreground" size={25}/>
+                    </div>
+                    <div className="">
+                      <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Edit Product</h1>
+                      <p className="text-sm text-gray-500 dark:text-gray-300">Update product details</p>
+                    </div>
                   </div>
+                  <Link href={router(admin.products.index)} prefetch></Link>
                 </div>
               </div>
             </Card>
