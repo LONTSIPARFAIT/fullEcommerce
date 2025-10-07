@@ -5,9 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, File, List, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, File, List, Pencil, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -460,7 +461,34 @@ export default function Edit({product,categories,brands}: Props) {
                   <h1 className="fond-medium text-gray-900 dark:text-white">Product Setting</h1>
                   <p className="text-sm text-gray-500 dark:text-gray-400">Manage your product details</p>
                 </div>
-                <nav className=""></nav>
+                <nav className="flex flex-cols space-y-1 p-2">
+                  <Link
+                    href='admin.products.edit'
+                    // href={route('admin.products.edit', product.id)}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                      activeTab === 'details'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <Pencil size={16} />
+                    Edit Product
+                  </Link>
+                  <Link
+                    href='admin.products.edit'
+                    // href={route('admin.products.edit', product.id)}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                      activeTab === 'details'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <Pencil size={16} />
+                    Edit Product
+                  </Link>
+                </nav>
               </CardContent>
             </Card>
           </div>
