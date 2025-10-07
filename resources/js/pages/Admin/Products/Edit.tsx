@@ -1,3 +1,4 @@
+import DeleteDialog from '@/components/DeleteDialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import JoditEditor from 'jodit-react';
 import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
@@ -59,6 +60,9 @@ const statusOptions = [
 ]
 
 export default function Edit({product,categories,brands}: Props) {
+  
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
   const { data, setData, post, processing, errors } = useForm({
     _method:'PUT',
     name: product.name,
@@ -92,6 +96,18 @@ export default function Edit({product,categories,brands}: Props) {
       },
     });
   };
+
+      const handleDelete = (id: number) => {
+          router.delete(route('admin.products.destroy', id), {
+              preserveScroll: true,
+              onSuccess: () => {
+                  // toast.success('User delete sucessfuly')
+              },
+              onError: ()=>{
+                  // toast.success('User deletion failed')
+              }
+          })
+      }
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -453,11 +469,11 @@ export default function Edit({product,categories,brands}: Props) {
                         </div> 
                         {/* button */}
                         <div className="mt-8 pt-6 flex items-center justify-end gap-4 border-t" >
-                          <Button variant='destructive' type='button' className='flex items-center gap-2' >
+                          <Button variant='destructive' type='button' onClick={()=>setShowDeleteDialog(true)} className='flex items-center gap-2 cursor-pointer' >
                             <Trash2 size={16} />
                             Delete Product
                           </Button>
-                          <Button type='submit' className='bg-primary hover:bg-primary/90 flex items-center gap-2' disabled={processing} >
+                          <Button type='submit' className='bg-primary hover:bg-primary/90 flex items-center gap-2 cursor-pointer' disabled={processing} >
                             <Save size={16}/>
                             {processing ? 'Saving...' : 'Save Product'}
                           </Button>
@@ -538,6 +554,15 @@ export default function Edit({product,categories,brands}: Props) {
           </div>
         </div>
       </div>
+      <DeleteDialog
+        isOpen={showDeleteDialog}
+        onClose={() => setShowDeleteDialog(false)}
+        onConfirm={() => handleDelete(product.id)}
+        title="Delete Item"
+        message="Are you sure to delete this items? This action cannot be undone."
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+      />      
     </AppLayout>
   );
 }

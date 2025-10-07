@@ -93,7 +93,6 @@ class ProductController extends Controller
         $data = $request->only('name', 'description', 'status', 'brand_id', 'category_id', 'price', 'quantity', 'barcode', 'sku');
 
         $product->update($data);
-        // $data['status'] = 'active';
 
         return redirect()->route('admin.products.index')->with('success', 'Product modifier avec success');
     }
