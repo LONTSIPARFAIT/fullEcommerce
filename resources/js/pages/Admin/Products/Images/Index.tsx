@@ -92,17 +92,39 @@ export default function ProductImages({product,}: {product: Product}) {
     });
   };
 
-      const handleDelete = (id: number) => {
-          router.delete(route('admin.products.destroy', id), {
-              preserveScroll: true,
-              onSuccess: () => {
-                  // toast.success('User delete sucessfuly')
-              },
-              onError: ()=>{
-                  // toast.success('User deletion failed')
-              }
-          })
+    const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0] || null;
+  
+      if (file) {
+        setData('image', file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImagePreview(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
       }
+    };
+  
+    const clearImage = () => {
+      setData('image', null);
+      setImagePreview(null);
+  
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    };
+
+    const handleDelete = (id: number) => {
+        router.delete(route('admin.products.destroy', id), {
+            preserveScroll: true,
+            onSuccess: () => {
+            // toast.success('User delete sucessfuly')
+        },
+            onError: ()=>{
+                // toast.success('User deletion failed')
+            }
+        })
+    }
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
