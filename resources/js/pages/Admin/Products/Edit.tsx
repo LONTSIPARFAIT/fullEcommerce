@@ -8,7 +8,7 @@ import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, File, List, Pencil, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, File, Images, List, Pencil, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -476,8 +476,8 @@ export default function Edit({product,categories,brands}: Props) {
                     Edit Product
                   </Link>
                   <Link
-                    href='admin.products.edit'
-                    // href={route('admin.products.edit', product.id)}
+                    href='admin.products.images.index'
+                    // href={route('admin.products.images.index', product.id)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'images'
@@ -485,12 +485,12 @@ export default function Edit({product,categories,brands}: Props) {
                       : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
-                    <Pencil size={16} />
+                    <Images size={16} />
                     Product Images
                   </Link>
                   <Link
-                    href='admin.products.edit'
-                    // href={route('admin.products.edit', product.id)}
+                    href='admin.products.variation-types'
+                    // href={route('admin.products.variation-types', product.id)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'images'
