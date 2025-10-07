@@ -8,7 +8,8 @@ import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, File, Images, Layers, List, Pencil, TagIcon } from 'lucide-react';
+import JoditEditor from 'jodit-react';
+import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -378,76 +379,83 @@ export default function Edit({product,categories,brands}: Props) {
                             </div>
                         </div>
                         {/* description */}
-                        {/* <div className="space-y-2">
-                                <Label
-                                  htmlFor='description'
-                                  className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
-                                >
-                                    <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
-                                    Description
-                                </Label>
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor='description'
+                            className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                          >
+                            <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
+                            Description
+                          </Label>
 
-                                <JoditEditor  
-                                  ref={editor}
-                                  value={data.description}
-                                  config={{
-                                    readonly:false,
-                                    placeholder:'Enter product description...',
-                                    height:400,
-                                    toolbarButtonSize:'medium',
-                                    theme:'default',
-                                    enableDragAndDropFileToEditor: true,
-                                    statusbar: false,
-                                    askBeforePasteHTML: false,
-                                    askBeforePasteFromWord: false,
-                                    defaultMode: 1,
-                                    buttons: [
-                                        'bold',
-                                        'italic',
-                                        'underline',
-                                        'strikethrough',
-                                        '|',
-                                        'font',
-                                        'fontsize',
-                                        'paragraph',
-                                        '|',
-                                        'align',
-                                        '|',
-                                        'ul',
-                                        'ol',
-                                        '|',
-                                        'link',
-                                        '|',
-                                        'undo',
-                                        'redo',
-                                    ],
-                                    colors: { 
-                                        background: ['#ff0000', '#00ff00', '#0000ff'],
-                                        text: ['#000000', '#ffffff', '#333333'],
-                                    },
-                                    showXPathInStatusbar: false,
-                                    showCharsCounter: false,
-                                    showWordsCounter: false,
-                                    enter: 'p',
-                                  }}
-                                  tabIndex={1}
-                                  onBlur={(newContent) => {
-                                    if (newContent !== data.description) {
-                                        setData('description', newContent);
-                                    }
-                                  }}
-                                  onChange={(newContent) => {
-                                    // setData('description', newContent);
-                                  }}
-                                />
+                          <JoditEditor  
+                            ref={editor}
+                            value={data.description}
+                            config={{
+                              readonly:false,
+                              placeholder:'Enter product description...',
+                              height:400,
+                              toolbarButtonSize:'medium',
+                              theme:'default',
+                              enableDragAndDropFileToEditor: true,
+                              statusbar: false,
+                              askBeforePasteHTML: false,
+                              askBeforePasteFromWord: false,
+                              defaultMode: 1,
+                              buttons: [
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strikethrough',
+                                '|',
+                                'font',
+                                'fontsize',
+                                'paragraph',
+                                '|',
+                                'align',
+                                '|',
+                                'ul',
+                                'ol',
+                                '|',
+                                'link',
+                                '|',
+                                'undo',
+                                'redo',
+                              ],
+                              colors: { 
+                                background: ['#ff0000', '#00ff00', '#0000ff'],
+                                text: ['#000000', '#ffffff', '#333333'],
+                              },
+                              showXPathInStatusbar: false,
+                              showCharsCounter: false,
+                              showWordsCounter: false,
+                              enter: 'p',
+                            }}
+                            tabIndex={1}
+                            onBlur={(newContent) => {
+                              if (newContent !== data.description) {
+                                setData('description', newContent);
+                              }
+                            }}
+                            onChange={(newContent) => {
+                              // setData('description', newContent);
+                            }}
+                          />
 
-                                {errors.description && (
+                        {errors.description && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
                                         <AlertCircle size={14} />
                                         <span>{errors.description}</span>
                                     </div>
-                                )}
-                        </div>                                              */}
+                          )}
+                        </div> 
+                        {/* button */}
+                        <div className="pt-4 flex items-center justify-center" >
+                          <Button type='submit' className='' disabled={processing} >
+                            <Save size={16} className='mr-2' />
+                            {processing ? 'Saving...' : 'Save Product'}
+                          </Button>
+                        </div>                        
                       </div>
                     </form>
                 </div>
@@ -461,8 +469,9 @@ export default function Edit({product,categories,brands}: Props) {
                   <h1 className="fond-medium text-gray-900 dark:text-white">Product Setting</h1>
                   <p className="text-sm text-gray-500 dark:text-gray-400">Manage your product details</p>
                 </div>
-                <nav className="flex flex-cols space-y-1 p-2">
+                <nav className="flex flex-col space-y-1 p-2">
                   <Link
+                    prefetch
                     href='admin.products.edit'
                     // href={route('admin.products.edit', product.id)}
                     className={cn(
@@ -476,6 +485,7 @@ export default function Edit({product,categories,brands}: Props) {
                     Edit Product
                   </Link>
                   <Link
+                    prefetch
                     href='admin.products.images.index'
                     // href={route('admin.products.images.index', product.id)}
                     className={cn(
@@ -489,6 +499,7 @@ export default function Edit({product,categories,brands}: Props) {
                     Product Images
                   </Link>
                   <Link
+                    prefetch
                     href='admin.products.variation-types.index'
                     // href={route('admin.products.variation-types.index', product.id)}
                     className={cn(
@@ -502,17 +513,18 @@ export default function Edit({product,categories,brands}: Props) {
                     Variation Types
                   </Link>
                   <Link
-                    href='admin.products.variation-types.index'
-                    // href={route('admin.products.variation-types.index', product.id)}
+                    prefetch
+                    href='admin.products.variations.index'
+                    // href={route('admin.products.variations.index', product.id)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      activeTab === 'variation-types'
+                      activeTab === 'variations'
                       ? 'bg-primary/10 text-primary'
                       : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
-                    <Layers size={16} />
-                    Variation Types
+                    <Grid size={16} />
+                    Variation
                   </Link>
                 </nav>
               </CardContent>
