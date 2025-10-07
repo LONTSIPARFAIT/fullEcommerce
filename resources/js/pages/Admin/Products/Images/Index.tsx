@@ -193,9 +193,7 @@ export default function ProductImages({product,}: {product: Product}) {
 
               <CardContent>
                 <div className="p-4">
-                    {activeTab === 'details' && (
-
-                    )}
+                    dfd
                 </div>
               </CardContent>
             </Card>
