@@ -455,6 +455,10 @@ export default function Edit({product,categories,brands}: Props) {
                             <Save size={16} className='mr-2' />
                             {processing ? 'Saving...' : 'Save Product'}
                           </Button>
+                          <Button type='submit' className='' disabled={processing} >
+                            <Save size={16} className='mr-2' />
+                            {processing ? 'Saving...' : 'Save Product'}
+                          </Button>
                         </div>                        
                       </div>
                     </form>
