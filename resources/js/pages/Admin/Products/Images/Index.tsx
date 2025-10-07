@@ -66,10 +66,10 @@ export default function ProductImages({product,}: {product: Product}) {
     maxSize: 5242880, // 5MB
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsUploading(true);
-  };
+//   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setIsUploading(true);
+//   };
 
     const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0] || null;
@@ -105,26 +105,6 @@ export default function ProductImages({product,}: {product: Product}) {
             };
             reader.readAsDataURL(file);
 
-                        // post(route('admin.brands.update'), {
-            post(('admin/brands/update'), {
-            data: {
-                ...data,
-            },
-            preserveScroll: true,
-            onProgress: (progress) => {
-                if (progress.percentage) {
-                setUploadProgress(progress.percentage);
-                }
-            },
-            onSuccess: () => {
-                setIsUploading(false);
-                setUploadProgress(0);
-            },
-            onError: () => {
-                setIsUploading(false);
-                setUploadProgress(0);
-            },
-            });
         })
     }
 
@@ -142,6 +122,25 @@ export default function ProductImages({product,}: {product: Product}) {
             formData.append('image[]', file)
         });
         formData.append('product_id', product.id.toString())
+
+            // post(route('admin.products.images.store'), {
+            post(('admin/products/images'), {
+            data: formData,
+            preserveScroll: true,
+            onProgress: (progress) => {
+                if (progress.percentage) {
+                    setUploadProgress(progress.percentage);
+                }
+            },
+            onSuccess: () => {
+                setIsUploading(false);
+                setUploadProgress(0);
+            },
+            onError: () => {
+                setIsUploading(false);
+                setUploadProgress(0);
+            },
+        });
     }
 
     const handleDelete = (id: number) => {
