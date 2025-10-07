@@ -12,11 +12,19 @@ class ProductImageController extends Controller
         $images = [];
 
         return Inertia::render('Admin/Products/Images/index',[
-            'images' => $images;
+            'images' => $images,
         ]);
     }
 
     public function store(){
+        //
+    }
+
+    public function update(Request $request){
+        //
+    }
+
+    public function destroy(){
         //
     }
 }
