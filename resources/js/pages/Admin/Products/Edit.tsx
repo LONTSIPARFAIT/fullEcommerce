@@ -480,13 +480,26 @@ export default function Edit({product,categories,brands}: Props) {
                     // href={route('admin.products.edit', product.id)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      activeTab === 'details'
+                      activeTab === 'images'
                       ? 'bg-primary/10 text-primary'
                       : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
                     <Pencil size={16} />
-                    Edit Product
+                    Product Images
+                  </Link>
+                  <Link
+                    href='admin.products.edit'
+                    // href={route('admin.products.edit', product.id)}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                      activeTab === 'images'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <Pencil size={16} />
+                    Product Images
                   </Link>
                 </nav>
               </CardContent>
