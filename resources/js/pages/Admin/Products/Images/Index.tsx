@@ -11,7 +11,7 @@ import { BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import JoditEditor from 'jodit-react';
 import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,76 +23,71 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface Product{
     id: number;
     name: string;
-    slug: string;
-    department: string;
-    category: string;
-    description: string;
-    price: number;
-    quantity: number;
-    status: string;
     image: string;
     created_at: string;
     updated_at: string;
 }
 
-
-interface Category{
-    id: number;
-    path: string;
-    name: string;
-    level: string;
-}
-
-interface Brand {
-    id: number;
-    name: string;
-}
-
-interface Props {
-    product: Product;
-    categories: Category[];
-    brands: Brand[];
-}
-
-const statusOptions = [
-    { label: 'Draft', value: 'draft' },
-    { label: 'Published', value: 'published' },
-]
-
-export default function ProductImages({product,categories,brands}: Props) {
-  
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
+export default function ProductImages({product,}: {product: Product}) {
   const { data, setData, post, processing, errors } = useForm({
     _method:'PUT',
-    name: product.name,
-    category_id: product.category_id.toString(),
-    brand_id: product.brand_id.toString(),
-    description: product.description,
-    sku: product.sku,
-    price: product.price,
-    barcode: product.barcode,
-    status: product.status,
-    quantity: product.quantity,
+    id: product.id,
+    image: null as File | null,
   });
  
   console.log('data',data);
   
-  const editor = useRef(null);
-  const [activeTab, setActiveTab] = useState('details');
+  const [imagePreview, setImagePreview] = useState<string | null>(category.image || null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState('images');
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+
+  const onDrop = useCallback((acceptedFiles: File[])=>{
+    setSelectedFiles((prev)=>[...prev, ...acceptedFiles]);
+
+    // generate previews
+    acceptedFiles.forEach((file)=>{
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setPreviews((prev)=>[...prev, e.target?.result as string])
+        };
+        reader.readAsDataURL(file);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    ondrop,
+    accept: {
+        'image/*': ['.jpeg', '.jpg', '.png', '.gif'],
+    },
+    maxSize: 5242880, // 5MB
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsUploading(true);
 
-    // post(route('admin.products.update'), {
-    post(('admin/Products/update'), {
+    post(('admin/products/update'), {
+        // post(route('admin.products.update'), {
       data: {
         ...data,
       },
       preserveScroll: true,
-      onSuccess: () => {
+      onProgress: (progress) => {
+        if (progress.percentage) {
+          setUploadProgress(progress.percentage);
+        }
+      },
+       onSuccess: () => {
+        setIsUploading(false);
+        setUploadProgress(0);
       },
       onError: () => {
+        setIsUploading(false);
+        setUploadProgress(0);
       },
     });
   };

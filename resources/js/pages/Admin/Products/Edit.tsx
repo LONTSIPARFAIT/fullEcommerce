@@ -57,7 +57,7 @@ interface Props {
 const statusOptions = [
     { label: 'Draft', value: 'draft' },
     { label: 'Published', value: 'published' },
-]
+];
 
 export default function Edit({product,categories,brands}: Props) {
   
