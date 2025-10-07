@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { Select } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -154,26 +154,27 @@ export default function Edit({product,categories,brands}: Props) {
                             )}
                         </div>
                           {/* category */}
-                          <div className="space-y-2">
-                                <Label htmlFor='department' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
+                        {/* category & brand section */}
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {/* category */}
+                            <div className="space-y-2">
+                                <Label htmlFor='category_id' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
                                     <List size={14} className='text-primary dark:text-primary-foreground'/>
-                                    Departement
+                                    Category
                                 </Label>
 
-                                <div className="group relative">
-                                  <Select 
-                                    id="department"
-                                    name="department"
-                                    value={data.department}
-                                    onChange={(value)=>setData('department', value)}
-                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
-                                    required
-                                  >
-                                    <SelectTrigger>
-                                      <SelectValue pl></SelectValue>
+                                <Select value={data.category_id} onValueChange={(value)=>setData('category_id', value)}>
+                                    <SelectTrigger className='h-12 w-full dark:border-gray-800 dark:bg-gray-800/80'>
+                                        <SelectValue placeholder="Select Category" />
                                     </SelectTrigger>
-                                  </Select>
-                                </div>
+                                    <SelectContent>
+                                        {categories.map((category)=>(
+                                            <SelectItem key={category.id} value={category.id.toString()}>
+                                                {category.path}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                                 
                                 {errors.category_id && (
                                     <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
@@ -181,7 +182,35 @@ export default function Edit({product,categories,brands}: Props) {
                                         <span>{errors.category_id}</span>
                                     </div>
                                 )}
-                          </div>
+                            </div>
+                            {/* brands */}
+                            <div className="space-y-2">
+                                <Label htmlFor='brand_id' className='flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200'>
+                                    <TagIcon size={14} className='text-primary dark:text-primary-foreground'/>
+                                    Brand
+                                </Label>
+
+                                <Select value={data.brand_id} onValueChange={(value)=>setData('brand_id', value)}>
+                                    <SelectTrigger className='h-12 w-full dark:border-gray-800 dark:bg-gray-800/80'>
+                                        <SelectValue placeholder="Select Category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {brands.map((brand)=>(
+                                            <SelectItem key={brand.id} value={brand.id.toString()}>
+                                                {brand.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                
+                                {errors.brand_id && (
+                                    <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
+                                        <AlertCircle size={14} />
+                                        <span>{errors.brand_id}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                       </div>
                     </form>
                 </div>
