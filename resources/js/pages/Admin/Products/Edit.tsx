@@ -8,7 +8,7 @@ import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, File, Images, List, Pencil, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, File, Images, Layers, List, Pencil, TagIcon } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -489,17 +489,30 @@ export default function Edit({product,categories,brands}: Props) {
                     Product Images
                   </Link>
                   <Link
-                    href='admin.products.variation-types'
-                    // href={route('admin.products.variation-types', product.id)}
+                    href='admin.products.variation-types.index'
+                    // href={route('admin.products.variation-types.index', product.id)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      activeTab === 'images'
+                      activeTab === 'variation-types'
                       ? 'bg-primary/10 text-primary'
                       : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
-                    <Pencil size={16} />
-                    Product Images
+                    <Layers size={16} />
+                    Variation Types
+                  </Link>
+                  <Link
+                    href='admin.products.variation-types.index'
+                    // href={route('admin.products.variation-types.index', product.id)}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                      activeTab === 'variation-types'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <Layers size={16} />
+                    Variation Types
                   </Link>
                 </nav>
               </CardContent>
