@@ -90,7 +90,7 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, Product $product) : RedirectResponse
     {
         // $product = Product::findOrFail($id);
-        $data = $request->only('name', 'description', 'status','published', 'brand_id', 'category_id', 'price', 'quantity', 'barcode', 'sku');
+        $data = $request->only('name', 'description', 'status', 'brand_id', 'category_id', 'price', 'quantity', 'barcode', 'sku');
 
         $product->update($data);
         // $data['status'] = 'active';
