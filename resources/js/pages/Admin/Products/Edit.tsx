@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import JoditEditor from 'jodit-react';
-import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon } from 'lucide-react';
+import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -62,8 +62,8 @@ export default function Edit({product,categories,brands}: Props) {
   const { data, setData, post, processing, errors } = useForm({
     _method:'PUT',
     name: product.name,
-    category_id: product.category_id,
-    brand_id: product.brand_id,
+    category_id: product.category_id.toString(),
+    brand_id: product.brand_id.toString(),
     description: product.description,
     sku: product.sku,
     price: product.price,
@@ -71,7 +71,9 @@ export default function Edit({product,categories,brands}: Props) {
     status: product.status,
     quantity: product.quantity,
   });
-
+ 
+  console.log('data',data);
+  
   const editor = useRef(null);
   const [activeTab, setActiveTab] = useState('details');
 
@@ -450,13 +452,13 @@ export default function Edit({product,categories,brands}: Props) {
                           )}
                         </div> 
                         {/* button */}
-                        <div className="pt-4 flex items-center justify-center" >
-                          <Button type='submit' className='' disabled={processing} >
-                            <Save size={16} className='mr-2' />
-                            {processing ? 'Saving...' : 'Save Product'}
+                        <div className="mt-8 pt-6 flex items-center justify-end gap-4 border-t" >
+                          <Button variant='destructive' type='button' className='flex items-center gap-2' >
+                            <Trash2 size={16} />
+                            Delete Product
                           </Button>
-                          <Button type='submit' className='' disabled={processing} >
-                            <Save size={16} className='mr-2' />
+                          <Button type='submit' className='bg-primary hover:bg-primary/90 flex items-center gap-2' disabled={processing} >
+                            <Save size={16}/>
                             {processing ? 'Saving...' : 'Save Product'}
                           </Button>
                         </div>                        
