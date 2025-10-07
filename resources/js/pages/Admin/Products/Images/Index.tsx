@@ -69,27 +69,6 @@ export default function ProductImages({product,}: {product: Product}) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsUploading(true);
-
-    post(('admin/products/update'), {
-        // post(route('admin.products.update'), {
-      data: {
-        ...data,
-      },
-      preserveScroll: true,
-      onProgress: (progress) => {
-        if (progress.percentage) {
-          setUploadProgress(progress.percentage);
-        }
-      },
-       onSuccess: () => {
-        setIsUploading(false);
-        setUploadProgress(0);
-      },
-      onError: () => {
-        setIsUploading(false);
-        setUploadProgress(0);
-      },
-    });
   };
 
     const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -113,6 +92,57 @@ export default function ProductImages({product,}: {product: Product}) {
         fileInputRef.current.value = '';
       }
     };
+
+    const handleMultipleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files || []);
+        setSelectedFiles((prev)=> [...prev, ...files]);
+
+        // generate previews for new files
+        files.forEach((file)=>{
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setPreviews((prev)=> [...prev, e.target?.result as string])
+            };
+            reader.readAsDataURL(file);
+
+                        // post(route('admin.brands.update'), {
+            post(('admin/brands/update'), {
+            data: {
+                ...data,
+            },
+            preserveScroll: true,
+            onProgress: (progress) => {
+                if (progress.percentage) {
+                setUploadProgress(progress.percentage);
+                }
+            },
+            onSuccess: () => {
+                setIsUploading(false);
+                setUploadProgress(0);
+            },
+            onError: () => {
+                setIsUploading(false);
+                setUploadProgress(0);
+            },
+            });
+        })
+    }
+
+    const removeImage = (index: number) => {
+       setSelectedFiles((prev)=>prev.filter((_,i)=>i !== index));
+       setPreviews((prev)=>prev.filter((_,i)=>i !== index));
+    }
+
+    const handleUpload = ()=>{
+        if(selectedFiles.length === 0) return ;
+
+        setIsUploading(true);
+        const formData = new FormData();
+        selectedFiles.forEach((file)=>{
+            formData.append('image[]', file)
+        });
+        formData.append('product_id', product.id.toString())
+    }
 
     const handleDelete = (id: number) => {
         router.delete(route('admin.products.destroy', id), {
