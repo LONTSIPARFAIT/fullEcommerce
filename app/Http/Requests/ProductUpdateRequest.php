@@ -30,7 +30,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|decimal|min:0',
             'barcode' => 'nullable|string|max:255',
-            'sku' => 'nullable|string|max:255|unique:products,sku',
+            'sku' => 'nullable|string|max:255',
         ];
     }
 }

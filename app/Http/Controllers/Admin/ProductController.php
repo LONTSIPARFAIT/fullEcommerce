@@ -87,17 +87,12 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(ProductUpdateRequest $request, Product $Product) : RedirectResponse
+    public function update(ProductUpdateRequest $request, Product $product) : RedirectResponse
     {
         // $product = Product::findOrFail($id);
-        $data = $request->only('name',);
+        $data = $request->only('name', 'description', 'status','published', 'brand_id', 'category_id', 'price', 'quantity', 'barcode', 'sku');
 
-        if($request->hasFile('image')){
-            ImageUploader::deleteImage($Product->image);
-            $data['image'] = ImageUploader::uploadImage($request->file('image'), 'Products');
-        }
-
-        $Product->update($data);
+        $product->update($data);
         // $data['status'] = 'active';
 
         return redirect()->route('admin.products.index')->with('success', 'Product modifier avec success');
