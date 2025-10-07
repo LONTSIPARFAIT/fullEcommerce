@@ -51,6 +51,11 @@ interface Props {
     brands: Brand[];
 }
 
+const statusOptions = [
+    { label: 'Draft', value: 'draft' },
+    { label: 'Published', value: 'published' },
+]
+
 export default function Edit({product,categories,brands}: Props) {
   const { data, setData, post, processing, errors } = useForm({
     _method:'PUT',
@@ -287,7 +292,7 @@ export default function Edit({product,categories,brands}: Props) {
 
                                 <Select value={data.status} onValueChange={(value)=>setData('status', value)}>
                                     <SelectTrigger className='h-12 w-full dark:border-gray-800 dark:bg-gray-800/80'>
-                                        <SelectValue placeholder="Select Status" />
+                                        <SelectValue placeholder="Status" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {statusOptions.map((option)=>(
@@ -305,7 +310,143 @@ export default function Edit({product,categories,brands}: Props) {
                                     </div>
                                 )}
                             </div>
-                        </div>                        
+                        </div>  
+                        {/* SKU and barcode */}
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {/* SKU */}
+                            <div className="space-y-2">
+                                <Label
+                                  htmlFor="sku" 
+                                  className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
+                                    SKU
+                                </Label>
+
+                                <div className="group relative">
+                                    <Input 
+                                    id='sku'
+                                    value={data.sku}
+                                    onChange={(e)=>setData('sku', e.target.value)}
+                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
+                                    placeholder='Enter SKU'
+                                    />
+                                    <File
+                                    size={18}
+                                    className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                                    />
+                                </div>
+
+                                {errors.sku && (
+                                    <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
+                                        <AlertCircle size={14} />
+                                        <span>{errors.sku}</span>
+                                    </div>
+                                )}
+                            </div>
+                            {/* barcode */}
+                            <div className="space-y-2">
+                                <Label
+                                  htmlFor="barcode" 
+                                  className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
+                                    Barcode
+                                </Label>
+
+                                <div className="group relative">
+                                    <Input 
+                                    id='barcode'
+                                    value={data.barcode }
+                                    onChange={(e)=>setData('barcode', e.target.value)}
+                                    className='focus:border-primary focus:ring-primary/20 dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border border-gray-200 bg-white/80 pl-10 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500 dark:focus:border-primary-foreground'
+                                    placeholder='Enter barcode'
+                                    />
+                                    <File
+                                    size={18}
+                                    className="group-hover:text-primary absolute top-1/2 left-3 -translate-y-1/2 text-gray-400 transition-colors dark:text-gray-500 dark:group-hover:text-primary-foreground"
+                                    />
+                                </div>
+
+                                {errors.barcode && (
+                                    <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
+                                        <AlertCircle size={14} />
+                                        <span>{errors.barcode}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        {/* description */}
+                        {/* <div className="space-y-2">
+                                <Label
+                                  htmlFor='description'
+                                  className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    <TagIcon size={14} className="text-primary dark:text-primary-foreground" />
+                                    Description
+                                </Label>
+
+                                <JoditEditor  
+                                  ref={editor}
+                                  value={data.description}
+                                  config={{
+                                    readonly:false,
+                                    placeholder:'Enter product description...',
+                                    height:400,
+                                    toolbarButtonSize:'medium',
+                                    theme:'default',
+                                    enableDragAndDropFileToEditor: true,
+                                    statusbar: false,
+                                    askBeforePasteHTML: false,
+                                    askBeforePasteFromWord: false,
+                                    defaultMode: 1,
+                                    buttons: [
+                                        'bold',
+                                        'italic',
+                                        'underline',
+                                        'strikethrough',
+                                        '|',
+                                        'font',
+                                        'fontsize',
+                                        'paragraph',
+                                        '|',
+                                        'align',
+                                        '|',
+                                        'ul',
+                                        'ol',
+                                        '|',
+                                        'link',
+                                        '|',
+                                        'undo',
+                                        'redo',
+                                    ],
+                                    colors: { 
+                                        background: ['#ff0000', '#00ff00', '#0000ff'],
+                                        text: ['#000000', '#ffffff', '#333333'],
+                                    },
+                                    showXPathInStatusbar: false,
+                                    showCharsCounter: false,
+                                    showWordsCounter: false,
+                                    enter: 'p',
+                                  }}
+                                  tabIndex={1}
+                                  onBlur={(newContent) => {
+                                    if (newContent !== data.description) {
+                                        setData('description', newContent);
+                                    }
+                                  }}
+                                  onChange={(newContent) => {
+                                    // setData('description', newContent);
+                                  }}
+                                />
+
+                                {errors.description && (
+                                    <div className="mt-2 flex items-center gap-6 rounded-md bg-red-50 p-2 text-sm text-red-500 dark:text-red-400">
+                                        <AlertCircle size={14} />
+                                        <span>{errors.description}</span>
+                                    </div>
+                                )}
+                        </div>                                              */}
                       </div>
                     </form>
                 </div>
@@ -313,8 +454,14 @@ export default function Edit({product,categories,brands}: Props) {
             </Card>
           </div>
           <div className="col-span-3">
-            <Card>
-              d
+            <Card className='sticky top-4 border-none bg-white shadow-xl dark:bg-gray-800'>
+              <CardContent className='p-0'>
+                <div className="border-b border-gray-200 p-4 dark:bg-gray-700">
+                  <h1 className="fond-medium text-gray-900 dark:text-white">Product Setting</h1>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Manage your product details</p>
+                </div>
+                <nav className=""></nav>
+              </CardContent>
             </Card>
           </div>
         </div>
