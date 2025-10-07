@@ -12,6 +12,7 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import JoditEditor from 'jodit-react';
 import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -22,15 +23,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface Product{
     id: number;
     name: string;
-    slug: string; 
-    category_id: number;
-    brand_id: number;
+    slug: string;
+    department: string;
+    category: string;
     description: string;
     price: number;
-    sku: string;
-    barcode: string;
-    status: string;
     quantity: number;
+    status: string;
+    image: string;
     created_at: string;
     updated_at: string;
 }
@@ -59,7 +59,7 @@ const statusOptions = [
     { label: 'Published', value: 'published' },
 ]
 
-export default function Edit({product,categories,brands}: Props) {
+export default function ProductImages({product,categories,brands}: Props) {
   
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
