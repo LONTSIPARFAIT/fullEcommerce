@@ -198,24 +198,32 @@ export default function VariationTypes({product, variationTypesLists }: {product
 
   const handleAddOption = (typeIndex: number)=>{
     const newVariationTypes = [...variationTypes];
-    newOptionIndex = newVariationTypes[typeIndex].options.filter((_,i)=>i !== index))
+    const newOptionIndex = newVariationTypes[typeIndex].options.length;
+    newVariationTypes[typeIndex].options.push({name:'',images:[], imagePreviews: []});
 
-    setVariationTypes([
-      ...variationTypes,
-      {
-        name: '',
-        type: 'image',
-        options: [{ name: '', images: [], imagePreviews: [] }],
-      },
-    ]);
-    setExpandedTypes((prev)=>({
-      ...prev,
-      [newTypeIndex]: true,
-    }))
+    setVariationTypes[newVariationTypes];
     setExpandedOptions((prev)=>({
       ...prev,
-      [`${newTypeIndex}-0`]: true,
+      [`${typeIndex}-${newOptionIndex}`]: true,
     }))
+  }
+
+    const removeSelectedVariationTypes = (index: number) => {
+    const variationTypes = variationTypes[index];
+
+    if(variationTypes.id){
+      destroy(route('admin.products.variation-types.destroy',variationTypes.id),{
+      onSuccess: ()=>{
+        setVariationTypes(variationTypes.filter((_,i)=>i !== index));
+        setValidationErrors({});
+      },
+      onError: (errors)=>{
+        setValidationErrors(errors);
+      },
+      });
+    }else{
+      setVariationTypes(variationTypes.filter((_,i)=>i !== index));
+    }
   }
 
   const onDrop = useCallback( (acceptedFiles: File[]) => {
