@@ -137,11 +137,17 @@ export default function ProductImages({product, images }: {product: Product; ima
               ) : (
                 <>
                   <p className="font-medium text-gray-600 dark:text-gray-300">Drag & drop images here, or click to select</p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Supports: JPG, PNG, GIF, (Max: 5MB)</p>
                 </>
               )}
               {/* Divine */}
             </div>
           </div>
+
+          {/* Combined Previews and Existing Images Section */}
+          { (productImages.length > 0 || selectedFiles.length > 0) && (
+            <div className=""></div>
+          )}
         </div>
       </CardContent>   
     </ProductLayout>
