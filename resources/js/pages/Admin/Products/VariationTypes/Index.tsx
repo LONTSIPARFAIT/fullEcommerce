@@ -46,14 +46,14 @@ interface VariationType{
 }
 
 export default function VariationTypes({product, variationTypesLists }: {product: Product; variationTypesLists: VariationType[] }) {
-  
-  const { 
-    data, 
-    setData, 
-    post, 
+
+  const {
+    data,
+    setData,
+    post,
     delete: destroy,
-    processing, 
-    errors, 
+    processing,
+    errors,
    } = useForm({
     variationTypes: [],
   });
@@ -91,22 +91,132 @@ export default function VariationTypes({product, variationTypesLists }: {product
   });
 
   const [expandedOptions, setExpandedOptions] = useState<Record<string, boolean>>(() => {
-    const initial:Record<number, boolean> = {};
-    variationTypes.forEach((_,index) => {
-      initial[index] = true;
+    const initial:Record<string, boolean> = {};
+    variationTypes.forEach((type,typeIndex) => {
+      type.options.forEach((_,optionIndex) => {
+        initial[`${typeIndex}-${optionIndex}`] = true;
+      })
     })
     return initial;
   });
 
 
-  const [productImages, setProductImages] = useState<Record<number, boolean>>((images) || []);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});;
 
   useEffect(()=>{
-    setProductImages(images || []);
-  }, [images]);
+    const clearVariationTypes = variationTypes.map((type) => ({
+      id: type.id,
+      name: type.name,
+      type: type.type,
+      options: type.options.map(({ id, name, images })=>({
+        id,
+        name,
+        images,
+      })),
+    }));
+    setData('variationTypes', clearVariationTypes);
+  }, [variationTypes]);
+
+  useEffect(()=>{
+    return ()=>{
+      VariationTypes.forEach((type)=>{
+        type.options.forEach((option)=>{
+          option.imagePreviews.forEach((preview)=>{
+            URL.revokeObjectURL(preview.url);
+          });
+        });
+      });
+    };
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append('variationTypes', JSON.stringify(data.variationTypes));
+
+    variationTypes.forEach((type,typeIndex)=>{
+      type.options.forEach((option,optionIndex)=>{
+        option.images.forEach((file,fileIndex)=>{
+          formData.append(`images[${typeIndex}][${optionIndex}][${fileIndex}]`, file);
+        });
+      });
+    });
+
+    post(route('admin.products.variation-types.store', product.id), {
+      data: formData,
+      forceFormData: true,
+      onSuccess: ()=>{
+        setIsUploading(false);
+        setValidationErrors({});
+      },
+      onError: (errors)=>{
+        setIsUploading(false);
+        setValidationErrors(errors);
+      },
+    });
+  }
+
+  const handleAddVariationType = ()=>{
+    const newTypeIndex = variationTypes.length;
+    setVariationTypes([
+      ...variationTypes,
+      {
+        name: '',
+        type: 'image',
+        options: [{ name: '', images: [], imagePreviews: [] }],
+      },
+    ]);
+    setExpandedTypes((prev)=>({
+      ...prev,
+      [newTypeIndex]: true,
+    }))
+    setExpandedOptions((prev)=>({
+      ...prev,
+      [`${newTypeIndex}-0`]: true,
+    }))
+  }
+
+  const removeSelectedVariationTypes = (index: number) => {
+    const variationTypes = variationTypes[index];
+
+    if(variationTypes.id){
+      destroy(route('admin.products.variation-types.destroy',variationTypes.id),{
+      onSuccess: ()=>{
+        setVariationTypes(variationTypes.filter((_,i)=>i !== index));
+        setValidationErrors({});
+      },
+      onError: (errors)=>{
+        setValidationErrors(errors);
+      },
+      });
+    }else{
+      setVariationTypes(variationTypes.filter((_,i)=>i !== index));
+    }
+  }
+
+  const handleAddOption = (typeIndex: number)=>{
+    const newVariationTypes = [...variationTypes];
+    newOptionIndex = newVariationTypes[typeIndex].options.filter((_,i)=>i !== index))
+
+    setVariationTypes([
+      ...variationTypes,
+      {
+        name: '',
+        type: 'image',
+        options: [{ name: '', images: [], imagePreviews: [] }],
+      },
+    ]);
+    setExpandedTypes((prev)=>({
+      ...prev,
+      [newTypeIndex]: true,
+    }))
+    setExpandedOptions((prev)=>({
+      ...prev,
+      [`${newTypeIndex}-0`]: true,
+    }))
+  }
 
   const onDrop = useCallback( (acceptedFiles: File[]) => {
     const newFiles = [...selectedFiles, ...acceptedFiles];
@@ -121,13 +231,6 @@ export default function VariationTypes({product, variationTypesLists }: {product
     accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.gif'], },
     maxSize: 5242880, // 5MB
   });
-  const removeSelectedImage = (index: number) => {
-    // revoke the previews object url to free up memory
-    URL.revokeObjetURL(previews[index]);
-
-    setSelectedFiles((prev)=>prev.filter((_,i)=>i !== index));
-    setPreviews((prev)=>prev.filter((_,i)=>i !== index));
-  }
 
   const handleUpload = ()=>{
     if(selectedFiles.length === 0) return ;
@@ -138,7 +241,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
     });
 
     setIsUploading(true);
-    
+
     // router.post(route('admin.products.images.store', product.id), formData, {
     router.post(('admin/products/images'), formData, {
       onProgress: (progress) => {
@@ -155,7 +258,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
         setIsUploading(false);
       },
     });
-  } 
+  }
 
   const handleDelete = (imageId: number) => {
     router.delete(route('admin.products.destroy', imageId), {
@@ -170,7 +273,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
   }
 
   return (
-    <ProductLayout 
+    <ProductLayout
       title='Variation Types'
       description='Configure your variations and options.'
       breadcrumbs={breadcrumbs}
@@ -185,7 +288,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
           {/* Image upload section */}
           <div className="space-y-4">
             <Label className='text-sm font-medium text-gray-700 dark:text-gray-200' >Upload New Images</Label>
-            <div 
+            <div
               {...getRootProps()}
               className={cn(
                 'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
@@ -193,7 +296,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
               )}
             >
               <input {...getInputProps} />
-              <Upload 
+              <Upload
                 className={cn(
                   'mx-auto mb-4 h-12 w-12 transition-colors',
                   isDragActive ? 'text-primary' : 'text-gray-400 dark:text-gray-300'
@@ -230,9 +333,9 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 {productImages.map((img)=>(
                   <div key={`existing-${img.id}`} className='group relative' >
                     <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                      <img 
-                        src={img.url} 
-                        alt="Product image" 
+                      <img
+                        src={img.url}
+                        alt="Product image"
                         className='h-full w-full object-cover transition-transform group-hover:scale-105'
                       />
                     </div>
@@ -240,7 +343,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
                       <Button
                         variant="destructive" size="sm" className='rounded-full' onClick={()=>{handleDelete(img.id)}}
                       >
-                        <Trash2 className='h-4 w-4'/> 
+                        <Trash2 className='h-4 w-4'/>
                       </Button>
                     </div>
                     <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
@@ -251,9 +354,9 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 {previews.map((preview, index)=>(
                   <div key={`previews-${index + 1}`} className="group relative">
                     <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                      <img 
-                        src={preview} 
-                        alt={`previews-${index + 1}`} 
+                      <img
+                        src={preview}
+                        alt={`previews-${index + 1}`}
                         className='h-full w-full object-cover transition-transform group-hover:scale-105'
                       />
                     </div>
@@ -261,7 +364,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
                       <Button
                         variant="destructive" size="sm" className='rounded-full' onClick={()=>{removeSelectedImage(index)}}
                       >
-                        <Trash2 className='h-4 w-4'/> 
+                        <Trash2 className='h-4 w-4'/>
                       </Button>
                     </div>
                     <p className="mt-2 truncate text-sm text-gray-500">{selectedFiles[index]?.name }</p>
@@ -271,7 +374,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 {/* upload progress */}
                 {processing && progress && (
                   <div className="mr-4">
-                    <Progress value={progress.percentage} className='h-2 w-full'/> 
+                    <Progress value={progress.percentage} className='h-2 w-full'/>
                     <p className="mt-2 truncate text-sm text-gray-500">{progress.percentage}% uploaded</p>
                   </div>
                 )}
@@ -279,7 +382,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
             </div>
           )}
         </div>
-      </CardContent>   
+      </CardContent>
     </ProductLayout>
   );
 }
