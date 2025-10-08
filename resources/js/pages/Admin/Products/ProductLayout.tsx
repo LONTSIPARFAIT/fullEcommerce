@@ -24,55 +24,16 @@ interface ProductLayoutProps {
     activeTab?: 'edit' | 'images' | 'variation-types' | 'variations';
 }
 
-export default function Edit({product,categories,brands}: Props) {
-  
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
-  const { data, setData, post, processing, errors } = useForm({
-    _method:'PUT',
-    name: product.name,
-    category_id: product.category_id.toString(),
-    brand_id: product.brand_id.toString(),
-    description: product.description,
-    sku: product.sku,
-    price: product.price,
-    barcode: product.barcode,
-    status: product.status,
-    quantity: product.quantity,
-  });
- 
-  console.log('data',data);
-  
-  const editor = useRef(null);
-  const [activeTab, setActiveTab] = useState('details');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // post(route('admin.products.update'), {
-    post(('admin/Products/update'), {
-      data: {
-        ...data,
-      },
-      preserveScroll: true,
-      onSuccess: () => {
-      },
-      onError: () => {
-      },
-    });
-  };
-
-      const handleDelete = (id: number) => {
-          router.delete(route('admin.products.destroy', id), {
-              preserveScroll: true,
-              onSuccess: () => {
-                  // toast.success('User delete sucessfuly')
-              },
-              onError: ()=>{
-                  // toast.success('User deletion failed')
-              }
-          })
-      }
+export default function ProductLayout({
+    title,
+    description,
+    breadcrumbs,
+    children,
+    backUrl,
+    icon,
+    productId,
+    activeTab = 'edit',
+}: ProductLayoutProps) {
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
