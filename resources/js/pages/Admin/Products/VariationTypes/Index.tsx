@@ -14,29 +14,47 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
   { title: 'Products', href: 'admin/Products/index' },
 //   { title: 'Products', href: route('admin.products.index') },
-  { title: 'Edit Uploader', href: '' },
+  { title: 'Variation Types', href: '' },
 ];
+interface ImagePreview{
+  id: number;
+  url: string;
+}
+
 interface Product{
     id: number;
     name: string;
-    image: string;
     created_at: string;
     updated_at: string;
 }
-interface ProductImage{
-    id: number;
-    url: string;
+
+interface VariationType{
+    id?: number;
+    name: string;
+    type: 'select' | 'radio' | 'image';
+    options: {
+      id?: number;
+      name: string;
+      image: File[];
+      imagePreviews: ImagePreview[];
+      existingImages?: {
+        id: number;
+        url: string;
+      }[];
+    }[];
 }
 
-export default function ProductImages({product, images }: {product: Product; images: ProductImage[] }) {
+export default function VariationType({product, variationTypesLists }: {product: Product; variationTypesLists: VariationType[] }) {
   
+  const { 
+    data, 
+    setData, post, processing, progress, reset } = useForm({
+    image: [] as File[],
+  });
   const [productImages, setProductImages] = useState<ProductImage[]>(images || []);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const { data, setData, post, processing, progress, reset } = useForm({
-    image: [] as File[],
-  });
 
   useEffect(()=>{
     setProductImages(images || []);
@@ -105,8 +123,8 @@ export default function ProductImages({product, images }: {product: Product; ima
 
   return (
     <ProductLayout 
-      title='Product Images'
-      description='Manage Product images.'
+      title='Variation Types'
+      description='Configure your variations and options.'
       breadcrumbs={breadcrumbs}
       // backUrl={route('admin.products.edit')}
       backUrl='admin/products/edit'

@@ -24,7 +24,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
             });
 
             Route::controller(ProductVariationTypeController::class)->group(function () {
-                Route::group(['prefix' => 'variation-type','as' => 'variation-type.'], function (){
+                Route::group(['prefix' => 'variation-types','as' => 'variation-types.'], function (){
                     Route::get('/{product}', 'index')->name('index');
                     Route::post('/{product}/store', 'store')->name('store');
                     Route::delete('/{product}/delete/{variationType}', 'destroy')->name('image.delete');
@@ -32,7 +32,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
             });
 
             Route::controller(ProductVariationController::class)->group(function () {
-                Route::group(['prefix' => 'variation','as' => 'variation.'], function (){
+                Route::group(['prefix' => 'variations','as' => 'variations.'], function (){
                     Route::get('/{product}', 'index')->name('index');
                     Route::post('/{product}/store', 'store')->name('store');
                     Route::delete('/{product}/delete/{variation}', 'destroy')->name('image.delete');
