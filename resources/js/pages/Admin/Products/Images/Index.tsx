@@ -129,7 +129,7 @@ export default function ProductImages({product, images }: {product: Product; ima
               <input {...getInputProps} />
               <Upload 
                 className={cn(
-                  'mx-auto mb-4 h-12 w-12 p-6 transition-colors',
+                  'mx-auto mb-4 h-12 w-12 transition-colors',
                   isDragActive ? 'text-primary' : 'text-gray-400 dark:text-gray-300'
                 )}
               />
