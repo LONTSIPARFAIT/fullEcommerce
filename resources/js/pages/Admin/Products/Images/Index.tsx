@@ -3,7 +3,7 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import {  Images, Layers, Pencil, TagIcon, Upload, } from 'lucide-react';
+import {  Images, Layers, Pencil, TagIcon, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
@@ -169,7 +169,14 @@ export default function ProductImages({product, images }: {product: Product; ima
                         className='h-full w-full object-cover transition-transform group-hover:scale-105'
                       />
                     </div>
-                    <div className="absolute"></div>
+                    <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:hover:opacity-100">
+                      <Button
+                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{handleDelete(img.id)}}
+                      >
+                        <Trash2 className='h-4 w-4'/> 
+                      </Button>
+                    </div>
+                    <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
                   </div>
                 ))}
               </div>
