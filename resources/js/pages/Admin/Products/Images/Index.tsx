@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router, useForm } from '@inertiajs/react';
-import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, Upload, } from 'lucide-react';
+import { router, useForm } from '@inertiajs/react';
+import {  Images, Layers, Pencil, TagIcon, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
@@ -146,7 +146,18 @@ export default function ProductImages({product, images }: {product: Product; ima
 
           {/* Combined Previews and Existing Images Section */}
           { (productImages.length > 0 || selectedFiles.length > 0) && (
-            <div className=""></div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className='text-lg font-medium text-gray-900 dark:text-gray-100'>
+                  Images ({productImages.length + selectedFiles.length})
+                </h3>
+                {selectedFiles.length > 0 && (
+                  <Button onClick={handleUpload} disabled={processing} className=''>
+                    <Upload className='mr-2 h-4 w-4' />
+                  </Button>
+                )}
+              </div>
+            </div>
           )}
         </div>
       </CardContent>   
