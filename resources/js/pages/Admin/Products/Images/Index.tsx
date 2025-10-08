@@ -1,18 +1,14 @@
-import DeleteDialog from '@/components/DeleteDialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import JoditEditor from 'jodit-react';
-import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
+import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, } from 'lucide-react';
 import React, { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import ProductLayout from '../ProductLayout';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -118,15 +114,13 @@ export default function ProductImages({product,}: {product: Product}) {
 
         setIsUploading(true);
         const formData = new FormData();
-        selectedFiles.forEach((file)=>{
-            formData.append('image[]', file)
+        selectedFiles.forEach((file, index)=>{
+            formData.append(`image[${index}]`, file)
         });
         formData.append('product_id', product.id.toString())
 
-            // post(route('admin.products.images.store'), {
-            post(('admin/products/images'), {
-            data: formData,
-            preserveScroll: true,
+            // router.post(route('admin.products.images.store', product.id), formData, {
+            router.post(('admin/products/images'), formData, {
             onProgress: (progress) => {
                 if (progress.percentage) {
                     setUploadProgress(progress.percentage);
@@ -134,11 +128,11 @@ export default function ProductImages({product,}: {product: Product}) {
             },
             onSuccess: () => {
                 setIsUploading(false);
-                setUploadProgress(0);
+                setSelectedFiles([]);
+                setPreviews([]);
             },
             onError: () => {
                 setIsUploading(false);
-                setUploadProgress(0);
             },
         });
     }

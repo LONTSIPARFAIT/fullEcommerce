@@ -14,6 +14,7 @@ import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save,
 import React, { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
+
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
   { title: 'Products', href: 'admin/Products/index' },
