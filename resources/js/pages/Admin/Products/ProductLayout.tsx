@@ -23,45 +23,6 @@ interface ProductLayoutProps {
     productId?: number;
     activeTab?: 'edit' | 'images' | 'variation-types' | 'variations';
 }
-interface Product{
-    id: number;
-    name: string;
-    slug: string; 
-    category_id: number;
-    brand_id: number;
-    description: string;
-    price: number;
-    sku: string;
-    barcode: string;
-    status: string;
-    quantity: number;
-    created_at: string;
-    updated_at: string;
-}
-
-
-interface Category{
-    id: number;
-    path: string;
-    name: string;
-    level: string;
-}
-
-interface Brand {
-    id: number;
-    name: string;
-}
-
-interface Props {
-    product: Product;
-    categories: Category[];
-    brands: Brand[];
-}
-
-const statusOptions = [
-    { label: 'Draft', value: 'draft' },
-    { label: 'Published', value: 'published' },
-];
 
 export default function Edit({product,categories,brands}: Props) {
   
