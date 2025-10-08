@@ -63,16 +63,7 @@ export default function ProductLayout({
             </Card>
           </div>
         </div>
-      </div>
-      <DeleteDialog
-        isOpen={showDeleteDialog}
-        onClose={() => setShowDeleteDialog(false)}
-        onConfirm={() => handleDelete(product.id)}
-        title="Delete Item"
-        message="Are you sure to delete this items? This action cannot be undone."
-        confirmButtonText="Delete"
-        cancelButtonText="Cancel"
-      />      
+      </div>    
     </AppLayout>
   );
 }
