@@ -57,7 +57,66 @@ export default function ProductLayout({
                   <p className="text-sm text-gray-500 dark:text-gray-400">Manage your product details</p>
                 </div>
                 <nav className="flex flex-col space-y-1 p-2">
-                  {activeTab === 'edit' && ()}
+                  {activeTab === 'edit' && (
+                    <>
+                      <Link
+                       prefetch
+                       href='admin.products.edit'
+                       // href={route('admin.products.edit', product.id)}
+                       className={cn(
+                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                       activeTab === 'details'
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                       )}
+                      >
+                        <Pencil size={16} />
+                        Edit Product
+                      </Link>
+                      <Link
+                        prefetch
+                        href='admin.products.images.index'
+                        // href={route('admin.products.images.index', product.id)}
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                          activeTab === 'images'
+                          ? 'bg-primary/10 text-primary'
+                          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        )}
+                      >
+                        <Images size={16} />
+                        Product Images
+                      </Link>
+                      <Link
+                        prefetch
+                        href='admin.products.variation-types.index'
+                        // href={route('admin.products.variation-types.index', product.id)}
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                          activeTab === 'variation-types'
+                          ? 'bg-primary/10 text-primary'
+                          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        )}
+                      >
+                        <Layers size={16} />
+                        Variation Types
+                      </Link>
+                      <Link
+                        prefetch
+                        href='admin.products.variations.index'
+                        // href={route('admin.products.variations.index', product.id)}
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                          activeTab === 'variations'
+                          ? 'bg-primary/10 text-primary'
+                          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        )}
+                      >
+                        <Grid size={16} />
+                        Variation
+                      </Link>
+                    </>
+                  )}
                 </nav>
               </CardContent>
             </Card>
