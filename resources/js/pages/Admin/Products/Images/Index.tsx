@@ -152,10 +152,26 @@ export default function ProductImages({product, images }: {product: Product; ima
                   Images ({productImages.length + selectedFiles.length})
                 </h3>
                 {selectedFiles.length > 0 && (
-                  <Button onClick={handleUpload} disabled={processing} className=''>
+                  <Button onClick={handleUpload} disabled={processing} className='bg-primary hover:bg-primary/90'>
                     <Upload className='mr-2 h-4 w-4' />
+                    {processing ? 'Uploading...' : 'Upload All'}
                   </Button>
                 )}
+              </div>
+              <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
+                {/* Existing Product Images */}
+                {productImages.map((img)=>(
+                  <div key={`existing-${img.id}`} className='group relative' >
+                    <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+                      <img 
+                        src={img.url} 
+                        alt="Product image" 
+                        className='h-full w-full object-cover transition-transform group-hover:scale-105'
+                      />
+                    </div>
+                    <div className="absolute"></div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
