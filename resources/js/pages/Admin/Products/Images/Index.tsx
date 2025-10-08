@@ -3,11 +3,12 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import {  Images, Layers, Pencil, TagIcon, Trash2, Upload, } from 'lucide-react';
+import {  Images, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
 import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -192,14 +193,22 @@ export default function ProductImages({product, images }: {product: Product; ima
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:hover:opacity-100">
                       <Button
-                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{handleDelete(img.id)}}
+                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{removeSelectedImage(index)}}
                       >
                         <Trash2 className='h-4 w-4'/> 
                       </Button>
                     </div>
-                    <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
+                    <p className="mt-2 truncate text-sm text-gray-500">{selectedFiles[index]?.name }</p>
                   </div>
                 ))}
+
+                {/* upload progress */}
+                {processing && progress && (
+                  <div className="mr-4">
+                    <Progress value={progress.percentage} className='h-2 w-full'/> 
+                    <p className="mt-2 truncate text-sm text-gray-500">{progress.percentage}% uploaded</p>
+                  </div>
+                )}
               </div>
             </div>
           )}

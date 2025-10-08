@@ -12,7 +12,14 @@ class ProductImageController extends Controller
     public function index(Request $request, $id){
         $product= Product::findOrFail($id); 
         $images = [];
-        // dd($product); 
+        // dd($product);
+        
+        $product->getMedia('images')->each(function ($media) use (&$images){
+            $images[] = [
+                'id' => $media->id,
+                'url' => $media->getUrl(),
+            ];
+        });
 
         return Inertia::render('Admin/Products/Images/Index',[
             'images' => $images,
@@ -20,15 +27,21 @@ class ProductImageController extends Controller
         ]);
     }
 
-    public function store(){
-        //
+    public function store(Request $request,Product $product){
+        $request->validate([
+            'images' => 'require|array',
+            'images.*' => 'image|max:2048',
+        ]);
+
+        foreach ($request->file('images', []) as $image) {
+            $product->addMedia($image)
+            ->toMediaCollection('images');
+        }
+
+        return redirect()->back()->with('sucess', 'Images uploaded sucessfully');
     }
 
-    public function update(Request $request){
-        //
-    }
-
-    public function destroy(){
-        //
+    public function destroy(Request $request, $imageId){
+        $media = Media::findOrFail($imageId);
     }
 }
