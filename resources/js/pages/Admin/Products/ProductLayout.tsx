@@ -21,7 +21,7 @@ interface ProductLayoutProps {
     backUrl: string;
     icon?: React.ReactNode;
     productId?: number;
-    activeTab?: 'edit' | 'images' | 'variatioin';
+    activeTab?: 'edit' | 'images' | 'variation-types' | 'variations';
 }
 interface Product{
     id: number;
