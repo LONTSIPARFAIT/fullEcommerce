@@ -4,7 +4,6 @@ import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import JoditEditor from 'jodit-react';
 import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, } from 'lucide-react';
 import React, { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -14,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
   { title: 'Products', href: 'admin/Products/index' },
 //   { title: 'Products', href: route('admin.products.index') },
-  { title: 'Edit Product', href: '' },
+  { title: 'Edit Uploader', href: '' },
 ];
 interface Product{
     id: number;
@@ -23,23 +22,20 @@ interface Product{
     created_at: string;
     updated_at: string;
 }
+interface ProductImage{
+    id: number;
+    url: string;
+}
 
-export default function ProductImages({product,}: {product: Product}) {
-  const { data, setData, post, processing, errors } = useForm({
-    _method:'PUT',
-    id: product.id,
-    image: null as File | null,
-  });
- 
-  console.log('data',data);
+export default function ProductImages({product, images }: {product: Product; images: ProductImage[] }) {
   
-  const [imagePreview, setImagePreview] = useState<string | null>(product.image || null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState('images');
+  const [productImages, setProductImages] = useState<ProductImage[]>(images || []);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const { data, setData, post, processing, errors } = useForm({
+    image: [] as File[],
+  });
 
   const onDrop = useCallback((acceptedFiles: File[])=>{
     setSelectedFiles((prev)=>[...prev, ...acceptedFiles]);
