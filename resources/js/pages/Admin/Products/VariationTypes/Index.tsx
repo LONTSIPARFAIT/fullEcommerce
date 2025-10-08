@@ -9,6 +9,7 @@ import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import images from '@/routes/admin/products/images';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -35,7 +36,7 @@ interface VariationType{
     options: {
       id?: number;
       name: string;
-      image: File[];
+      images: File[];
       imagePreviews: ImagePreview[];
       existingImages?: {
         id: number;
@@ -44,14 +45,46 @@ interface VariationType{
     }[];
 }
 
-export default function VariationType({product, variationTypesLists }: {product: Product; variationTypesLists: VariationType[] }) {
+export default function VariationTypes({product, variationTypesLists }: {product: Product; variationTypesLists: VariationType[] }) {
   
   const { 
     data, 
-    setData, post, processing, progress, reset } = useForm({
-    image: [] as File[],
+    setData, 
+    post, 
+    delete: destroy,
+    processing, 
+    errors, 
+   } = useForm({
+    variationTypes: [],
   });
-  const [productImages, setProductImages] = useState<ProductImage[]>(images || []);
+
+  const [variationTypes, setVariationTypes] = useState<VariationType[]>(()=>{
+    if(variationTypesLists && variationTypesLists.length > 0){
+      return variationTypesLists.map((type)=>({
+        id: type.id,
+        name: type.name,
+        type: type.type,
+        options: type.options.map((option)=>({
+          id: option.id,
+          name: option.name,
+          images: [],
+          imagePreviews: [],
+          existingImages: option.images || [],
+        })),
+      }))
+    }
+    return [
+      {
+        name: '',
+        type: 'select',
+        options: [{ name:'', images: [], imagePreviews: [] }],
+      },
+    ];
+  });
+
+  const [ expandedTypes, setExpandedTypes ] = useState<ProductImage[]>(images || []);
+
+  const [productImages, setProductImages] = useState<Record[]>(images || []);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
