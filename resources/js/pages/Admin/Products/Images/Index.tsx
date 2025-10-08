@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, } from 'lucide-react';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
 
@@ -33,117 +33,74 @@ export default function ProductImages({product, images }: {product: Product; ima
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, post, processing, progress, reset } = useForm({
     image: [] as File[],
   });
 
-  const onDrop = useCallback((acceptedFiles: File[])=>{
-    setSelectedFiles((prev)=>[...prev, ...acceptedFiles]);
+  useEffect(()=>{
+    setProductImages(images || []);
+  }, [images]);
 
-    // generate previews
-    acceptedFiles.forEach((file)=>{
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            setPreviews((prev)=>[...prev, e.target?.result as string])
-        };
-        reader.readAsDataURL(file);
-    });
-  }, []);
+  const onDrop = useCallback( (acceptedFiles: File[]) => {
+    const newFiles = [...selectedFiles, ...acceptedFiles];
+    setSelectedFiles(newFiles);
+
+    const newPreviews = newFiles.map((file)=>URL.createObjectURL(file));
+    setPreviews(newPreviews);
+  }, [selectedFiles]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    ondrop,
-    accept: {
-        'image/*': ['.jpeg', '.jpg', '.png', '.gif'],
-    },
+    onDrop,
+    accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.gif'], },
     maxSize: 5242880, // 5MB
   });
+  const removeSelectedImage = (index: number) => {
+    // revoke the previews object url to free up memory
+    URL.revokeObjetURL(previews[index]);
 
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setIsUploading(true);
-//   };
+    setSelectedFiles((prev)=>prev.filter((_,i)=>i !== index));
+    setPreviews((prev)=>prev.filter((_,i)=>i !== index));
+  }
 
-    const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0] || null;
-  
-      if (file) {
-        setData('image', file);
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setImagePreview(e.target?.result as string);
-        };
-        reader.readAsDataURL(file);
+  const handleUpload = ()=>{
+    if(selectedFiles.length === 0) return ;
+
+    const formData = new FormData();
+    selectedFiles.forEach((file, index)=>{
+      formData.append(`images[${index}]`, file);
+    });
+
+    setIsUploading(true);
+    
+    // router.post(route('admin.products.images.store', product.id), formData, {
+    router.post(('admin/products/images'), formData, {
+      onProgress: (progress) => {
+        if (progress.percentage) {
+          setUploadProgress(progress.percentage);
+        }
+      },
+      onSuccess: () => {
+        setIsUploading(false);
+        setSelectedFiles([]);
+        setPreviews([]);
+      },
+      onError: () => {
+        setIsUploading(false);
+      },
+    });
+  } 
+
+  const handleDelete = (imageId: number) => {
+    router.delete(route('admin.products.destroy', imageId), {
+      onSuccess: () => {
+        setProductImages((prev)=>prev.filter((img)=>img.id !== imageId));
+        // toast.success('User delete sucessfuly')
+      },
+      onError: ()=>{
+        // toast.success('User deletion failed')
       }
-    };
-  
-    const clearImage = () => {
-      setData('image', null);
-      setImagePreview(null);
-  
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    };
-
-    const handleMultipleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(e.target.files || []);
-        setSelectedFiles((prev)=> [...prev, ...files]);
-
-        // generate previews for new files
-        files.forEach((file)=>{
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setPreviews((prev)=> [...prev, e.target?.result as string])
-            };
-            reader.readAsDataURL(file);
-
-        })
-    }
-
-    const removeImage = (index: number) => {
-       setSelectedFiles((prev)=>prev.filter((_,i)=>i !== index));
-       setPreviews((prev)=>prev.filter((_,i)=>i !== index));
-    }
-
-    const handleUpload = ()=>{
-        if(selectedFiles.length === 0) return ;
-
-        setIsUploading(true);
-        const formData = new FormData();
-        selectedFiles.forEach((file, index)=>{
-            formData.append(`image[${index}]`, file)
-        });
-        formData.append('product_id', product.id.toString())
-
-            // router.post(route('admin.products.images.store', product.id), formData, {
-            router.post(('admin/products/images'), formData, {
-            onProgress: (progress) => {
-                if (progress.percentage) {
-                    setUploadProgress(progress.percentage);
-                }
-            },
-            onSuccess: () => {
-                setIsUploading(false);
-                setSelectedFiles([]);
-                setPreviews([]);
-            },
-            onError: () => {
-                setIsUploading(false);
-            },
-        });
-    }
-
-    const handleDelete = (id: number) => {
-        router.delete(route('admin.products.destroy', id), {
-            preserveScroll: true,
-            onSuccess: () => {
-            // toast.success('User delete sucessfuly')
-        },
-            onError: ()=>{
-                // toast.success('User deletion failed')
-            }
-        })
-    }
+    })
+  }
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
