@@ -14,7 +14,7 @@ class ProductVariationController extends Controller
         $images = [];
         // dd($product); 
 
-        return Inertia::render('Admin/Products/Images/Index',[
+        return Inertia::render('Admin/Products/Variations/Index',[
             'images' => $images,
             'product' => $product,
         ]);

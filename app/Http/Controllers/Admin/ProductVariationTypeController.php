@@ -11,11 +11,11 @@ class ProductVariationTypeController extends Controller
 {
     public function index(Request $request, $id){
         $product= Product::findOrFail($id); 
-        $images = [];
+        $variationTypes = [];
         // dd($product); 
 
-        return Inertia::render('Admin/Products/Images/Index',[
-            'images' => $images,
+        return Inertia::render('Admin/Products/VariationTypes/Index',[
+            'variationTypes' => $variationTypes,
             'product' => $product,
         ]);
     }
