@@ -179,6 +179,27 @@ export default function ProductImages({product, images }: {product: Product; ima
                     <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
                   </div>
                 ))}
+
+                {/* selected/Previews Images */}
+                {previews.map((preview, index)=>(
+                  <div key={`previews-${index + 1}`} className="group relative">
+                    <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+                      <img 
+                        src={preview} 
+                        alt={`previews-${index + 1}`} 
+                        className='h-full w-full object-cover transition-transform group-hover:scale-105'
+                      />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:hover:opacity-100">
+                      <Button
+                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{handleDelete(img.id)}}
+                      >
+                        <Trash2 className='h-4 w-4'/> 
+                      </Button>
+                    </div>
+                    <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
+                  </div>
+                ))}
               </div>
             </div>
           )}
