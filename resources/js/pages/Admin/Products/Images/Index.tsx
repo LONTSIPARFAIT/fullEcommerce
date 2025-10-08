@@ -122,17 +122,24 @@ export default function ProductImages({product, images }: {product: Product; ima
               {...getRootProps()}
               className={cn(
                 'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
-                isDragActive ? 'border-primary bg-primary/5' : 'hover:border-red-600 border-gray-300 dark:border-gray-600'
+                isDragActive ? 'border-primary bg-primary/5' : 'hover:border-primary border-gray-300 dark:border-gray-600'
               )}
             >
               <input {...getInputProps} />
               <Upload 
                 className={cn(
-                  'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
-                  isDragActive ? 'border-primary bg-primary/5' : 'hover:border-red-600 border-gray-300 dark:border-gray-600'
+                  'mx-auto mb-4 h-12 w-12 p-6 transition-colors',
+                  isDragActive ? 'text-primary' : 'text-gray-400 dark:text-gray-300'
                 )}
               />
-              Divine
+              {isDragActive ? (
+                <p className="text-primary font-medium">Drop the files here</p>
+              ) : (
+                <>
+                  <p className="font-medium text-gray-600 dark:text-gray-300">Drag & drop images here, or click to select</p>
+                </>
+              )}
+              {/* Divine */}
             </div>
           </div>
         </div>
