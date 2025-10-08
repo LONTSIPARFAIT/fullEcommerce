@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductImageController extends Controller
 {
@@ -38,10 +39,17 @@ class ProductImageController extends Controller
             ->toMediaCollection('images');
         }
 
-        return redirect()->back()->with('sucess', 'Images uploaded sucessfully');
+        return redirect()->back()->with('success', 'Images uploaded sucessfully');
     }
 
     public function destroy(Request $request, $imageId){
         $media = Media::findOrFail($imageId);
+        // $product = Product::findOrFail($media->model_id);
+        // if($product->id !== $media->model_id){
+        //     return redirect()->back()->with('error', 'You are not authorized to delete this image');
+        // }
+        $media->delete();
+
+        return redirect()->back()->with('success', 'Images deleted successfuly');
     }
 }
