@@ -82,9 +82,24 @@ export default function VariationTypes({product, variationTypesLists }: {product
     ];
   });
 
-  const [ expandedTypes, setExpandedTypes ] = useState<ProductImage[]>(images || []);
+  const [ expandedTypes, setExpandedTypes ] = useState<Record<number, boolean>>(() => {
+    const initial:Record<number, boolean> = {};
+    variationTypes.forEach((_,index) => {
+      initial[index] = true;
+    })
+    return initial;
+  });
 
-  const [productImages, setProductImages] = useState<Record[]>(images || []);
+  const [expandedOptions, setExpandedOptions] = useState<Record<string, boolean>>(() => {
+    const initial:Record<number, boolean> = {};
+    variationTypes.forEach((_,index) => {
+      initial[index] = true;
+    })
+    return initial;
+  });
+
+
+  const [productImages, setProductImages] = useState<Record<number, boolean>>((images) || []);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
