@@ -1,17 +1,11 @@
-import DeleteDialog from '@/components/DeleteDialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router, useForm } from '@inertiajs/react';
-import JoditEditor from 'jodit-react';
-import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import { Head, Link, } from '@inertiajs/react';
+import { ArrowLeft, Grid, Images, Layers, Pencil, } from 'lucide-react';
+import React from 'react';
 
 interface ProductLayoutProps {
     title: string;
@@ -72,11 +66,13 @@ export default function ProductLayout({
 
               <CardContent>
                 <div className="p-4">
-                    
+                    {children}
                 </div>
               </CardContent>
             </Card>
           </div>
+
+          {/* sidebar */}
           <div className="col-span-3">
             <Card className='sticky top-4 border-none bg-white shadow-xl dark:bg-gray-800'>
               <CardContent className='p-0'>
@@ -88,10 +84,10 @@ export default function ProductLayout({
                   <Link
                     prefetch
                     href='admin.products.edit'
-                    // href={route('admin.products.edit', product.id)}
+                    // href={route('admin.products.edit', productId)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      activeTab === 'details'
+                      activeTab === 'edit'
                       ? 'bg-primary/10 text-primary'
                       : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
@@ -102,7 +98,7 @@ export default function ProductLayout({
                   <Link
                     prefetch
                     href='admin.products.images.index'
-                    // href={route('admin.products.images.index', product.id)}
+                    // href={route('admin.products.images.index', productId)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'images'
@@ -116,7 +112,7 @@ export default function ProductLayout({
                   <Link
                     prefetch
                     href='admin.products.variation-types.index'
-                    // href={route('admin.products.variation-types.index', product.id)}
+                    // href={route('admin.products.variation-types.index', productId)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'variation-types'
@@ -130,7 +126,7 @@ export default function ProductLayout({
                   <Link
                     prefetch
                     href='admin.products.variations.index'
-                    // href={route('admin.products.variations.index', product.id)}
+                    // href={route('admin.products.variations.index', productId)}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'variations'
@@ -146,16 +142,7 @@ export default function ProductLayout({
             </Card>
           </div>
         </div>
-      </div>
-      <DeleteDialog
-        isOpen={showDeleteDialog}
-        onClose={() => setShowDeleteDialog(false)}
-        onConfirm={() => handleDelete(product.id)}
-        title="Delete Item"
-        message="Are you sure to delete this items? This action cannot be undone."
-        confirmButtonText="Delete"
-        cancelButtonText="Cancel"
-      />      
+      </div>     
     </AppLayout>
   );
 }
