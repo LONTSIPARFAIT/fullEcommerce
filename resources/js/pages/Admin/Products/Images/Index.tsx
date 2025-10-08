@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, } from 'lucide-react';
+import {  ArrowLeft, Grid, Images, Layers, Pencil, TagIcon, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
+import { Label } from '@/components/ui/label';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -112,48 +113,30 @@ export default function ProductImages({product, images }: {product: Product; ima
       productId={product.id}
       activeTab='images'
     >
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:to-gray-800">
-        <div className="grid grid-cols-12 gap-4 sm:gap-6">
-            {/* Main content -9 column */}
-          <div className="col-span-9">
-            <Card className="border-none bg-white shadow-xl dark:bg-gray-800">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-primary/20 dark:bg-primary/20 rounded-xl ml-2 p-2 shadow-sm backdrop-blur-sm">
-                      <TagIcon className="text-primary dark:text-primary-foreground" size={25}/>
-                    </div>
-                    <div className="">
-                      <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Edit Product</h1>
-                      <p className="text-sm text-gray-500 dark:text-gray-300">Update product details</p>
-                    </div>
-                  </div>
-                  <Link 
-                    // href={route('admin.products.index')} 
-                    href="#" 
-                    prefetch
-                  >
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                    >
-                      <ArrowLeft size={16}/>
-                      Back
-                    </Button>
-                  </Link>
-                </div>
-              </CardHeader>
-
-              <CardContent>
-                <div className="p-4">
-                    dfd
-                </div>
-              </CardContent>
-            </Card>
+      <CardContent>
+        <div className="space-y-6 p-4">
+          {/* Image upload section */}
+          <div className="space-y-4">
+            <Label className='text-sm font-medium text-gray-700 dark:text-gray-200' >Upload New Images</Label>
+            <div 
+              {...getRootProps()}
+              className={cn(
+                'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
+                isDragActive ? 'border-primary bg-primary/5' : 'hover:border-red-600 border-gray-300 dark:border-gray-600'
+              )}
+            >
+              <input {...getInputProps} />
+              <Upload 
+                className={cn(
+                  'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
+                  isDragActive ? 'border-primary bg-primary/5' : 'hover:border-red-600 border-gray-300 dark:border-gray-600'
+                )}
+              />
+              Divine
+            </div>
           </div>
         </div>
-      </div>    
+      </CardContent>   
     </ProductLayout>
   );
 }
