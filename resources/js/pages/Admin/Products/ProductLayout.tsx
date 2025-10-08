@@ -13,12 +13,16 @@ import JoditEditor from 'jodit-react';
 import { AlertCircle, ArrowLeft, File, Grid, Images, Layers, List, Pencil, Save, TagIcon, Trash2 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Dashboard', href: 'dashboard' },
-  { title: 'Products', href: 'admin/Products/index' },
-//   { title: 'Products', href: route('admin.products.index') },
-  { title: 'Edit Product', href: '' },
-];
+interface ProductLayoutProps {
+    title: string;
+    description: string;
+    breadcrumbs: BreadcrumbItem;
+    children: React.ReactNode;
+    backUrl: string;
+    icon?: React.ReactNode;
+    productId?: number;
+    activeTab?: 'edit' | 'images' | 'variatioin';
+}
 interface Product{
     id: number;
     name: string;
