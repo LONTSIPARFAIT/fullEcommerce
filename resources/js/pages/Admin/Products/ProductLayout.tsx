@@ -8,25 +8,25 @@ import { ArrowLeft, Grid, Images, Layers, Pencil, } from 'lucide-react';
 import React from 'react';
 
 interface ProductLayoutProps {
-    title: string;
-    description: string;
-    breadcrumbs: BreadcrumbItem[];
-    children: React.ReactNode;
-    backUrl: string;
-    icon?: React.ReactNode;
-    productId?: number;
-    activeTab?: 'edit' | 'images' | 'variation-types' | 'variations';
+  title: string;
+  description: string;
+  breadcrumbs: BreadcrumbItem[];
+  children: React.ReactNode;
+  backUrl: string;
+  icon?: React.ReactNode;
+  productId?: number;
+  activeTab?: 'edit' | 'images' | 'variation-types' | 'variations';
 }
 
 export default function ProductLayout({
-    title,
-    description,
-    breadcrumbs,
-    children,
-    backUrl,
-    icon,
-    productId,
-    activeTab = 'edit',
+  title,
+  description,
+  breadcrumbs,
+  children,
+  backUrl,
+  icon,
+  productId,
+  activeTab = 'edit',
 }: ProductLayoutProps) {
 
   return (
@@ -48,7 +48,7 @@ export default function ProductLayout({
                       <p className="text-sm text-gray-500 dark:text-gray-300">{description}</p>
                     </div>
                   </div>
-                  <Link 
+                  <Link
                     href={backUrl}
                     prefetch
                   >
@@ -57,7 +57,7 @@ export default function ProductLayout({
                       size="sm"
                       className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                     >
-                      <ArrowLeft size={16}/>
+                      <ArrowLeft size={16} />
                       Back
                     </Button>
                   </Link>
@@ -66,7 +66,7 @@ export default function ProductLayout({
 
               <CardContent>
                 <div className="p-4">
-                    {children}
+                  {children}
                 </div>
               </CardContent>
             </Card>
@@ -88,8 +88,8 @@ export default function ProductLayout({
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'edit'
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
                     <Pencil size={16} />
@@ -102,8 +102,8 @@ export default function ProductLayout({
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'images'
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
                     <Images size={16} />
@@ -116,8 +116,8 @@ export default function ProductLayout({
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'variation-types'
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
                     <Layers size={16} />
@@ -130,8 +130,8 @@ export default function ProductLayout({
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       activeTab === 'variations'
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                     )}
                   >
                     <Grid size={16} />
@@ -142,7 +142,7 @@ export default function ProductLayout({
             </Card>
           </div>
         </div>
-      </div>     
+      </div>
     </AppLayout>
   );
 }
