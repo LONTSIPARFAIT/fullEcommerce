@@ -494,7 +494,25 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
                                   </Badge>
                                   <h5 className=' text-sm font-medium text-gray-700 dark:text-gray-300'>{option.name || 'New Option'}</h5>
                                 </div>
-                                <div className="flex items-center gap-2"></div>
+                                <div className="flex items-center gap-2">
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size='sm'
+                                    onClick={()=>
+                                      setExpandedOptions({
+                                        ...expandedOptions,
+                                        [`${typeIndex}-${optionIndex}`]: !expandedOptions[`${typeIndex}-${optionIndex}`],
+                                      })
+                                    }
+                                  >
+                                    {expandedOptions[`${typeIndex}-${optionIndex}`] ? (
+                                      <ChevronUp size={14} />
+                                    ) : (
+                                      <ChevronDown size={14} />
+                                    )}
+                                  </Button>
+                                </div>
                               </div>
                             </motion.div>
                           ))}
