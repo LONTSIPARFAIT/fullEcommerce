@@ -512,6 +512,23 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
                                       <ChevronDown size={14} />
                                     )}
                                   </Button>
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size='sm'
+                                    onClick={()=>
+                                      setExpandedOptions({
+                                        ...expandedOptions,
+                                        [`${typeIndex}-${optionIndex}`]: !expandedOptions[`${typeIndex}-${optionIndex}`],
+                                      })
+                                    }
+                                  >
+                                    {expandedOptions[`${typeIndex}-${optionIndex}`] ? (
+                                      <ChevronUp size={14} />
+                                    ) : (
+                                      <ChevronDown size={14} />
+                                    )}
+                                  </Button>
                                 </div>
                               </div>
                             </motion.div>
