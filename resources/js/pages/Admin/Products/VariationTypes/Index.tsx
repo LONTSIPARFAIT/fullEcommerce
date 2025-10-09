@@ -120,7 +120,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
 
   useEffect(()=>{
     return ()=>{
-      VariationTypes.forEach((type)=>{
+      variationTypes.forEach((type)=>{
         type.options.forEach((option)=>{
           option.imagePreviews.forEach((preview)=>{
             URL.revokeObjectURL(preview.url);
