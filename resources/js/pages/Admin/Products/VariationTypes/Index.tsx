@@ -11,6 +11,8 @@ import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -179,7 +181,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
     }))
   }
 
-  const removeSelectedVariationTypes = (index: number) => {
+  const handleRemoveVariationType = (index: number) => {
     const variationTypes = variationTypes[index];
 
     if(variationTypes.id){
@@ -411,9 +413,64 @@ export default function VariationTypes({product, variationTypesLists }: {product
                                         >
                                             {expandedTypes[typeIndex] ? <ChevronUp size={18}/>  : <ChevronDown size={18}/>}
                                         </Button>
+                                        <Button
+                                          type='button'
+                                          variant='destructive'
+                                          size="sm"
+                                          onClick={()=>handleRemoveVariationType(typeIndex)}
+                                          className='bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400'
+                                        >
+                                            <Trash2 size={16} className='mr-1'/>
+                                            Remove
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
+
+                            {expandedTypes[typeIndex] && (
+                                <div className="space-y-6 p-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Type Name</label>
+                                            <Input
+                                              placeholder="Enter variation type name (eg: Color, Size)" 
+                                              value={variationType.name}
+                                              onChange={(e)=>{
+                                                const newTypes = [...variationTypes];
+                                                newTypes[typeIndex].name = e.target.value;
+                                                setVariationTypes(newTypes);
+                                              }}
+                                              className={`h-11 ${errors[`variationTypes.${typeIndex}.name`] ? 'border-red-500' : ''}`}
+                                            />
+                                            {errors[`variationTypes.${typeIndex}.name`] && (
+                                                <p className=" mt-1 text-sm text-red-500">
+                                                    {errors[`variationTypes.${typeIndex}.name`]}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Selection Type</label>
+                                            <Select
+                                              value={variationType.type}
+                                              onValueChange={(value)=>{
+                                                const newTypes = [...variationTypes];
+                                                newTypes[typeIndex].type = value;
+                                                setVariationTypes(newTypes);
+                                              }}
+                                            >
+                                                <SelectTrigger className='h-11'>
+                                                    <SelectValue placeholder='Chose selection type'/>
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value='select'>Dropdown Select</SelectItem>
+                                                    <SelectItem value='radio'>Radio Buttons</SelectItem>
+                                                    <SelectItem value='image'>Images Selection</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </motion.div>
                 ))}
