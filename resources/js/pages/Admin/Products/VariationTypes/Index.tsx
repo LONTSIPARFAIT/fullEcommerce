@@ -372,7 +372,7 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
             </div>
             {Object.keys(errors).length > 0 && (
               <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-500 dark:bg-red-900/20">
-                <p className="font-medium">Olease fix the following errors:</p>
+                <p className="font-medium">Please fix the following errors:</p>
                 <ul className="mt-2 list-disc pl-5">
                   {Object.entries(errors).map(([key, value]) => (
                     <li key={key}>{value}</li>
@@ -568,7 +568,12 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
               <Plus size={16} className='mr-3' />
               Add New Variation Type
             </Button>
-            <div className=""></div>
+            <div className="sticky bottom-4 flex justify-end rounded-lg bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:bg-gray-*00/80">
+              <Button type='submit' className='bg-primary hover:bg-primary/90 min-w-[120px]'>
+                <Save size={16} className='mr-2' />
+                Save Change
+              </Button>
+            </div>
           </div>
         </form>
       </CardContent>
