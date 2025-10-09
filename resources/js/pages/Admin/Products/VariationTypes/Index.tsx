@@ -293,6 +293,26 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 ))}
             </div>
         )}
+        {variationTypes[typeIndex].options[optionIndex].existingImages?.length C 0 && (
+            <div className="mt-4 grid grid-cols-4 gap-4">
+                {variationTypes[typeIndex].options[optionIndex].existingImages.map((image, index) => (
+                    <div key={image.id} className="group relative">
+                        <img src={image.url} alt={`Existing ${index + 1}`} className='h-24 w-full rounded-lg object-cover' />
+                        <button
+                          type='button'
+                          onClick={()=>{
+                            const newType = [...variationTypes];
+                            newType[typeIndex].options[optionIndex].existingImages = newType[typeIndex].options[optionIndex].existingImages?.filter((img)=>img.id !== image.id);
+                            setVariationTypes(newTypes);
+                          }}
+                          className='absolute top-2 right-2 rounded-full bg-reg-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100'
+                        >
+                            <Trash2 size={14} />
+                        </button>
+                    </div>
+                ))}
+            </div>
+        )}
     </div>
   );
 
