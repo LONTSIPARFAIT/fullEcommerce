@@ -246,6 +246,18 @@ export default function VariationTypes({product, variationTypesLists }: {product
     setExpandedOptions(newExpandedOPtions);
   }
 
+  const renderImageUpload = (typeIndex: number, optionIndex: number)=>(
+    <div className="space-y-4">
+        <input 
+          type="file"
+          multiple
+          accept='image/*'
+          onChange={(e)=>handleImageUpload(typeIndex, optionIndex, e.target.files!)}
+          className='hidden' 
+        />
+    </div>
+  );
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.gif'], },
