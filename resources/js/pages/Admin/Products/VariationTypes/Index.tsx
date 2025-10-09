@@ -3,12 +3,14 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import {  ChevronDown, Images, Layers, Trash2, Upload, } from 'lucide-react';
+import {  ChevronDown, ChevronUp, Images, Layers, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -26,6 +28,22 @@ interface Product{
     name: string;
     created_at: string;
     updated_at: string;
+}
+
+interface VariationType {
+    id?: number;
+    name: string;
+    type: 'select' | 'radio' | 'image';
+    options: {
+        id?: number;
+        name: string;
+        images: File[];
+        imagePreviews: ImagePreview[];
+        existingImages?: { 
+            id: number; 
+            url: string; 
+        }[];
+    }[];
 }
 
 interface VariationType{
@@ -118,13 +136,13 @@ export default function VariationTypes({product, variationTypesLists }: {product
 
   useEffect(()=>{
     return ()=>{
-    //   VariationTypes.forEach((type)=>{
-    //     type.options.forEach((option)=>{
-    //       option.imagePreviews.forEach((preview)=>{
-    //         URL.revokeObjectURL(preview.url);
-    //       });
-    //     });
-    //   });
+      VariationTypes.forEach((type)=>{
+        type.options.forEach((option)=>{
+          option.imagePreviews.forEach((preview)=>{
+            URL.revokeObjectURL(preview.url);
+          });
+        });
+      });
     };
   }, []);
 
@@ -247,15 +265,15 @@ export default function VariationTypes({product, variationTypesLists }: {product
 
   const renderImageUpload = (typeIndex: number, optionIndex: number)=>(
     <div className="space-y-4">
-        <input 
+        <input
           type="file"
           multiple
           accept='image/*'
           onChange={(e)=>handleImageUpload(typeIndex, optionIndex, e.target.files!)}
-          className='hidden' 
+          className='hidden'
           id={`images-${typeIndex}-${optionIndex}`}
         />
-        <label 
+        <label
           htmlFor={`images-${typeIndex}-${optionIndex}`}
           className='group hover:border-primary relative flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white transition-all dark:border-gray-700 dark:bg-gray-800/50'
         >
@@ -292,7 +310,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 ))}
             </div>
         )}
-        
+
         {variationTypes[typeIndex].options[optionIndex].imagePreviews.length > 0 && (
             <div className="mt-4 grid grid-cols-4 gap-4">
                 {variationTypes[typeIndex].options[optionIndex].imagePreviews.map((previews, index) => (
@@ -378,14 +396,41 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 )}
 
                 {variationTypes.map((variationType, typeIndex) =>(
-                    <motion.div 
+                    <motion.div
                       key={typeIndex}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="div"
+                      className="overflow-hidden rounded-xl border-gray-200 bg-white shodow-sm dark:border-gray-700 dark:bg-gray-800/50"
                     >
-                        d
+                        <div className="border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <Badge variant="secondary" className="flex h-8 w-8 items-center justify-center rounded-lg">
+                                            {typeIndex + 1}
+                                        </Badge>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-while">
+                                            {variationType.name || 'New Variation Type'}
+                                        </h3>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Button
+                                          type='button'
+                                          variant='ghost'
+                                          size="sm"
+                                          onClick={()=>setExpandedTypes({
+                                            ...expandedTypes,
+                                            [typeIndex]: !expandedTypes[typeIndex],
+                                          })}
+                                          className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                                        >
+                                            {expandedTypes[typeIndex] ? <ChevronUp size={18}/>  : <ChevronDown size={18}/>}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </motion.div>
                 ))}
             </div>
