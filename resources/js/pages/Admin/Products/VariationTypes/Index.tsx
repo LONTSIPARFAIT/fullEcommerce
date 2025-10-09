@@ -258,9 +258,19 @@ export default function VariationTypes({product, variationTypesLists }: {product
         />
         <label 
           htmlFor={`images-${typeIndex}-${optionIndex}`}
-          className='group hover:border-primary relative flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white transition-all dark:border-gray-700 dark:bg-gray-500/50'
+          className='group hover:border-primary relative flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white transition-all dark:border-gray-700 dark:bg-gray-800/50'
         >
-            <div className=""></div>
+            <div className="absolute inset-0 flex items-center justify-center bg-white/0 transition-all group-hover:bg-white/50 dark:group-hover:bg-gray-800/20">
+                <div className="text-center">
+                    <div className="flex justify-center">
+                        <div className="rounded-full bg-gray-100/80 p-4 backdrop-blur-sm dark:bg-gray-800/80">
+                            <Images className='h-8 w-8 text-gray-400 dark:text-gray-500' />
+                        </div>
+                    </div>
+                    <p className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">Click to upload images</p>
+                    <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">Click to upload images</p>
+                </div>
+            </div>
         </label>
     </div>
   );
