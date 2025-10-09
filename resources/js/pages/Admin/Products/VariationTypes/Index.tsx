@@ -3,7 +3,7 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import { ChevronDown, ChevronUp, Images, Layers, Trash2, Upload, } from 'lucide-react';
+import { ChevronDown, ChevronUp, Images, Layers, Plus, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
@@ -513,33 +513,62 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
                                     )}
                                   </Button>
                                   <Button
-                                    type="button"
-                                    variant="ghost"
-                                    size='sm'
-                                    onClick={()=>
-                                      setExpandedOptions({
-                                        ...expandedOptions,
-                                        [`${typeIndex}-${optionIndex}`]: !expandedOptions[`${typeIndex}-${optionIndex}`],
-                                      })
-                                    }
+                                    type='button'
+                                    variant='destructive'
+                                    size="sm"
+                                    onClick={() => handleRemoveOption(typeIndex,optionIndex)}
+                                    className='bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400'
                                   >
-                                    {expandedOptions[`${typeIndex}-${optionIndex}`] ? (
-                                      <ChevronUp size={14} />
-                                    ) : (
-                                      <ChevronDown size={14} />
-                                    )}
+                                    <Trash2 size={16} className='mr-1' />
+                                    Remove
                                   </Button>
                                 </div>
                               </div>
+                                {expandedOptions[`${typeIndex}-${optionIndex}`] && (
+                                  <div className="space-y-4 p-4">
+                                    <div className="">
+                                      <Input 
+                                        placeholder='Enter option name'
+                                        value={option.name}
+                                        onChange={(e) =>{
+                                          const newTypes = [...variationTypes];
+                                          newTypes[typeIndex].options[optionIndex].name = e.target.value;
+                                          setVariationTypes(newTypes);
+                                        }}
+                                        className='h-11'
+                                      />
+                                    </div>
+                                    {renderImageUpload(typeIndex, optionIndex)}
+                                  </div>
+                                )}
                             </motion.div>
                           ))}
                         </div>
+                        <Button
+                          type='button'
+                          variant='outline'
+                          onClick={() => handleAddOption(typeIndex)}
+                          className='w-full border-dashed'
+                        >
+                          <Plus size={16} className='mr-@' />
+                          Add New Option
+                        </Button>
                       </div>
                     </div>
                   )}
                 </div>
               </motion.div>
             ))}
+            <Button
+              type='button'
+              variant='outline'
+              onClick={handleAddVariationType}
+              className='h-16 w-full border-2 border-dashed bg-gray-50/50 hover:bg-gray-100/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/50'
+            >
+              <Plus size={16} className='mr-3' />
+              Add New Variation Type
+            </Button>
+            <div className=""></div>
           </div>
         </form>
       </CardContent>
