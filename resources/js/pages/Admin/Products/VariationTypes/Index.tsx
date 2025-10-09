@@ -366,9 +366,28 @@ export default function VariationTypes({product, variationTypesLists }: {product
                         </Button>
                     </div>
                 </div>
-                {object.key(errors).length > 0 && (
-                    <div className=""></div>
+                {Object.keys(errors).length > 0 && (
+                    <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-500 dark:bg-red-900/20">
+                        <p className="font-medium">Olease fix the following errors:</p>
+                        <ul className="mt-2 list-disc pl-5">
+                            {Object.entries(errors).map(([key, value])=>(
+                                <li key={key}>{value}</li>
+                            ))}
+                        </ul>
+                    </div>
                 )}
+
+                {variationTypes.map((variationType, typeIndex) =>(
+                    <motion.div 
+                      key={typeIndex}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="div"
+                    >
+                        d
+                    </motion.div>
+                ))}
             </div>
         </form>
       </CardContent>
