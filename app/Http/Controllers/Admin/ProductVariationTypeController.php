@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductVariationTypeRequest;
 use App\Models\Product;
+use App\Models\VariationType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ProductVariationTypeController extends Controller
@@ -45,7 +47,16 @@ class ProductVariationTypeController extends Controller
         $product = Product::findOrFail($product);
 
         try {
-            //code...
+            $newVariationIds = [];
+            $variationTypeOptions = [];
+            DB::beginTransaction();
+
+            foreach ($request->variationTypes as $vtIndex => $variationTypeData) {
+
+                // create or update variation type
+                $variationType = isset($variationTypeData['id'])
+                ? VariationType::find($variationTypeData['id']);
+            }
         } catch (\Throwable $th) {
             //throw $th;
         }
