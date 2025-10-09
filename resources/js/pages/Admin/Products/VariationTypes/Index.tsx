@@ -3,13 +3,12 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import {  Images, Trash2, Upload, } from 'lucide-react';
+import {  Images, Layers, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import images from '@/routes/admin/products/images';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -273,7 +272,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
             </div>
         </label>
 
-        {variationTypes[typeIndex].options[optionIndex].existingImages?.length C 0 && (
+        {variationTypes[typeIndex].options[optionIndex].existingImages?.length > 0 && (
             <div className="mt-4 grid grid-cols-4 gap-4">
                 {variationTypes[typeIndex].options[optionIndex].existingImages.map((image, index) => (
                     <div key={image.id} className="group relative">
@@ -281,8 +280,8 @@ export default function VariationTypes({product, variationTypesLists }: {product
                         <button
                           type='button'
                           onClick={()=>{
-                            const newType = [...variationTypes];
-                            newType[typeIndex].options[optionIndex].existingImages = newType[typeIndex].options[optionIndex].existingImages?.filter((img)=>img.id !== image.id);
+                            const newTypes = [...variationTypes];
+                            newTypes[typeIndex].options[optionIndex].existingImages = newTypes[typeIndex].options[optionIndex].existingImages?.filter((img)=>img.id !== image.id);
                             setVariationTypes(newTypes);
                           }}
                           className='absolute top-2 right-2 rounded-full bg-reg-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100'
@@ -293,16 +292,18 @@ export default function VariationTypes({product, variationTypesLists }: {product
                 ))}
             </div>
         )}
-        {variationTypes[typeIndex].options[optionIndex].existingImages?.length C 0 && (
+        
+        {variationTypes[typeIndex].options[optionIndex].imagePreviews.length > 0 && (
             <div className="mt-4 grid grid-cols-4 gap-4">
-                {variationTypes[typeIndex].options[optionIndex].existingImages.map((image, index) => (
-                    <div key={image.id} className="group relative">
-                        <img src={image.url} alt={`Existing ${index + 1}`} className='h-24 w-full rounded-lg object-cover' />
+                {variationTypes[typeIndex].options[optionIndex].imagePreviews.map((previews, index) => (
+                    <div key={index} className="group relative">
+                        <img src={previews.url} alt={`Previews ${index + 1}`} className='h-24 w-full rounded-lg object-cover' />
                         <button
                           type='button'
                           onClick={()=>{
-                            const newType = [...variationTypes];
-                            newType[typeIndex].options[optionIndex].existingImages = newType[typeIndex].options[optionIndex].existingImages?.filter((img)=>img.id !== image.id);
+                            const newTypes = [...variationTypes];
+                            newTypes[typeIndex].options[optionIndex].images = newTypes[typeIndex].options[optionIndex].images.filter((_, i)=>i !== index);
+                            newTypes[typeIndex].options[optionIndex].imagePreviews = newTypes[typeIndex].options[optionIndex].imagePreviews.filter((_, i)=>i !== index);
                             setVariationTypes(newTypes);
                           }}
                           className='absolute top-2 right-2 rounded-full bg-reg-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100'
@@ -312,166 +313,49 @@ export default function VariationTypes({product, variationTypesLists }: {product
                     </div>
                 ))}
             </div>
+        )}
+
+        {errors[`variationTypes.${typeIndex}.options.${optionIndex}.images`] && (
+            <p className="mt-1 text-sm text-red-500">{errors[`variationTypes.${typeIndex}.options.${optionIndex}.images`]}</p>
+        )}
+        {errors[`images.${typeIndex}.${optionIndex}`] && (
+            <p className="mt-1 text-sm text-red-500">{errors[`images.${typeIndex}.${optionIndex}`]}</p>
         )}
     </div>
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.gif'], },
-    maxSize: 5242880, // 5MB
-  });
-
-  const handleUpload = ()=>{
-    if(selectedFiles.length === 0) return ;
-
-    const formData = new FormData();
-    selectedFiles.forEach((file, index)=>{
-      formData.append(`images[${index}]`, file);
-    });
-
-    setIsUploading(true);
-
-    // router.post(route('admin.products.images.store', product.id), formData, {
-    router.post(('admin/products/images'), formData, {
-      onProgress: (progress) => {
-        if (progress.percentage) {
-          setUploadProgress(progress.percentage);
-        }
-      },
-      onSuccess: () => {
-        setIsUploading(false);
-        setSelectedFiles([]);
-        setPreviews([]);
-      },
-      onError: () => {
-        setIsUploading(false);
-      },
-    });
-  }
-
-  const handleDelete = (imageId: number) => {
-    router.delete(route('admin.products.destroy', imageId), {
-      onSuccess: () => {
-        setProductImages((prev)=>prev.filter((img)=>img.id !== imageId));
-        // toast.success('User delete sucessfuly')
-      },
-      onError: ()=>{
-        // toast.success('User deletion failed')
-      }
-    })
-  }
-
   return (
     <ProductLayout
       title='Variation Types'
-      description='Configure your variations and options.'
+      description='Manage product variations type and options.'
       breadcrumbs={breadcrumbs}
-      // backUrl={route('admin.products.edit')}
+      // backUrl={route('admin.products.edit', product.id)}
       backUrl='admin/products/edit'
-      icon={<Images size={20} className='text-primary dark:text-primary-foreground'/>}
+      icon={<Layers size={20} className='text-primary dark:text-primary-foreground'/>}
       productId={product.id}
       activeTab='images'
     >
-      <CardContent>
-        <div className="space-y-6 p-4">
-          {/* Image upload section */}
-          <div className="space-y-4">
-            <Label className='text-sm font-medium text-gray-700 dark:text-gray-200' >Upload New Images</Label>
-            <div
-              {...getRootProps()}
-              className={cn(
-                'cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-all',
-                isDragActive ? 'border-primary bg-primary/5' : 'hover:border-primary border-gray-300 dark:border-gray-600'
-              )}
-            >
-              <input {...getInputProps} />
-              <Upload
-                className={cn(
-                  'mx-auto mb-4 h-12 w-12 transition-colors',
-                  isDragActive ? 'text-primary' : 'text-gray-400 dark:text-gray-300'
-                )}
-              />
-              {isDragActive ? (
-                <p className="text-primary font-medium">Drop the files here</p>
-              ) : (
-                <>
-                  <p className="font-medium text-gray-600 dark:text-gray-300">Drag & drop images here, or click to select</p>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Supports: JPG, PNG, GIF, (Max: 5MB)</p>
-                </>
-              )}
-              {/* Divine */}
+      <CardContent className='p-6'>
+        <form onSubmit={handleSubmit}>
+            <div className="space-y-6">
+                <div className="mb-6 flex items-center justify-between">
+                    <div className="">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-while">Product Variation</h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Configure your product variations and options</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button
+                          type='button'
+                          variant='outline'
+                          size='sm'
+                          onclick={}
+                        >
+                            d
+                        </Button>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          {/* Combined Previews and Existing Images Section */}
-          { (productImages.length > 0 || selectedFiles.length > 0) && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className='text-lg font-medium text-gray-900 dark:text-gray-100'>
-                  Images ({productImages.length + selectedFiles.length})
-                </h3>
-                {selectedFiles.length > 0 && (
-                  <Button onClick={handleUpload} disabled={processing} className='bg-primary hover:bg-primary/90'>
-                    <Upload className='mr-2 h-4 w-4' />
-                    {processing ? 'Uploading...' : 'Upload All'}
-                  </Button>
-                )}
-              </div>
-              <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
-                {/* Existing Product Images */}
-                {productImages.map((img)=>(
-                  <div key={`existing-${img.id}`} className='group relative' >
-                    <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                      <img
-                        src={img.url}
-                        alt="Product image"
-                        className='h-full w-full object-cover transition-transform group-hover:scale-105'
-                      />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:hover:opacity-100">
-                      <Button
-                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{handleDelete(img.id)}}
-                      >
-                        <Trash2 className='h-4 w-4'/>
-                      </Button>
-                    </div>
-                    <p className="mt-2 truncate text-sm text-gray-500">{img.url.split('/').pop()}</p>
-                  </div>
-                ))}
-
-                {/* selected/Previews Images */}
-                {previews.map((preview, index)=>(
-                  <div key={`previews-${index + 1}`} className="group relative">
-                    <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                      <img
-                        src={preview}
-                        alt={`previews-${index + 1}`}
-                        className='h-full w-full object-cover transition-transform group-hover:scale-105'
-                      />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:hover:opacity-100">
-                      <Button
-                        variant="destructive" size="sm" className='rounded-full' onClick={()=>{removeSelectedImage(index)}}
-                      >
-                        <Trash2 className='h-4 w-4'/>
-                      </Button>
-                    </div>
-                    <p className="mt-2 truncate text-sm text-gray-500">{selectedFiles[index]?.name }</p>
-                  </div>
-                ))}
-
-                {/* upload progress */}
-                {processing && progress && (
-                  <div className="mr-4">
-                    <Progress value={progress.percentage} className='h-2 w-full'/>
-                    <p className="mt-2 truncate text-sm text-gray-500">{progress.percentage}% uploaded</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+        </form>
       </CardContent>
     </ProductLayout>
   );
