@@ -3,7 +3,7 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import {  Images, Layers, Trash2, Upload, } from 'lucide-react';
+import {  ChevronDown, Images, Layers, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
@@ -118,13 +118,13 @@ export default function VariationTypes({product, variationTypesLists }: {product
 
   useEffect(()=>{
     return ()=>{
-      VariationTypes.forEach((type)=>{
-        type.options.forEach((option)=>{
-          option.imagePreviews.forEach((preview)=>{
-            URL.revokeObjectURL(preview.url);
-          });
-        });
-      });
+    //   VariationTypes.forEach((type)=>{
+    //     type.options.forEach((option)=>{
+    //       option.imagePreviews.forEach((preview)=>{
+    //         URL.revokeObjectURL(preview.url);
+    //       });
+    //     });
+    //   });
     };
   }, []);
 
@@ -227,7 +227,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
     setVariationTypes(newVariationTypes);
   };
 
-  const toogleAllType = (expanded: boolean) => {
+  const toggleAllType = (expanded: boolean) => {
     const newExpandedTypes: Record<number, boolean> = {};
     variationTypes.forEach((_, index) => {
         newExpandedTypes[index] = expanded;
@@ -235,7 +235,7 @@ export default function VariationTypes({product, variationTypesLists }: {product
     setExpandedTypes(newExpandedTypes);
   }
 
-  const toogleAllOptions = (expanded: boolean) => {
+  const toggleAllOptions = (expanded: boolean) => {
     const newExpandedOPtions: Record<string, boolean> = {};
     variationTypes.forEach((type, typeIndex) => {
         type.options.forEach((_, optionIndex) => {
@@ -348,12 +348,27 @@ export default function VariationTypes({product, variationTypesLists }: {product
                           type='button'
                           variant='outline'
                           size='sm'
-                          onclick={}
+                          onClick={()=> toggleAllOptions(true)}
+                          className='bg-white shadow-sm hover:bg-gray-50 dark:bg-gray-800'
                         >
-                            d
+                            <ChevronDown size={16} className='mr-1' />
+                            Expand ALL
+                        </Button>
+                        <Button
+                          type='button'
+                          variant='outline'
+                          size='sm'
+                          onClick={()=> toggleAllOptions(false)}
+                          className='bg-white shadow-sm hover:bg-gray-50 dark:bg-gray-800'
+                        >
+                            <ChevronDown size={16} className='mr-1' />
+                            Collapse ALL
                         </Button>
                     </div>
                 </div>
+                {object.key(errors).length > 0 && (
+                    <div className=""></div>
+                )}
             </div>
         </form>
       </CardContent>
