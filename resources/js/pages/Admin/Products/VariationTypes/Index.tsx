@@ -254,7 +254,14 @@ export default function VariationTypes({product, variationTypesLists }: {product
           accept='image/*'
           onChange={(e)=>handleImageUpload(typeIndex, optionIndex, e.target.files!)}
           className='hidden' 
+          id={`images-${typeIndex}-${optionIndex}`}
         />
+        <label 
+          htmlFor={`images-${typeIndex}-${optionIndex}`}
+          className='group hover:border-primary relative flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white transition-all dark:border-gray-700 dark:bg-gray-500/50'
+        >
+            <div className=""></div>
+        </label>
     </div>
   );
 
