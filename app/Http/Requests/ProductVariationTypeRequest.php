@@ -22,15 +22,13 @@ class ProductVariationTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vari' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:draft,published',
-            'brand_id' => 'nullable|exists:brands,id',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|decimal|min:0',
-            'barcode' => 'nullable|string|max:255',
-            'sku' => 'nullable|string|max:255',
+            'variationTypes' => 'required|array|min:1',
+            'variationTypes.*.name' => 'required|string|max:255',
+            'variationTypes.*.type' => 'required|in:select,radio,image',
+            'variationTypes.*.options' => 'required|array|min:1',
+            'variationTypes.*.options.*.name' => 'required|string|max:255',
+            'variationTypes.*.options.*.images' => 'required_if:variationTypes.*.type,image|array',
+            'images.*.*.*' => 'required_if:variationTypes.*.type,image|image|mimes:jpeg,png,jpg|max:10240',
         ];
     }
 }
