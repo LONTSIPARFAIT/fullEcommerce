@@ -30,22 +30,6 @@ interface Product{
     updated_at: string;
 }
 
-interface VariationType {
-    id?: number;
-    name: string;
-    type: 'select' | 'radio' | 'image';
-    options: {
-        id?: number;
-        name: string;
-        images: File[];
-        imagePreviews: ImagePreview[];
-        existingImages?: { 
-            id: number; 
-            url: string; 
-        }[];
-    }[];
-}
-
 interface VariationType{
     id?: number;
     name: string;
