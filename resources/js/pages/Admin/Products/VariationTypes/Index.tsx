@@ -3,7 +3,7 @@ import { CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { router, useForm } from '@inertiajs/react';
-import { ChevronDown, ChevronUp, Images, Layers, Plus, Trash2, Upload, } from 'lucide-react';
+import { ChevronDown, ChevronUp, Images, Layers, Plus, Save, Trash2, Upload, } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ProductLayout from '../ProductLayout';
@@ -270,7 +270,7 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
                 <Images className='h-8 w-8 text-gray-400 dark:text-gray-500' />
               </div>
             </div>
-            <p className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">Click to upload images</p>
+            <p className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">Cliquez pour télécharger des images.</p>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">PNG, JPG, up to 10MB</p>
           </div>
         </div>
@@ -330,8 +330,8 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
 
   return (
     <ProductLayout
-      title='Variation Types'
-      description='Manage product variations type and options.'
+      title='Types de Variations'
+      description='Gérez les types et options de variations des produits.'
       breadcrumbs={breadcrumbs}
       // backUrl={route('admin.products.edit', product.id)}
       backUrl='admin/products/edit'
@@ -344,8 +344,8 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
           <div className="space-y-6">
             <div className="mb-6 flex items-center justify-between">
               <div className="">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-while">Product Variation</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Configure your product variations and options</p>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-while">Variation de Produit</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Configurez vos variations de produit et options</p>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -571,7 +571,7 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
             <div className="sticky bottom-4 flex justify-end rounded-lg bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:bg-gray-*00/80">
               <Button type='submit' className='bg-primary hover:bg-primary/90 min-w-[120px]'>
                 <Save size={16} className='mr-2' />
-                Save Change
+                Enreigistrer
               </Button>
             </div>
           </div>
