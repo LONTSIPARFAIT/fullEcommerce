@@ -201,29 +201,21 @@ export default function VariationTypes({product, variationTypesLists }: {product
     const newOptionIndex = newVariationTypes[typeIndex].options.length;
     newVariationTypes[typeIndex].options.push({name:'',images:[], imagePreviews: []});
 
-    setVariationTypes[newVariationTypes];
+    setVariationTypes(newVariationTypes);
     setExpandedOptions((prev)=>({
       ...prev,
       [`${typeIndex}-${newOptionIndex}`]: true,
     }))
   }
 
-    const removeSelectedVariationTypes = (index: number) => {
-    const variationTypes = variationTypes[index];
+    const handleRemoveOption = (typeIndex: number, optionIndex: number) => {
+    const newVariationTypes = [...variationTypes];
+    newVariationTypes[typeIndex].options = newVariationTypes[typeIndex].options.filter((_,i)=>i !== optionIndex);
+    setVariationTypes(newVariationTypes);
+  }
 
-    if(variationTypes.id){
-      destroy(route('admin.products.variation-types.destroy',variationTypes.id),{
-      onSuccess: ()=>{
-        setVariationTypes(variationTypes.filter((_,i)=>i !== index));
-        setValidationErrors({});
-      },
-      onError: (errors)=>{
-        setValidationErrors(errors);
-      },
-      });
-    }else{
-      setVariationTypes(variationTypes.filter((_,i)=>i !== index));
-    }
+  const handleImageUpload = (typeIndex: number, optionIndex: number) => {
+    f
   }
 
   const onDrop = useCallback( (acceptedFiles: File[]) => {
