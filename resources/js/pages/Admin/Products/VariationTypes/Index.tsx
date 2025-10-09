@@ -214,17 +214,37 @@ export default function VariationTypes({product, variationTypesLists }: {product
     setVariationTypes(newVariationTypes);
   }
 
-  const handleImageUpload = (typeIndex: number, optionIndex: number) => {
-    f
+  const handleImageUpload = (typeIndex: number, optionIndex: number, files: FileList) => {
+    const newVariationTypes = [...variationTypes];
+    const newFiles = Array.from(files);
+
+    const newPreviews = newFiles.map((file) => ({
+        url: URL.createObjectURL(file),
+        files: file,
+    }));
+
+    newVariationTypes[typeIndex].options[optionIndex].images = newFiles;
+    newVariationTypes[typeIndex].options[optionIndex].imagePreviews = newPreviews;
+    setVariationTypes(newVariationTypes);
+  };
+
+  const toogleAllType = (expanded: boolean) => {
+    const newExpandedTypes: Record<number, boolean> = {};
+    variationTypes.forEach((_, index) => {
+        newExpandedTypes[index] = expanded;
+    });
+    setExpandedTypes(newExpandedTypes);
   }
 
-  const onDrop = useCallback( (acceptedFiles: File[]) => {
-    const newFiles = [...selectedFiles, ...acceptedFiles];
-    setSelectedFiles(newFiles);
-
-    const newPreviews = newFiles.map((file)=>URL.createObjectURL(file));
-    setPreviews(newPreviews);
-  }, [selectedFiles]);
+  const toogleAllOptions = (expanded: boolean) => {
+    const newExpandedOPtions: Record<string, boolean> = {};
+    variationTypes.forEach((type, typeIndex) => {
+        type.options.forEach((_, optionIndex) => {
+            newExpandedOPtions[`${typeIndex}-${optionIndex}`] = expanded;
+        });
+    });
+    setExpandedOptions(newExpandedOPtions);
+  }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
