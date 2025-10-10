@@ -47,6 +47,53 @@ export default function ProductVariations({ product, variationLists }: { product
     })),
   });
 
+//   get all variation type fields from a variation
+  const getVariationTypeFields = (variation: Variation) =>{
+    return Object.entries(variation).filter(([key])=>key.startsWith('variation_type')).map(([key, value])=>({
+        key,
+        value: value as VariationType,
+    }));
+  };
+
+//   handler for updating variation fields
+  const handleChange = (index: number, field: string, value: string | number |VariationType ) => {
+    const updatedVariations = [...data.variations];
+    updatedVariations[index] = {
+        ...updatedVariations[index],
+        [field]: value,
+    };
+    setData('variations', updatedVariations);
+  };
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append('variationTypes', JSON.stringify(data.variationTypes));
+
+    variationTypes.forEach((type, typeIndex) => {
+      type.options.forEach((option, optionIndex) => {
+        option.images.forEach((file, fileIndex) => {
+          formData.append(`images[${typeIndex}][${optionIndex}][${fileIndex}]`, file);
+        });
+      });
+    });
+
+    post(route('admin.products.variation-types.store', product.id), {
+      data: formData,
+      forceFormData: true,
+      onSuccess: () => {
+        setIsUploading(false);
+        setValidationErrors({});
+      },
+      onError: (errors) => {
+        setIsUploading(false);
+        setValidationErrors(errors);
+      },
+    });
+  }
+
   const [isUploading, setIsUploading] = useState(false);
 
   const [variationTypes, setVariationTypes] = useState<VariationType[]>(() => {
@@ -119,35 +166,6 @@ export default function ProductVariations({ product, variationLists }: { product
       });
     };
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsUploading(true);
-
-    const formData = new FormData();
-    formData.append('variationTypes', JSON.stringify(data.variationTypes));
-
-    variationTypes.forEach((type, typeIndex) => {
-      type.options.forEach((option, optionIndex) => {
-        option.images.forEach((file, fileIndex) => {
-          formData.append(`images[${typeIndex}][${optionIndex}][${fileIndex}]`, file);
-        });
-      });
-    });
-
-    post(route('admin.products.variation-types.store', product.id), {
-      data: formData,
-      forceFormData: true,
-      onSuccess: () => {
-        setIsUploading(false);
-        setValidationErrors({});
-      },
-      onError: (errors) => {
-        setIsUploading(false);
-        setValidationErrors(errors);
-      },
-    });
-  }
 
   const handleAddVariationType = () => {
     const newTypeIndex = variationTypes.length;
