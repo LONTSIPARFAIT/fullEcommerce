@@ -120,7 +120,7 @@ export default function ProductVariations({ product, variationLists }: { product
                         <div className="space-y-2" key={key}>
                           <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>{value.label}</Label>
                           <Input 
-                            className='focus:focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
+                            className='focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
                             value={value.name}
                             readOnly={true}
                             placeholder={`Enter ${value.label.toLowerCase()}`}
@@ -129,14 +129,24 @@ export default function ProductVariations({ product, variationLists }: { product
                       ))}
                     </div>
                     <div className="grid grid-cols-2 gap-6">
-                        <div className="space-y-2" key={key}>
-                          <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>{value.label}</Label>
+                        <div className="space-y-2">
+                          <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>Quantity</Label>
                           <Input 
-                            className='focus:focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
-                            value={value.name}
-                            readOnly={true}
-                            placeholder={`Enter ${value.label.toLowerCase()}`}
+                            className={`focus:focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/20 h-12 w-full rounded-lg border ${errors[`variation.${idx}.quantity`] ? 'border-red-500' : 'border-gray-200'} bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500`}
+                            type='number'
+                            value={variation.quantity}
+                            onChange={(e)=>handleChange(idx, 'quantity', e.target.value)}
+                            placeholder='Enter quality'
                           />
+                          {errors[`variation.${idx}.quantity`] && (
+                            <p className="mt-1 text-sm text-red-500">{errors[`variation.${idx}.quantity`]}</p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>Price</Label>
+                          <div className="relative">
+                            <span className=""></span>
+                          </div>
                         </div>
                     </div>
                   </DisclosurePanel>
