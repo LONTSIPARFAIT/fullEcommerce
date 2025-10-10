@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { log } from 'console';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -95,9 +96,26 @@ export default function ProductVariations({ product, variationLists }: { product
         </div>
 
         {data.variations.length === 0 ? (
-          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-700"></div>
+          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <p className="text-gray-600 dark:text-gray-400">No variation types found for this product.</p>
+          </div>
         ) : (
-          <div className=""></div>
+          data.variations.map((variation, idx)=>(
+            <Disclosure key={idx} defaultOpen>
+              {({ open }) => (
+                <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+                  <DisclosureButton className='flex items-center w-full justify-between p-4'>
+                    <div className="flex items-center space-x-3">
+                      <span className="font-medium text-gray-700 dark:text-gray-300">
+                        {getVariationTypeFields(variation).map(({ value })=>value.name).join(' - ')}
+                      </span>
+                    </div>
+                  </DisclosureButton>
+                  <DisclosurePanel></DisclosurePanel>
+                </div>
+              )}
+            </Disclosure>
+          ))
         )}
       </div>
     </ProductLayout>
