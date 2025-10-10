@@ -19,7 +19,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
                 Route::group(['prefix' => 'images','as' => 'images.'], function (){
                     Route::get('/{product}', 'index')->name('index');
                     Route::post('/{product}/store', 'store')->name('store');
-                    Route::delete('/delete/{id}', 'destroy')->name('image.delete');
+                    Route::delete('/delete/{id}', 'destroy')->name('destroy');
                 });
             });
 
@@ -27,7 +27,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
                 Route::group(['prefix' => 'variation-types','as' => 'variation-types.'], function (){
                     Route::get('/{product}', 'index')->name('index');
                     Route::post('/{product}/store', 'store')->name('store');
-                    Route::delete('/delete/{variationType}', 'destroy')->name('image.delete');
+                    Route::delete('/delete/{variationType}', 'destroy')->name('destroy');
                 });
             });
 
@@ -35,7 +35,6 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
                 Route::group(['prefix' => 'variations','as' => 'variations.'], function (){
                     Route::get('/{product}', 'index')->name('index');
                     Route::post('/{product}/store', 'store')->name('store');
-                    Route::delete('/delete/{variation}', 'destroy')->name('image.delete');
                 });
             });
         });
