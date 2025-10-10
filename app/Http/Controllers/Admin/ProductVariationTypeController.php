@@ -82,10 +82,17 @@ class ProductVariationTypeController extends Controller
                     : null;
 
                     if ($option) {
-                        # code...
+                        $option->update(['name'  => $optionData['name']]);
                     } else {
-                        # code...
+                        $option = VariationTypeOption::create([
+                            'name' => $optionData['name'], 
+                            'variation_type_id' => $variationType->id,                         
+                            'created_at' => now(),
+                            'update_at' => now(),
+                        ]);
                     }
+
+                    $variationTypeOptions[] = $option->id;
                     
                 }
             }
