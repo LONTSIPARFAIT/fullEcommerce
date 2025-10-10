@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +15,7 @@ class ProductVariationController extends Controller
     public function __construct(ProductService $productService){
         $this->productService = $productService;
     }
-
+// mergeCartesianWithExisting
     public function index(Request $request, $product){
         $product= Product::findOrFail($product); 
         $variations = $product->variations->toArray();
