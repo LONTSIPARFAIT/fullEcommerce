@@ -145,7 +145,14 @@ export default function ProductVariations({ product, variationLists }: { product
                         <div className="space-y-2">
                           <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>Price</Label>
                           <div className="relative">
-                            <span className=""></span>
+                            <span className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-300">FCFA</span>
+                            <Input 
+                              className='focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
+                              type='number'
+                              value={variation.price}
+                              onChange={(e)=>handleChange(idx, 'price', e.target.value)}
+                              placeholder='Enter price'
+                            />
                           </div>
                         </div>
                     </div>
@@ -155,6 +162,16 @@ export default function ProductVariations({ product, variationLists }: { product
             </Disclosure>
           ))
         )}
+      </div>
+      <div className="mt-6 flex justify-end">
+        <button
+          type='button'
+          onClick={handleSubmit}
+          disabled={processing}
+          className='bg-primary hover:bg-primary/90 focus:ring-primary/20 dark:bg-primary-foreground dark:hover:bg-primary-foreground/90 dark:focus:ring-primary-foreground/20 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-50'
+        >
+          de
+        </button>
       </div>
     </ProductLayout>
   );
