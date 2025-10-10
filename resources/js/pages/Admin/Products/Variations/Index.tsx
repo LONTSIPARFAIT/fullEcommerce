@@ -37,7 +37,7 @@ interface Variation {
   price: string | number;
 }
 
-export default function ProductVariations({ product, variationLists }: { product: Product; variationTypesLists: VariationType[] }) {
+export default function ProductVariations({ product, variationLists }: { product: Product; variationLists: Variation[] }) {
 
   const {
     data,
