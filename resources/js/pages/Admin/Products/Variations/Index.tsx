@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
 import { BreadcrumbItem } from '@/types';
 import {  useForm } from '@inertiajs/react';
-import { ChevronDown, ChevronUp, Images, Layers, Plus, Save, Trash2, } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronUpIcon, Images, Layers, Plus, Save, Trash2, } from 'lucide-react';
 import React, {  useEffect, useState } from 'react';
 import ProductLayout from '../ProductLayout';;
 import { Badge } from '@/components/ui/badge';
@@ -110,8 +110,16 @@ export default function ProductVariations({ product, variationLists }: { product
                         {getVariationTypeFields(variation).map(({ value })=>value.name).join(' - ')}
                       </span>
                     </div>
+                    <ChevronUpIcon className={`h-5 w-5 text-gray-500 transition-transform duration-200 ${open ? 'rotate-180': ''} `} />
                   </DisclosureButton>
-                  <DisclosurePanel></DisclosurePanel>
+                  <DisclosurePanel className='px-4 pb-4'>
+                    <div className="mb-4 grid grid-cols-2 gap-6">
+                      {/* Dynamic variation type fields */}
+                      {getVariationTypeFields(variation).map(({ key, value })=>(
+                        <div className="space-y-2" key={key}></div>
+                      ))}
+                    </div>
+                  </DisclosurePanel>
                 </div>
               )}
             </Disclosure>
