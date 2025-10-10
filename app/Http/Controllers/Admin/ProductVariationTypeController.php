@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductVariationTypeRequest;
 use App\Models\Product;
 use App\Models\VariationType;
+use App\Models\VariationTypeOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -66,13 +67,27 @@ class ProductVariationTypeController extends Controller
                     $variationType = VariationType::create([
                         'name' => $variationTypeData['name'],
                         'type' => $variationTypeData['type'],
-                        'product_id' => $variationTypeData->id,
+                        'product_id' => $product->id,
                         'created_at' => now(),
                         'update_at' => now(),
                     ]);
                 }
 
                 $newVariantionIds[] = $variationType->id;
+
+                // Process option
+                foreach ($variationTypeData['options'] ?? [] as $opIndex => $optionData) {
+                    $option = isset($optionData['id'])
+                    ? VariationTypeOption::find($optionData['id']) 
+                    : null;
+
+                    if ($option) {
+                        # code...
+                    } else {
+                        # code...
+                    }
+                    
+                }
             }
         } catch (\Throwable $th) {
             //throw $th;
