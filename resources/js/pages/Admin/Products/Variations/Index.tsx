@@ -31,6 +31,12 @@ interface VariationType {
   label: string;
 }
 
+interface Variation {
+  id: number;
+  quantity: string | number;
+  price: string | number;
+}
+
 export default function VariationTypes({ product, variationTypesLists }: { product: Product; variationTypesLists: VariationType[] }) {
 
   const {
