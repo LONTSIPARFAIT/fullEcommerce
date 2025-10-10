@@ -25,6 +25,17 @@ class ProductService
             $product['quantity'] = $defaultQuantity;
             $product['price'] = $defaultPrice;
         }
+
+        $mergedResult[] = $product;
+    }
+    return $mergedResult;
+ }
+
+ public function cartesianProduct($variationTypes, $defaultQuantity, $defaultPrice){
+    $result = [[]];
+
+    foreach ($variationTypes as $index => $variationType) {
+        # code...
     }
  }
 }
