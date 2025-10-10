@@ -1,14 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
-import { router, useForm } from '@inertiajs/react';
-import { ChevronDown, ChevronUp, Images, Layers, Plus, Save, Trash2, Upload, } from 'lucide-react';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import ProductLayout from '../ProductLayout';
-import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
+import {  useForm } from '@inertiajs/react';
+import { ChevronDown, ChevronUp, Images, Layers, Plus, Save, Trash2, } from 'lucide-react';
+import React, {  useEffect, useState } from 'react';
+import ProductLayout from '../ProductLayout';;
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
@@ -60,6 +56,8 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
   } = useForm({
     variationTypes: [],
   });
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const [variationTypes, setVariationTypes] = useState<VariationType[]>(() => {
     if (variationTypesLists && variationTypesLists.length > 0) {

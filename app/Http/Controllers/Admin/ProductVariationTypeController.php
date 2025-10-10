@@ -107,18 +107,37 @@ class ProductVariationTypeController extends Controller
 
             DB::commit();
             if (count($newVariantionIds) > 0) {
-                VariationType::whereNotIn();
+                VariationType::whereNotIn('id', $newVariantionIds)->delete();
             }
-        } catch (\Throwable $th) {
-            //throw $th;
+            if (count($variationTypeOptions) > 0) {
+                VariationTypeOption::whereNotIn('id', $variationTypeOptions)->delete();
+            }
+            return redirect()->back()->with('success', 'variation types and options save successfuly');
+        } catch (\Exception $e) {
+            \Log::error('Failed to save variation types: ' . $e->getMessage());
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to save variation types: ' . $e->getMessage());
         }
     }
 
-    public function update(Request $request){
-        //
-    }
+    public function destroy(Request $request, $variationTypeId){
+        $variationType = VariationType::findOrFail($variationTypeId);
 
-    public function destroy(){
-        //
+        try {
+            DB::transaction(function () use ($variationType) {
+                // delete associated options and their images
+                foreach ($variationType->options as $option) {
+                    $option->clearMediaCollection('images');
+                    $option->delete();
+                }
+
+                // delete the variation type
+                $variationType->delete();
+            });
+
+            return redirect()->back()->with('success', 'variation types deletes successfuly');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to delete variation types: ' . $e->getMessage());
+        }
     }
 }
