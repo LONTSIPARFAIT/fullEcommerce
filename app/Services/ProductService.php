@@ -58,4 +58,6 @@ class ProductService
     }
     return $result ;
  }
+
+ public
 }
