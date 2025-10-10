@@ -55,7 +55,24 @@ class ProductVariationTypeController extends Controller
 
                 // create or update variation type
                 $variationType = isset($variationTypeData['id'])
-                ? VariationType::find($variationTypeData['id']);
+                ? VariationType::find($variationTypeData['id']) : null; 
+
+                if ($variationType) {
+                    $variationType->update([
+                        'name' => $variationTypeData['name'],
+                        'type' => $variationTypeData['type'],
+                    ]);
+                } else {
+                    $variationType = VariationType::create([
+                        'name' => $variationTypeData['name'],
+                        'type' => $variationTypeData['type'],
+                        'product_id' => $variationTypeData->id,
+                        'created_at' => now(),
+                        'update_at' => now(),
+                    ]);
+                }
+
+                $newVariantionIds[] = $variationType->id;
             }
         } catch (\Throwable $th) {
             //throw $th;

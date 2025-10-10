@@ -49,7 +49,7 @@ class Product extends Model implements HasMedia
 
     public function options()
     {
-        return $this->hasManyThrough(VariationTypeOption::class, 'product_id',  'variation_type_id', 'id', 'id');
+        return $this->hasManyThrough(VariationTypeOption::class, VariationType::class, 'product_id',  'variation_type_id', 'id', 'id');
     }
 
     public function variations(){
