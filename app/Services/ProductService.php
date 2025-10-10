@@ -1,6 +1,9 @@
 <?php 
 namespace App\Services;
 
+use App\Models\Product;
+use App\Models\ProductVariation;
+
 class ProductService
 {
  public function mergeCartesianWithExisting($variationTypes, $existingData, $product){
@@ -59,5 +62,55 @@ class ProductService
     return $result ;
  }
 
- public
+ public function mutateFormDataBeforeSave(array $data, $product){
+    $formattedData = [];
+    foreach ($data['variation'] as $option) {
+        $variationTypeOptionIds = [];
+        foreach ($product->variationTypes as $i => $variationType) {
+            $variationTypeOptionIds[] = $option['variation_type_'.($variationType->id)]['id'];
+        }
+        $quantity = $option['quantity'];
+        $price = $option['price'];
+
+        $formattedData[] = [
+            'id' => $option['id'] ?? '',
+            'variation_type_option_ids' => $variationTypeOptionIds,
+            'quantity' => $quantity,
+            'price' => $price,
+        ];
+    }
+    $data['variations'] = $formattedData;
+    return $data;
+ }
+ public function handleRecordUpdate(Product $record, array $data){
+    // extract variations from data and unset from the main data array
+    $variations = $data['variations'];
+    unset($data['variations']);
+
+    // process each variation
+    $variations = collect($variations)->map(function ($variation) use ($record){
+        $variationData = [
+            'variation_type_option_ids' => json_encode($variation['variation_type_option_ids']),
+            'quantity' => $variation['quantity'],
+            'price' => $variation['price'],
+        ];
+
+        // if the variation has ID, update it; if not, create a new one
+        if (isset($variation['id']) && $variation['id'] !== null && $variation['id'] !== '') {
+            // update existing variation
+            return array_merge($variationData, ['id' => $variation]);
+        } else {
+            // create new variation (no ID provided)
+            return array_merge($variationData, ['product_id' => $record->id, 'created_at' => now()]);
+        }
+    })->toArray();
+
+    // for existing variations, we can use `updateCreate` to update or create based on the ID 
+    foreach ($variations as $variation) {
+        // If ID exist , we use updateCreate to update existing variations
+        if ($pv = ProductVariation::where('product_id', $record->id)->where('variation_type_option_ids', json_encode($variation))) {
+            # code...
+        }
+    }
+ }
 }
