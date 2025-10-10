@@ -39,15 +39,12 @@ interface Variation {
 
 export default function ProductVariations({ product, variationLists }: { product: Product; variationLists: Variation[] }) {
 
-  const {
-    data,
-    setData,
-    post,
-    delete: destroy,
-    processing,
-    errors,
-  } = useForm({
-    variationTypes: [],
+  const { data, setData, post, processing, errors, } = useForm({
+    variations: variationLists.map((v)=>({
+        ...v,
+        quantity: String(v.quantity),
+        price: String(v.price),
+    })),
   });
 
   const [isUploading, setIsUploading] = useState(false);
