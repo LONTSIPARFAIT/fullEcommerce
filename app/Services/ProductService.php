@@ -50,8 +50,12 @@ class ProductService
         }
         $result = $temp;
     }
-    foreach ($variable as $key => $value) {
-        # code...
+    foreach ($result as $combination) {
+        if (count($combination) === count($variationTypes)) {
+            $combination['quantity'] = $defaultQuantity;
+            $combination['price'] = $defaultPrice;
+        }
     }
+    return $result ;
  }
 }
