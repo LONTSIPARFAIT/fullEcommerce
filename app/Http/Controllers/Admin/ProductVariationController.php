@@ -9,14 +9,21 @@ use Inertia\Inertia;
 
 class ProductVariationController extends Controller
 {
-    public function index(Request $request, $id){
-        $product= Product::findOrFail($id); 
-        $images = [];
+    protected $productService;
+
+    public function __construct(ProductService $productService){
+        $this->productService = $productService;
+    }
+
+    public function index(Request $request, $product){
+        $product= Product::findOrFail($product); 
+        $variations = $product->variations->toArray();
+        $variations = $this->productService->mergeCartesianWithExisting($product->variationTypes, $variations, $product);
         // dd($product); 
 
         return Inertia::render('Admin/Products/Variations/Index',[
-            'images' => $images,
             'product' => $product,
+            'variationsLists' => $variations,
         ]);
     }
 

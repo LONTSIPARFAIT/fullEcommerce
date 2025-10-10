@@ -170,7 +170,7 @@ export default function ProductVariations({ product, variationLists }: { product
           disabled={processing}
           className='bg-primary hover:bg-primary/90 focus:ring-primary/20 dark:bg-primary-foreground dark:hover:bg-primary-foreground/90 dark:focus:ring-primary-foreground/20 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-50'
         >
-          de
+          {processing ? 'Updating...' : 'Update Variations'}
         </button>
       </div>
     </ProductLayout>
