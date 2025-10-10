@@ -335,7 +335,7 @@ export default function VariationTypes({ product, variationTypesLists }: { produ
       backUrl='admin/products/edit'
       icon={<Layers size={20} className='text-primary dark:text-primary-foreground' />}
       productId={product.id}
-      activeTab='images'
+      activeTab='variation-types'
     >
       <CardContent className='p-6'>
         <form onSubmit={handleSubmit}>
