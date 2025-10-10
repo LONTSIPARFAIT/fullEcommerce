@@ -16,10 +16,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   //   { title: 'Products', href: route('admin.products.index') },
   { title: 'Variation Types', href: '' },
 ];
-interface ImagePreview {
-  id: number;
-  url: string;
-}
 
 interface Product {
   id: number;
