@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { log } from 'console';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Label } from '@/components/ui/label';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -116,8 +117,27 @@ export default function ProductVariations({ product, variationLists }: { product
                     <div className="mb-4 grid grid-cols-2 gap-6">
                       {/* Dynamic variation type fields */}
                       {getVariationTypeFields(variation).map(({ key, value })=>(
-                        <div className="space-y-2" key={key}></div>
+                        <div className="space-y-2" key={key}>
+                          <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>{value.label}</Label>
+                          <Input 
+                            className='focus:focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
+                            value={value.name}
+                            readOnly={true}
+                            placeholder={`Enter ${value.label.toLowerCase()}`}
+                          />
+                        </div>
                       ))}
+                    </div>
+                    <div className="grid grid-cols-2 gap-6">
+                        <div className="space-y-2" key={key}>
+                          <Label className='text-sm font-medium text-gray-700 dark:text-gray-300'>{value.label}</Label>
+                          <Input 
+                            className='focus:focus:border-primary focus:ring-primary/20 dark:focus:border-primary-foreground dark:focus:ring-primary-foreground/80 h-12 w-full rounded-lg border border-gray-200 bg-white/80 text-base text-gray-900 shadow-sm backdrop-blur-sm transition-all group-hover:border-gray-300 focus:ring-2 dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-100 dark:group-hover:border-gray-500'
+                            value={value.name}
+                            readOnly={true}
+                            placeholder={`Enter ${value.label.toLowerCase()}`}
+                          />
+                        </div>
                     </div>
                   </DisclosurePanel>
                 </div>
