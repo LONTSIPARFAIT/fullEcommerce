@@ -28,17 +28,7 @@ interface Product {
 interface VariationType {
   id?: number;
   name: string;
-  type: 'select' | 'radio' | 'image';
-  options: {
-    id?: number;
-    name: string;
-    images: File[];
-    imagePreviews: ImagePreview[];
-    existingImages?: {
-      id: number;
-      url: string;
-    }[];
-  }[];
+  label: string;
 }
 
 export default function VariationTypes({ product, variationTypesLists }: { product: Product; variationTypesLists: VariationType[] }) {
