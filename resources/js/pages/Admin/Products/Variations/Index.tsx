@@ -32,12 +32,12 @@ interface VariationType {
 }
 
 interface Variation {
-  id: number;
+  [key: string]: VariationType | string | number;
   quantity: string | number;
   price: string | number;
 }
 
-export default function VariationTypes({ product, variationTypesLists }: { product: Product; variationTypesLists: VariationType[] }) {
+export default function ProductVariations({ product, variationLists }: { product: Product; variationTypesLists: VariationType[] }) {
 
   const {
     data,
