@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { log } from 'console';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: 'dashboard' },
@@ -65,32 +66,15 @@ export default function ProductVariations({ product, variationLists }: { product
     setData('variations', updatedVariations);
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsUploading(true);
-
-    const formData = new FormData();
-    formData.append('variationTypes', JSON.stringify(data.variationTypes));
-
-    variationTypes.forEach((type, typeIndex) => {
-      type.options.forEach((option, optionIndex) => {
-        option.images.forEach((file, fileIndex) => {
-          formData.append(`images[${typeIndex}][${optionIndex}][${fileIndex}]`, file);
-        });
-      });
-    });
-
-    post(route('admin.products.variation-types.store', product.id), {
-      data: formData,
-      forceFormData: true,
-      onSuccess: () => {
-        setIsUploading(false);
-        setValidationErrors({});
-      },
-      onError: (errors) => {
-        setIsUploading(false);
-        setValidationErrors(errors);
-      },
+  const handleSubmit = () => {
+    post(route('admin.products.variations.update', product.id), {
+        preserveScroll: true,
+        onSuccess: () => {
+            // handle sucessful submission
+        },
+        onError: (errors) => {
+            console.log('Validation errors:', errors);            
+        },
     });
   }
 
