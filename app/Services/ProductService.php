@@ -35,6 +35,22 @@ class ProductService
     $result = [[]];
 
     foreach ($variationTypes as $index => $variationType) {
+        $temp = [];
+        foreach ($variationType->options as $option) {
+            foreach ($result as $combination) {
+                $newCombination = $combination + [
+                    'variation_type_' . ($variationType->id) => [
+                        'id' => $option->id,
+                        'name' => $option->name,
+                        'label' => $variationType->name,
+                    ],
+                ];
+                $temp[] = $newCombination;
+            }
+        }
+        $result = $temp;
+    }
+    foreach ($variable as $key => $value) {
         # code...
     }
  }
