@@ -93,8 +93,21 @@ class ProductVariationTypeController extends Controller
                     }
 
                     $variationTypeOptions[] = $option->id;
-                    
+
+                    if ($variationTypeData['type'] === 'image' && request()->hasFile("variationTypes.$vtIndex.options.$opIndex.images")) {
+                        $option->clearMediaCollection('images');
+
+                        foreach (request()->file("variationTypes.$vtIndex.options.$opIndex.images") as $image) {
+                            $option->addMedia($image)
+                            ->toMediaCollection('images');
+                        }
+                    }                                        
                 }
+            }
+
+            DB::commit();
+            if (count($newVariantionIds) > 0) {
+                VariationType::whereNotIn();
             }
         } catch (\Throwable $th) {
             //throw $th;
