@@ -100,7 +100,7 @@ class ProductService
         // if the variation has ID, update it; if not, create a new one
         if (isset($variation['id']) && $variation['id'] !== null && $variation['id'] !== '') {
             // update existing variation
-            return array_merge($variationData, ['id' => $variation]);
+            return array_merge($variationData, ['id' => $variation['id']]);
         } else {
             // create new variation (no ID provided)
             return array_merge($variationData, ['product_id' => $record->id, 'created_at' => now()]);
@@ -110,9 +110,15 @@ class ProductService
     // for existing variations, we can use `updateCreate` to update or create based on the ID 
     foreach ($variations as $variation) {
         // If ID exist , we use updateCreate to update existing variations
-        if ($pv = ProductVariation::where('product_id', $record->id)->where('variation_type_option_ids', json_encode($variation))) {
-            # code...
+        if ($pv = ProductVariation::where('product_id', $record->id)->where('variation_type_option_ids', json_encode($variation['variation_type_option_ids']))->first()) {
+            $record->variations()->updateOrCreate(['id' => $pv->id], $variation);
+        }else {
+            // If no ID, create a new variation record without the `id`
+            $record->variations()->create($variation);
         }
     }
+
+    // Return the update product record
+    return $record;
  }
 }
