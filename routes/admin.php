@@ -34,7 +34,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->group(function () {
             Route::controller(ProductVariationController::class)->group(function () {
                 Route::group(['prefix' => 'variations','as' => 'variations.'], function (){
                     Route::get('/{product}', 'index')->name('index');
-                    Route::post('/{product}/store', 'store')->name('store');
+                    Route::post('/{product}/update', 'update')->name('update');
                 });
             });
         });

@@ -69,7 +69,7 @@ class ProductService
     foreach ($data['variation'] as $option) {
         $variationTypeOptionIds = [];
         foreach ($product->variationTypes as $i => $variationType) {
-            $variationTypeOptionIds[] = $option['variation_type_'.($variationType->id)]['id'];
+            $variationTypeOptionIds[] = $option['variation_type_' . ($variationType->id)]['id'];
         }
         $quantity = $option['quantity'];
         $price = $option['price'];
