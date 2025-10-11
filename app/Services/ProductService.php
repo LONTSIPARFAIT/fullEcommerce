@@ -51,14 +51,16 @@ class ProductService
                 $temp[] = $newCombination;
             }
         }
+        // dd($temp);
         $result = $temp;
     }
-    foreach ($result as $combination) {
+    foreach ($result as &$combination) {
         if (count($combination) === count($variationTypes)) {
             $combination['quantity'] = $defaultQuantity;
             $combination['price'] = $defaultPrice;
         }
     }
+    // dd($result);
     return $result ;
  }
 

@@ -1,15 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { CardContent } from '@/components/ui/card';
 import { BreadcrumbItem } from '@/types';
 import {  useForm } from '@inertiajs/react';
-import { ChevronDown, ChevronUp, ChevronUpIcon, Images, Layers, Plus, Save, Trash2, } from 'lucide-react';
-import React, {  useEffect, useState } from 'react';
-import ProductLayout from '../ProductLayout';;
-import { Badge } from '@/components/ui/badge';
-import { motion } from 'framer-motion';
+import { ChevronUpIcon, Layers, } from 'lucide-react';
+import ProductLayout from '../ProductLayout';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { log } from 'console';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Label } from '@/components/ui/label';
 
@@ -96,12 +89,12 @@ export default function ProductVariations({ product, variationLists }: { product
           <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Variations de Produit</h2>
         </div>
 
-        {data.variations.length === 0 ? (
+        {data.variations?.length === 0 ? (
           <div className="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
             <p className="text-gray-600 dark:text-gray-400">No variation types found for this product.</p>
           </div>
         ) : (
-          data.variations.map((variation, idx)=>(
+          data.variations?.map((variation, idx)=>(
             <Disclosure key={idx} defaultOpen>
               {({ open }) => (
                 <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
