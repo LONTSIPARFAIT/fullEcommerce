@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VariationStoreUpdateRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
