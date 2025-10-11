@@ -28,12 +28,18 @@ class ProductVariationController extends Controller
         ]);
     }
 
-    public function store(){
-        //
-    }
+    /** update product variations
+    * 
+    * @param Request $request
+    * @param Product $product
+    * @return JsonResponse
+    */
 
-    public function update(Request $request){
-        //
+    public function update(VariationStoreUpdateRequest $request, Product $product){
+        // Process the variation
+        $data = $this->productService->mutateFormDataBeforeSave($request->all(), $product);
+        $updatedProduct = $this->productService->handleRecordUpdate($product, $data);
+        return redirect()->back()->with('success', 'Product variations updated successfully');
     }
 
     public function destroy(){
