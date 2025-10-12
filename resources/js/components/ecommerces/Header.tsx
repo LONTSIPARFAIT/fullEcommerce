@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 
-export default function Head() {
+export default function Header() {
   const [open, setOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);

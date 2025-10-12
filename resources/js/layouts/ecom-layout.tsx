@@ -1,3 +1,5 @@
+import Footer from "@/components/ecommerces/Footer";
+import Header from "@/components/ecommerces/Header";
 import { Head } from "@inertiajs/react";
 
 interface EcommerceLayoutProps {
@@ -5,7 +7,7 @@ interface EcommerceLayoutProps {
   title?: string;
 }
 
-export default function ({ children, title = "R-Mart" }: EcommerceLayoutProps) {
+export default function EcomLayout({ children, title = "R-Mart" }: EcommerceLayoutProps) {
   return (
     <>
       <Head >
@@ -17,7 +19,12 @@ export default function ({ children, title = "R-Mart" }: EcommerceLayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-screen bg-gray-50">
-        {children}
+        <Header />
+        {/* <main className="container mx-auto px-4 py-8"> */}
+        <main>
+            {children}
+        </main>
+        <Footer />
       </div>
       <footer className="ecom-footer">
         <p>&copy; 2025 </p>
