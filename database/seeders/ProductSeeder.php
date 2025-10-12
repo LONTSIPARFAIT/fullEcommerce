@@ -82,8 +82,7 @@ class ProductSeeder extends Seeder
             ];
 
             foreach ($variations as $variation) {
-                $variation->variation_type_option_ids = VariationTypeOption::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray();
-                $variation->save();
+                ProductVariation::create($variation);
             }
         }
     }
