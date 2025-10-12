@@ -33,7 +33,7 @@ class ProductController extends Controller
         ->paginate($perPage)->withQueryString();
 
         $products->getCollection()->transform(function ($product){
-            $product->image= asset('storage/' . $product->image);
+            $product->image= $product->getFirstImageUrl('images', 'thumb');
 
             return $product;
         });
@@ -107,7 +107,7 @@ class ProductController extends Controller
 
     public function flattenCategories($categories, $prefix = '', $result = [] ){
         foreach ($categories as $category) {
-            $path = $prefix?"$prefix > $category->name" : $category->name;
+            $path = $prefix ? "$prefix > $category->name" : $category->name;
 
             $result[] = [
                 'id' => $category->id,

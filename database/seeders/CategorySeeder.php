@@ -54,12 +54,12 @@ class CategorySeeder extends Seeder
                 'parent_id' => null,
             ]);
 
-            foreach ($categories['subCategories'] as $subCategory) {
-                Category::create([
-                    'name' => $subCategory,
-                    'parent_id' => $mainCategory->id,
-                ]);
-            }
+            // foreach ($categories['subCategories'] as $subCategory) {
+            //     Category::create([
+            //         'name' => $subCategory,
+            //         'parent_id' => $mainCategory->id,
+            //     ]);
+            // }
         }
     }
 }
