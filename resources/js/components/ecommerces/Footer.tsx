@@ -1,12 +1,6 @@
 import { Link } from "@inertiajs/react";
-import { useState } from "react";
 
-
-export default function Head() {
-  const [open, setOpen] = useState(false);
-  const [isCardOpen, setIsCardOpen] = useState(false);
-  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+export default function EcommerceFooter() {
 
   return (
     <>
