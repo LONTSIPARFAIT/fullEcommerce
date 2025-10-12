@@ -12,10 +12,13 @@ export default function ({ children, title = "R-Mart" }: EcommerceLayoutProps) {
         <title>{title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="R-Mark - Your one-stop online shopping destination" />
+        <meta name="keywords" content="ecommerce - online shopping, electronics, fashion, groceries" />
+        <meta name="author" content="R-Mark Team" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="ecom-content">
+      <div className="min-h-screen bg-gray-50">
         {children}
-      </main>
+      </div>
       <footer className="ecom-footer">
         <p>&copy; 2025 </p>
       </footer>
