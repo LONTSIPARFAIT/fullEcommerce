@@ -164,6 +164,7 @@ export default function Head() {
                         <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Audio</Link>
                       </div>
                     </div>
+
                     {/* More categories */}
                     <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
                         <i className="fas fa-tshirt mr-3 text-indigo-500"></i>
@@ -179,10 +180,29 @@ export default function Head() {
                     </Link>
                     <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
                         <i className="fas fa-baby mr-3 text-indigo-500"></i>
-                        <span>Sport & Outdoors</span>
+                        <span>Baby & Kids</span>
                     </Link>
                   </div>
                 </div>
+
+                {/* Main Menu */}
+                <ul className="flex">
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Home</Link>
+                    </li>
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Shop</Link>
+                    </li>
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">New Arrival</Link>
+                    </li>
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Deals</Link>
+                    </li>
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">New Arrival</Link>
+                    </li>
+                </ul>
               </div>
             </div>
           </div>
