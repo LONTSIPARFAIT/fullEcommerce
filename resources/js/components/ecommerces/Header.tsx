@@ -64,7 +64,7 @@ export default function Head() {
           <div className="flex-1 max-w-xl mx-8">
             <div className="relative">
               <input type="text" placeholder="Rechercher un Produit..." className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-              <button className="absolute"></button>
+              <button className="absolute right-0 top-0 h-full px-4 text-gray-500 hover:text-indigo-500"><i className="fas fa-search"></i></button>
             </div>
           </div>
         </div>
