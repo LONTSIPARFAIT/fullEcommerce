@@ -27,12 +27,33 @@ class ProductSeeder extends Seeder
             ]);
 
             // create Size variation type
-            $colorType = VariationType::create([
+            $sizeType = VariationType::create([
                 'product_id' => $product->id,
-                'name' => 'Colors',
+                'name' => 'Size',
                 'type' => 'select',
             ]);
 
+            // create Color options 
+            $redOption = VariationTypeOption::create([
+                'variation_type_id' => $colorType->id,
+                'name' => 'Red',
+            ]);
+            $blackOption = VariationTypeOption::create([
+                'variation_type_id' => $colorType->id,
+                'name' => 'Black',
+            ]);
+
+            // create Size options 
+            $smallOption = VariationTypeOption::create([
+                'variation_type_id' => $sizeType->id,
+                'name' => 'Small',
+            ]);
+            $largeOption = VariationTypeOption::create([
+                'variation_type_id' => $sizeType->id,
+                'name' => 'Large',
+            ]);
+
+            // create variation (combinations)
             $variations = ProductVariation::factory(rand(1, 5))->create([
                 'product_id' => $product->id,
             ]);
