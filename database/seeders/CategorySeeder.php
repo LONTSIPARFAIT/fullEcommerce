@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,5 +23,19 @@ class CategorySeeder extends Seeder
                 ],
             ],
         ];
+
+        foreach ($categories as $category) {
+            $mainCategory = Category::create([
+                'name' => $category['name'],
+                'parent_id' => null,
+            ]);
+
+            foreach ($categories as $category) {
+                $mainCategory = Category::create([
+                    'name' => $category['name'],
+                    'parent_id' => null,
+                ]);
+            }
+        }
     }
 }
