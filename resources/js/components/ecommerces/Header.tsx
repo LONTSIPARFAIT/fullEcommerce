@@ -8,7 +8,7 @@ export default function Head() {
   const [ isCurrencyOpen, setIsCurrencyOpen ] = useState(false);
   const [ isLanguageOpen, setIsLanguageOpen]  = useState(false);
 
-  return (    
+  return (
     <>
       {/*  Top Header with social links, currently, language */}
       <div className="bg-gray-800 text-white py-2">
@@ -26,7 +26,7 @@ export default function Head() {
                 <i className="fas fa-chevron-down text-xs"></i>
                 {/* <ChevronDown size={16} /> */}
               </button>
-              {isCurrencyOpen && ( 
+              {isCurrencyOpen && (
                 <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
                   <Link href="#" className="block px-4 py-2 hover:bg-gray-100">FCFA - FR Dollar</Link>
                   <Link href="#" className="block px-4 py-2 hover:bg-gray-100">USD -US Dollar</Link>
@@ -49,7 +49,7 @@ export default function Head() {
               </div>
             </div>
             <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
-              <i className="fas fa-user"></i> 
+              <i className="fas fa-user"></i>
               <span>Login</span>
             </Link>
           </div>
@@ -128,7 +128,13 @@ export default function Head() {
       <nav className="bg-white shadow">
         <div className="container mx-auto px-4">
           <div className="flex">
-            {/* categories Drow */}
+            {/* categories Dropdows */}
+            <div className="relative group dropdown" x-data="{ open: false }">
+                <button>
+                    <i className="fas fa-bars mr-2"></i>
+                    <span>All Categories</span>
+                </button>
+            </div>
           </div>
         </div>
       </nav>
