@@ -3,10 +3,10 @@ import { useState } from "react";
 
 
 export default function Head() {
-  const [ open, setOpen ] = useState(false);
-  const [ isCardOpen, setIsCardOpen ] = useState(false);
-  const [ isCurrencyOpen, setIsCurrencyOpen ] = useState(false);
-  const [ isLanguageOpen, setIsLanguageOpen]  = useState(false);
+  const [open, setOpen] = useState(false);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Head() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false }">
-              <button onClick={()=>setIsCurrencyOpen(!isCurrencyOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
+              <button onClick={() => setIsCurrencyOpen(!isCurrencyOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
                 <span>FCFA</span>
                 <i className="fas fa-chevron-down text-xs"></i>
                 {/* <ChevronDown size={16} /> */}
@@ -34,17 +34,17 @@ export default function Head() {
                 </div>
               )}
               <div className="relative" x-data="{ open: false }">
-                <button onClick={()=>setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
+                <button onClick={() => setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
                   <span>Francais</span>
                   <i className="fas fa-chevron-down text-xs"></i>
                   {/* <ChevronDown size={16} /> */}
                 </button>
                 {/* {isCurrencyOpen && (  */}
-                  <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
-                    <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
-                    <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
-                    <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
-                  </div>
+                <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
+                </div>
                 {/* )} */}
               </div>
             </div>
@@ -69,11 +69,11 @@ export default function Head() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false, count: 2 }">
-              <button onClick={()=>setIsCardOpen(!isCardOpen)} className="relative hover:text-indigo-600">
+              <button onClick={() => setIsCardOpen(!isCardOpen)} className="relative hover:text-indigo-600">
                 <i className="fas fa-shopping-cart text-xl"></i>
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="count"></span>
               </button>
-              <div x-show="open" onClick={()=>setIsCardOpen(false)} className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md overflow-hidden z-50">
+              <div x-show="open" onClick={() => setIsCardOpen(false)} className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md overflow-hidden z-50">
                 <div className="pb-4 border-b">
                   <h3 className="font-medium">Cart Summary (2 items)</h3>
                 </div>
@@ -130,26 +130,35 @@ export default function Head() {
           <div className="flex">
             {/* categories Dropdows */}
             <div className="relative group dropdown" x-data="{ open: false }">
-                <button onClick={()=>open = !open} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
-                    <i className="fas fa-bars mr-2"></i>
-                    <span>All Categories</span>
-                    <i className="fas fa-chevron-down ml-2 text-xs"></i>
-                </button>
-                <div x-show='open' className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
-                    {/* category with subcategories */}
-                    <div className="relative nested-dropdown">
-                        <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
-                            <div className="flex items-center">
-                                <i className="fas fa-laptop mr-3 text-indigo-500"></i>
-                                <span>Electronics</span>
-                            </div>
-                            <i className="fas fa-chevron-rignt text-xs"></i>
-                        </Link>
-                        <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
-                            {/* Subcategory */}
-                        </div>
+              <button onClick={() => open = !open} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
+                <i className="fas fa-bars mr-2"></i>
+                <span>All Categories</span>
+                <i className="fas fa-chevron-down ml-2 text-xs"></i>
+              </button>
+              <div x-show='open' className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
+                {/* category with subcategories */}
+                <div className="relative nested-dropdown">
+                  <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
+                    <div className="flex items-center">
+                      <i className="fas fa-laptop mr-3 text-indigo-500"></i>
+                      <span>Electronics</span>
                     </div>
+                    <i className="fas fa-chevron-rignt text-xs"></i>
+                  </Link>
+                  <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
+                    {/* Subcategory with more nested categorie */}
+                    <div className="relative nested-dropdown">
+                      <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
+                        <div className="flex items-center">
+                          <i className="fas fa-mobile-alt mr-3 text-indigo-500"></i>
+                          <span>Smartphones</span>
+                        </div>
+                        <i className="fas fa-chevron-rignt text-xs"></i>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
