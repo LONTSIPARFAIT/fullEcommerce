@@ -54,9 +54,32 @@ class ProductSeeder extends Seeder
             ]);
 
             // create variation (combinations)
-            $variations = ProductVariation::factory(rand(1, 5))->create([
-                'product_id' => $product->id,
-            ]);
+            $variations = [
+                [
+                    'product_id' => $product->id,
+                    'variation_type_option_ids' => json_encode([$redOption->id, $smallOption->id]),
+                    'quantity' => 100,
+                    'price' => 200.00,
+                ],
+                [
+                    'product_id' => $product->id,
+                    'variation_type_option_ids' => json_encode([$blackOption->id, $smallOption->id]),
+                    'quantity' => 100,
+                    'price' => 200.00,
+                ],
+                [
+                    'product_id' => $product->id,
+                    'variation_type_option_ids' => json_encode([$redOption->id, $largeOption->id]),
+                    'quantity' => 200,
+                    'price' => 300.00,
+                ],
+                [
+                    'product_id' => $product->id,
+                    'variation_type_option_ids' => json_encode([$blackOption->id, $largeOption->id]),
+                    'quantity' => 200,
+                    'price' => 300.00,
+                ],
+            ];
 
             foreach ($variations as $variation) {
                 $variation->variation_type_option_ids = VariationTypeOption::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray();
