@@ -12,6 +12,37 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $brands = [
+            [
+                'name' => 'Samsung',
+            ],
+            [
+                'name' => 'Apple',
+            ],
+            [
+                'name' => 'Sony',
+            ],
+            [
+                'name' => 'LG',
+            ],
+            [
+                'name' => 'Dell',
+            ],
+            [
+                'name' => 'HP',
+            ],
+            [
+                'name' => 'Lenovo',
+            ],
+            [
+                'name' => 'Asur',
+            ],
+            [
+                'name' => 'Acer',
+            ],
+            [
+                'name' => 'Microsoft',
+            ],
+        ];
     }
 }
