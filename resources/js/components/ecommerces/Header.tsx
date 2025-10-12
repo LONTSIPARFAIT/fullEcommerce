@@ -1,9 +1,9 @@
 import { Link } from "@inertiajs/react";
-import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 
 export default function Head() {
+  const [ open, setOpen ] = useState(false);
   const [ isCardOpen, setIsCardOpen ] = useState(false);
   const [ isCurrencyOpen, setIsCurrencyOpen ] = useState(false);
   const [ isLanguageOpen, setIsLanguageOpen]  = useState(false);
@@ -13,9 +13,7 @@ export default function Head() {
     <div className="bg-gray-800 text-white py-2">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex space-x-4">
-          <Link prefetch href="#" className="hover:text-gray-300">
-            <i className="fab fa-facebook-f"></i>
-          </Link>
+          <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-facebook-f"></i></Link>
           <Link prefetch href="#" className="hover:text-gray-300">
             <i className="fab fa-twitter"></i>
           </Link>
@@ -28,18 +26,13 @@ export default function Head() {
         </div>
         <div className="flex items-center space-x-6">
           <div className="relative" x-data="{ open: false }">
-            <button
-              onClick={()=>setIsCurrencyOpen(!isCurrencyOpen)}
-              className="flex items-center space-x-1 hover:text-gray-300"
-            >
+            <button onClick={()=>setIsCurrencyOpen(!isCurrencyOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
               <span>FCFA</span>
               <i className="fas fa-chevron-down text-xs"></i>
               {/* <ChevronDown size={16} /> */}
             </button>
             {isCurrencyOpen && ( 
-              <div x-show="open"
-                className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50"
-              >
+              <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
                 <Link href="#" className="block px-4 py-2 hover:bg-gray-100">FCFA - FR Dollar</Link>
                 <Link href="#" className="block px-4 py-2 hover:bg-gray-100">USD -US Dollar</Link>
                 <Link href="#" className="block px-4 py-2 hover:bg-gray-100">EUR - Euro</Link>
@@ -47,26 +40,27 @@ export default function Head() {
             )}
           </div>
           <div className="relative" x-data="{ open: false }">
-            <button
-              onClick={()=>setIsCurrencyOpen(!isCurrencyOpen)}
-              className="flex items-center space-x-1 hover:text-gray-300"
-            >
-              <span>FCFA</span>
+            <button onClick={()=>setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
+              <span>Francais</span>
               <i className="fas fa-chevron-down text-xs"></i>
               {/* <ChevronDown size={16} /> */}
             </button>
             {isCurrencyOpen && ( 
-              <div x-show="open"
-                className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50"
-              >
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">FCFA - FR Dollar</Link>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">USD -US Dollar</Link>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">EUR - Euro</Link>
+              <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
+                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
+                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
+                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
               </div>
             )}
           </div>
         </div>
+        <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
+          <i className="fas fa-user"></i> 
+          <span>Login</span>
+        </Link>
       </div>
     </div>
+
+    // Main Header with logo, search, and card
   );
 }
