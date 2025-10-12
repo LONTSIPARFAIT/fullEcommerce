@@ -108,12 +108,30 @@ export default function Head() {
                     <span>Subtotal</span>
                     <span className="font-medium">3500Fcfa</span>
                   </div>
+                  <div className="flex space-x-2">
+                    <Link href="#" className="flex-1 bg-gray-200 text-gray-800 text-center py-2 rounded-md hover:bg-gray-300">View Card</Link>
+                    <Link href="#" className="flex-1 bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700">Checkout</Link>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className="flex space-y-4">
+              <Link href="#" className="text-gray-700 hover:text-indigo-600">Login</Link>
+              <span className="text-gray-300">|</span>
+              <Link href="#" className="text-gray-700 hover:text-indigo-600">Register</Link>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Categories Navigation */}
+      <nav className="bg-white shadow">
+        <div className="container mx-auto px-4">
+          <div className="flex">
+            {/* categories Drow */}
+          </div>
+        </div>
+      </nav>
     </>
   );
 }
