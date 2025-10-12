@@ -32,26 +32,26 @@ export default function Head() {
                 <Link href="#" className="block px-4 py-2 hover:bg-gray-100">EUR - Euro</Link>
               </div>
             )}
+            <div className="relative" x-data="{ open: false }">
+              <button onClick={()=>setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
+                <span>Francais</span>
+                <i className="fas fa-chevron-down text-xs"></i>
+                {/* <ChevronDown size={16} /> */}
+              </button>
+              {isCurrencyOpen && ( 
+                <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="relative" x-data="{ open: false }">
-            <button onClick={()=>setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
-              <span>Francais</span>
-              <i className="fas fa-chevron-down text-xs"></i>
-              {/* <ChevronDown size={16} /> */}
-            </button>
-            {isCurrencyOpen && ( 
-              <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
-              </div>
-            )}
-          </div>
+          <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
+            <i className="fas fa-user"></i> 
+            <span>Login</span>
+          </Link>
         </div>
-        <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
-          <i className="fas fa-user"></i> 
-          <span>Login</span>
-        </Link>
       </div>
     </div>
 
