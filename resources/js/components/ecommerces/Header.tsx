@@ -39,13 +39,13 @@ export default function Head() {
                   <i className="fas fa-chevron-down text-xs"></i>
                   {/* <ChevronDown size={16} /> */}
                 </button>
-                {isCurrencyOpen && ( 
+                {/* {isCurrencyOpen && (  */}
                   <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
                     <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
                     <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
                     <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
                   </div>
-                )}
+                {/* )} */}
               </div>
             </div>
             <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
@@ -65,6 +65,35 @@ export default function Head() {
             <div className="relative">
               <input type="text" placeholder="Rechercher un Produit..." className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
               <button className="absolute right-0 top-0 h-full px-4 text-gray-500 hover:text-indigo-500"><i className="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div className="flex items-center space-x-6">
+            <div className="relative" x-data="{ open: false, count: 2 }">
+              <button onClick={()=>setIsCardOpen(!isCardOpen)} className="relative hover:text-indigo-600">
+                <i className="fas fa-shopping-cart text-xl"></i>
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="count"></span>
+              </button>
+              <div x-show="open" onClick={()=>setIsCardOpen(false)} className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                <div className="pb-4 border-b">
+                  <h3 className="font-medium">Cart Summary (2 items)</h3>
+                </div>
+                <div className="max-h-64 overflow-y-auto">
+                  <div className="flex p-4 border-b">
+                    <img src="./images/p-1.jpg" alt="product" className="w-16 h-16 rounded" />
+                    <div className="ml-4 flex-1">
+                      <h4 className="font-medium">Wireless Headphones</h4>
+                      <div className="flex justify-between mt-1">
+                        <p className="text-gray-600">1 x 890Fcfa</p>
+                        <button className="text-red-500 hover:text-red-700">
+                          <i className="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex p-4"></div>
+                </div>
+                <div className="flex border-t"></div>
+              </div>
             </div>
           </div>
         </div>
