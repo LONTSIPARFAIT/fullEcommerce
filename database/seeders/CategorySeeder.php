@@ -16,7 +16,9 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Tech Support',
                 'subCategories' => [
-                    'Computer Repair'
+                    'Computer Repair',
+                    'Phone Repair',
+                    'Network Repair',
                 ],
             ],
         ];
