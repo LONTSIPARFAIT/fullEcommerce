@@ -90,9 +90,25 @@ export default function Head() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex p-4"></div>
+                  <div className="flex p-4">
+                    <img src="./images/p-2.jpg" alt="product" className="w-16 h-16 rounded" />
+                    <div className="ml-4 flex-1">
+                      <h4 className="font-medium">Smart Watch</h4>
+                      <div className="flex justify-between mt-1">
+                        <p className="text-gray-600">1 x 1200Fcfa</p>
+                        <button className="text-red-500 hover:text-red-700">
+                          <i className="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex border-t"></div>
+                <div className="flex border-t">
+                  <div className="flex justify-between mb-2">
+                    <span>Subtotal</span>
+                    <span className="font-medium">3500Fcfa</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
