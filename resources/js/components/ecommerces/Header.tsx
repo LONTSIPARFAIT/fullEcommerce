@@ -130,7 +130,7 @@ export default function Head() {
           <div className="flex">
             {/* categories Dropdows */}
             <div className="relative group dropdown" x-data="{ open: false }">
-              <button onClick={() => open = !open} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
+              <button onClick={() => setOpen(!open)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
                 <i className="fas fa-bars mr-2"></i>
                 <span>All Categories</span>
                 <i className="fas fa-chevron-down ml-2 text-xs"></i>
@@ -200,7 +200,10 @@ export default function Head() {
                         <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Deals</Link>
                     </li>
                     <li>
-                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">New Arrival</Link>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Blog</Link>
+                    </li>
+                    <li>
+                        <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">COntact</Link>
                     </li>
                 </ul>
               </div>
