@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,7 @@ class BandSeeder extends Seeder
      */
     public function run(): void
     {
-        $bands = [
+        $brands = [
             [
                 'name' => 'Samsung',
             ],
@@ -44,8 +45,8 @@ class BandSeeder extends Seeder
                 'name' => 'Microsoft',
             ],
         ];
-        foreach ($variable as $key => $value) {
-            # code...
+        foreach ($brands as $brand) {
+            Brand::create($brand);
         }
     }
 }
