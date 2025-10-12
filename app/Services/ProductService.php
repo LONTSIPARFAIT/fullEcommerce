@@ -16,7 +16,7 @@ class ProductService
         $optionIds = collect($product)->filter(fn($value, $key) => str_starts_with($key, 'variation_type_'))->map(fn($option)=>$option['id'])->values()->toArray();
 
         $match = array_filter($existingData, function ($existingOption) use ($optionIds) {
-            return $existingOption['variation_type_option_ids'] === $optionIds;
+            return $existingOption['variation_type_option_ids'] === json_encode($optionIds);
         });
 
         if (!empty($match)) {
