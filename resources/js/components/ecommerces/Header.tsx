@@ -143,7 +143,7 @@ export default function Head() {
                       <i className="fas fa-laptop mr-3 text-indigo-500"></i>
                       <span>Electronics</span>
                     </div>
-                    <i className="fas fa-chevron-rignt text-xs"></i>
+                    <i className="fas fa-chevron-right text-xs"></i>
                   </Link>
                   <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
                     {/* Subcategory with more nested categorie */}
@@ -153,9 +153,34 @@ export default function Head() {
                           <i className="fas fa-mobile-alt mr-3 text-indigo-500"></i>
                           <span>Smartphones</span>
                         </div>
-                        <i className="fas fa-chevron-rignt text-xs"></i>
+                        <i className="fas fa-chevron-right text-xs"></i>
                       </Link>
+                      <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Android Phones</Link>
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">IPhones</Link>
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Acessories</Link>
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Laptops</Link>
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Camera</Link>
+                        <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Audio</Link>
+                      </div>
                     </div>
+                    {/* More categories */}
+                    <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
+                        <i className="fas fa-tshirt mr-3 text-indigo-500"></i>
+                        <span>Fashion</span>
+                    </Link>
+                    <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
+                        <i className="fas fa-home mr-3 text-indigo-500"></i>
+                        <span>Home & Garden</span>
+                    </Link>
+                    <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
+                        <i className="fas fa-futbol mr-3 text-indigo-500"></i>
+                        <span>Sport & Outdoors</span>
+                    </Link>
+                    <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100">
+                        <i className="fas fa-baby mr-3 text-indigo-500"></i>
+                        <span>Sport & Outdoors</span>
+                    </Link>
                   </div>
                 </div>
               </div>
