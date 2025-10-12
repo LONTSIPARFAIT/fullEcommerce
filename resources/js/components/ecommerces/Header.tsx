@@ -130,10 +130,26 @@ export default function Head() {
           <div className="flex">
             {/* categories Dropdows */}
             <div className="relative group dropdown" x-data="{ open: false }">
-                <button>
+                <button onClick={()=>open = !open} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
                     <i className="fas fa-bars mr-2"></i>
                     <span>All Categories</span>
+                    <i className="fas fa-chevron-down ml-2 text-xs"></i>
                 </button>
+                <div x-show='open' className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
+                    {/* category with subcategories */}
+                    <div className="relative nested-dropdown">
+                        <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
+                            <div className="flex items-center">
+                                <i className="fas fa-laptop mr-3 text-indigo-500"></i>
+                                <span>Electronics</span>
+                            </div>
+                            <i className="fas fa-chevron-rignt text-xs"></i>
+                        </Link>
+                        <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
+                            {/* Subcategory */}
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
