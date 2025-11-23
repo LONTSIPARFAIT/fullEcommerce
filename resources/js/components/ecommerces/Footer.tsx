@@ -98,11 +98,27 @@ export default function Footer() {
             <h3 className="mb-4 text-lg font-semibold">Contact Us</h3>
             <ul className="space-y-3">
                 <li className="flex items-center">
-                    <i className=""></i>
-                    <span className=""></span>
+                    <i className="fas fa-map-marker-alt mt-1 mr-3 text-indigo-500">s</i>
+                    <span className="text-gray-400">1234 Market St, Suite 980 <br />San Francisco </span>
+                </li>
+                <li className="flex items-center">
+                    <i className="fas fa-phone-alt mt-1 mr-3 text-indigo-500"></i>
+                    <span className="text-gray-400">+237 679324517</span>
+                </li>
+                <li className="flex items-center">
+                    <i className="fas fa-envelope mt-1 mr-3 text-indigo-500"></i>
+                    <span className="text-gray-400">lontsiparfait12@gmail.com</span>
+                </li>
+                <li className="flex items-center">
+                    <i className="fas fa-clock mt-1 mr-3 text-indigo-500"></i>
+                    <span className="text-gray-400">Lun-Dim: 7H30-20H</span>
                 </li>
             </ul>
           </div>
+        </div>
+        <hr className="my-8 border-gray-700"/>
+        <div className="flex flex-col items-center justify-between md:flex-row">
+            <p className="mb-4"></p>
         </div>
       </div>
     </footer>
