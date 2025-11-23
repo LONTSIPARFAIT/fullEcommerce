@@ -33,7 +33,7 @@ class ProductController extends Controller
         ->paginate($perPage)->withQueryString();
 
         $products->getCollection()->transform(function ($product){
-            $product->image= $product->getFirstImageUrl('image', 'thumb');
+            $product->image= $product->getFirstImageUrl('images', 'thumb');
 
             return $product;
         });
