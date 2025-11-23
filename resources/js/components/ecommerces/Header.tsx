@@ -50,7 +50,7 @@ export default function Header() {
                 )}
               </div>
             </div>
-            <Link href="#" className="hover:text-gray-300 flex items-center space-x-1">
+            <Link href="login" className="hover:text-gray-300 flex items-center space-x-1">
               <i className="fas fa-user"></i>
               <span>Login</span>
             </Link>
@@ -120,9 +120,9 @@ export default function Header() {
               )}
             </div>
             <div className="flex space-y-4">
-              <Link href="#" className="text-gray-700 hover:text-indigo-600">Login</Link>
+              <Link href="login" className="text-gray-700 hover:text-indigo-600">Login</Link>
               <span className="text-gray-300">|</span>
-              <Link href="#" className="text-gray-700 hover:text-indigo-600">Register</Link>
+              <Link href="register" className="text-gray-700 hover:text-indigo-600">Register</Link>
             </div>
           </div>
         </div>

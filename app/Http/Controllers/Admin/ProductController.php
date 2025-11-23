@@ -33,7 +33,7 @@ class ProductController extends Controller
         ->paginate($perPage)->withQueryString();
 
         $products->getCollection()->transform(function ($product){
-            $product->image= $product->getFirstImageUrl('images', 'thumb');
+            $product->image= $product->getFirstImageUrl('image', 'thumb');
 
             return $product;
         });
@@ -114,7 +114,7 @@ class ProductController extends Controller
                 'name' => $category->name,
                 'path' => $path,
                 'level' => substr_count($path, ">"),
-            ]; 
+            ];
 
             if ($category->descendants && $category->descendants->count() > 0) {
                 $result = $this->flattenCategories($category->descendants, $path, $result);
