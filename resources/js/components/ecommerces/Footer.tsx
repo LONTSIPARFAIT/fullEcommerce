@@ -118,7 +118,13 @@ export default function Footer() {
         </div>
         <hr className="my-8 border-gray-700"/>
         <div className="flex flex-col items-center justify-between md:flex-row">
-            <p className="mb-4"></p>
+            <p className="mb-4 text-gray-400 md:mb-0">&copy; {new Date().getFullYear()} ShopMart. All Right reserved</p>
+            <div className="space-x-6 flex">
+                <img src="/images/payment-4.png" alt="Payment" className="h-8"/>
+                <img src="/images/payment-3.png" alt="Payment" className="h-8"/>
+                <img src="/images/payment-2.png" alt="Payment" className="h-8"/>
+                <img src="/images/payment-1.png" alt="Payment" className="h-8"/>
+            </div>
         </div>
       </div>
     </footer>

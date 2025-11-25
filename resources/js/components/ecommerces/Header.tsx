@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { Facebook } from "lucide-react";
 import { useState } from "react";
 
 
@@ -16,7 +17,10 @@ export default function Header() {
       <div className="bg-gray-800 text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-4">
-            <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-facebook-f"></i></Link>
+            <Link prefetch href="#" className="hover:text-gray-300">
+                <Facebook  className="h"/>
+                <i className="fab fa-facebook-f"></i>
+            </Link>
             <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-twitter"></i></Link>
             <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-intagram"></i></Link>
             <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-pinterest"></i></Link>

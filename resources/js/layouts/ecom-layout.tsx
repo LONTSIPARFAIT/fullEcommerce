@@ -26,9 +26,9 @@ export default function EcomLayout({ children, title = "R-Mart" }: EcommerceLayo
         </main>
         <Footer />
       </div>
-      <footer className="ecom-footer">
+      {/* <footer className="ecom-footer">
         <p>&copy; 2025 </p>
-      </footer>
+      </footer> */}
 
     </>
   );
