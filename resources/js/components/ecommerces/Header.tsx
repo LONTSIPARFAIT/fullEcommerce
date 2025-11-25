@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ChevronDown, Facebook, Instagram, X, Youtube } from "lucide-react";
+import { ChevronDown, Facebook, Instagram, Menu, Search, ShoppingCart, User, X, Youtube } from "lucide-react";
 import { useState } from "react";
 
 
@@ -58,7 +58,7 @@ export default function Header() {
               )}
             </div>
             <Link href="login" className="hover:text-gray-300 flex items-center space-x-1">
-              <i className="fas fa-user"></i>
+              <User className="h-5 w-5"/>
               <span>Login</span>
             </Link>
           </div>
@@ -73,14 +73,18 @@ export default function Header() {
           <div className="flex-1 max-w-xl mx-8">
             <div className="relative">
               <input type="text" placeholder="Rechercher un Produit..." className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-              <button className="absolute right-0 top-0 h-full px-4 text-gray-500 hover:text-indigo-500"><i className="fas fa-search"></i></button>
+              <button className="absolute right-0 top-0 h-full px-4 text-gray-500 hover:text-indigo-500">
+                <Search className="h-5 w-5" />
+              </button>
             </div>
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false, count: 2 }">
               <button onClick={() => setIsCardOpen(!isCardOpen)} className="relative hover:text-indigo-600">
-                <i className="fas fa-shopping-cart text-xl"></i>
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="count"></span>
+                <ShoppingCart className="h-6 w-6" />
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="count">
+                    2
+                </span>
               </button>
               {isCardOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md overflow-hidden z-50">
@@ -142,9 +146,9 @@ export default function Header() {
             {/* categories Dropdows */}
             <div className="relative group dropdown" x-data="{ open: false }">
               <button onClick={() => setIsCategoryOpen(!isCategoryOpen)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
-                <i className="fas fa-bars mr-2"></i>
+                <Menu className="h-5 w-5 mr-2" />
                 <span>All Categories</span>
-                <ChevronDown size={16} />
+                <ChevronDown className="h-3 w-3 ml-1" />
               </button>
               {isCategoryOpen && (
                 <div className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
