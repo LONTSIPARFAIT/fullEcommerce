@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
@@ -145,12 +145,12 @@ export default function Header() {
           <div className="flex">
             {/* categories Dropdows */}
             <div className="relative group dropdown" x-data="{ open: false }">
-              <button onClick={() => setIsCategoryOpen(!isCategoryOpen)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
+              <button onClick={() => setIsCategoriesOpen(!isCategoriesOpen)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
                 <Menu className="h-5 w-5 mr-2" />
                 <span>All Categories</span>
                 <ChevronDown className="h-3 w-3 ml-1" />
               </button>
-              {isCategoryOpen && (
+              {isCategoriesOpen && (
                 <div className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
                   {/* category with subcategories */}
                   <div className="relative nested-dropdown">
