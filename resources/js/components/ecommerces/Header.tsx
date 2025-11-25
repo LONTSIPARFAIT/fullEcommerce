@@ -18,12 +18,20 @@ export default function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-4">
             <Link prefetch href="#" className="hover:text-gray-300">
-                <Facebook  className="h"/>
-                <i className="fab fa-facebook-f"></i>
+                <Facebook  className="h-5 w-5"/>
             </Link>
-            <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-twitter"></i></Link>
-            <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-intagram"></i></Link>
-            <Link prefetch href="#" className="hover:text-gray-300"><i className="fab fa-pinterest"></i></Link>
+            <Link prefetch href="#" className="hover:text-gray-300">
+                <Facebook  className="h-5 w-5"/>
+                <i className="fab fa-twitter"></i>
+            </Link>
+            <Link prefetch href="#" className="hover:text-gray-300">
+                <Facebook  className="h-5 w-5"/>
+                <i className="fab fa-intagram"></i>
+            </Link>
+            <Link prefetch href="#" className="hover:text-gray-300">
+                <Facebook  className="h-5 w-5"/>
+                <i className="fab fa-pinterest"></i>
+            </Link>
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false }">
