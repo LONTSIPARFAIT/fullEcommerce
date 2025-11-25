@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { Facebook } from "lucide-react";
+import { ChevronDown, Facebook, Instagram, X, Youtube } from "lucide-react";
 import { useState } from "react";
 
 
@@ -18,27 +18,23 @@ export default function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-4">
             <Link prefetch href="#" className="hover:text-gray-300">
-                <Facebook  className="h-5 w-5"/>
+              <Facebook className="h-5 w-5" />
             </Link>
             <Link prefetch href="#" className="hover:text-gray-300">
-                <Facebook  className="h-5 w-5"/>
-                <i className="fab fa-twitter"></i>
+              <X className="h-5 w-5" />
             </Link>
             <Link prefetch href="#" className="hover:text-gray-300">
-                <Facebook  className="h-5 w-5"/>
-                <i className="fab fa-intagram"></i>
+              <Instagram className="h-5 w-5" />
             </Link>
             <Link prefetch href="#" className="hover:text-gray-300">
-                <Facebook  className="h-5 w-5"/>
-                <i className="fab fa-pinterest"></i>
+              <Youtube className="h-5 w-5" />
             </Link>
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false }">
               <button onClick={() => setIsCurrencyOpen(!isCurrencyOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
                 <span>FCFA</span>
-                <i className="fas fa-chevron-down text-xs"></i>
-                {/* <ChevronDown size={16} /> */}
+                <ChevronDown size={16} />
               </button>
               {isCurrencyOpen && (
                 <div x-show="open" className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
@@ -47,20 +43,19 @@ export default function Header() {
                   <Link href="#" className="block px-4 py-2 hover:bg-gray-100">EUR - Euro</Link>
                 </div>
               )}
-              <div className="relative" x-data="{ open: false }">
-                <button onClick={() => setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
-                  <span>Francais</span>
-                  <i className="fas fa-chevron-down text-xs"></i>
-                  {/* <ChevronDown size={16} /> */}
-                </button>
-                {isLanguageOpen && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
-                        <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
-                        <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
-                        <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
-                    </div>
-                )}
-              </div>
+            </div>
+            <div className="relative" x-data="{ open: false }">
+              <button onClick={() => setIsLanguageOpen(!isLanguageOpen)} className="flex items-center space-x-1 hover:text-gray-300" >
+                <span>Francais</span>
+                <ChevronDown size={16} />
+              </button>
+              {isLanguageOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50" >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Francais</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">English</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Espanol</Link>
+                </div>
+              )}
             </div>
             <Link href="login" className="hover:text-gray-300 flex items-center space-x-1">
               <i className="fas fa-user"></i>
@@ -87,47 +82,47 @@ export default function Header() {
                 <i className="fas fa-shopping-cart text-xl"></i>
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="count"></span>
               </button>
-              { isCardOpen && (
+              {isCardOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md overflow-hidden z-50">
-                    <div className="pb-4 border-b">
+                  <div className="pb-4 border-b">
                     <h3 className="font-medium">Cart Summary (2 items)</h3>
-                    </div>
-                    <div className="max-h-64 overflow-y-auto">
+                  </div>
+                  <div className="max-h-64 overflow-y-auto">
                     <div className="flex p-4 border-b">
-                        <img src="./images/p-1.jpg" alt="product" className="w-16 h-16 rounded" />
-                        <div className="ml-4 flex-1">
+                      <img src="./images/p-1.jpg" alt="product" className="w-16 h-16 rounded" />
+                      <div className="ml-4 flex-1">
                         <h4 className="font-medium">Wireless Headphones</h4>
                         <div className="flex justify-between mt-1">
-                            <p className="text-gray-600">1 x 890Fcfa</p>
-                            <button className="text-red-500 hover:text-red-700">
+                          <p className="text-gray-600">1 x 890Fcfa</p>
+                          <button className="text-red-500 hover:text-red-700">
                             <i className="fas fa-trash-alt"></i>
-                            </button>
+                          </button>
                         </div>
-                        </div>
+                      </div>
                     </div>
                     <div className="flex p-4">
-                        <img src="./images/p-2.jpg" alt="product" className="w-16 h-16 rounded" />
-                        <div className="ml-4 flex-1">
+                      <img src="./images/p-2.jpg" alt="product" className="w-16 h-16 rounded" />
+                      <div className="ml-4 flex-1">
                         <h4 className="font-medium">Smart Watch</h4>
                         <div className="flex justify-between mt-1">
-                            <p className="text-gray-600">1 x 1200Fcfa</p>
-                            <button className="text-red-500 hover:text-red-700">
+                          <p className="text-gray-600">1 x 1200Fcfa</p>
+                          <button className="text-red-500 hover:text-red-700">
                             <i className="fas fa-trash-alt"></i>
-                            </button>
+                          </button>
                         </div>
-                        </div>
+                      </div>
                     </div>
-                    </div>
-                    <div className="flex border-t">
+                  </div>
+                  <div className="flex border-t">
                     <div className="flex justify-between mb-2">
-                        <span>Subtotal</span>
-                        <span className="font-medium">3500Fcfa</span>
+                      <span>Subtotal</span>
+                      <span className="font-medium">3500Fcfa</span>
                     </div>
                     <div className="flex space-x-2">
-                        <Link href="#" className="flex-1 bg-gray-200 text-gray-800 text-center py-2 rounded-md hover:bg-gray-300">View Card</Link>
-                        <Link href="#" className="flex-1 bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700">Checkout</Link>
+                      <Link href="#" className="flex-1 bg-gray-200 text-gray-800 text-center py-2 rounded-md hover:bg-gray-300">View Card</Link>
+                      <Link href="#" className="flex-1 bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700">Checkout</Link>
                     </div>
-                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -149,7 +144,7 @@ export default function Header() {
               <button onClick={() => setIsCategoryOpen(!isCategoryOpen)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
                 <i className="fas fa-bars mr-2"></i>
                 <span>All Categories</span>
-                <i className="fas fa-chevron-down ml-2 text-xs"></i>
+                <ChevronDown size={16} />
               </button>
               {isCategoryOpen && (
                 <div className="dropdown-menu absolute left-0 w-64 bg-white shadow-lg rounded-b-md z-50">
