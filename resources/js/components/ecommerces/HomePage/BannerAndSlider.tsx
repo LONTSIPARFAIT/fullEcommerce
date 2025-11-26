@@ -78,14 +78,20 @@ export default function BannerAndSlider() {
 
             {/* Right Side Cards */}
             <div className="w-full px-4 lg:w-1/4">
-                  <div className="relative mb-4 overflow-hidden rounded-lg bg-white shadow-sm">
+                <div className="relative mb-4 overflow-hidden rounded-lg bg-white shadow-sm">
                     <img src="./images/banner-4.jpg" alt="Promo" className='h-44 w-full object-cover' />
                     <div className="absolute top-0 right-0 rounded-bl-lg bg-red-500 px-3 py-1 text-white">-30%</div>
                     <div className="p-4">
                         <h3 className="mb-2 text-lg font-semibold">Flash Sale</h3>
                         <p className="mb-3 text-sm text-gray-600">Limited time offer on premium products</p>
+                        <Link prefetch href="#" className='text-indigo-600 hover:text-indigo-800 text-sm font-medium' >
+                            Shop Now
+                        </Link>
                     </div>
-                  </div>
+                </div>
+                <div className="bg-white rounded-lg overflow-hidden shadow-sm font-medium">
+                    <img src="./images/banner-4.jpg" alt="Promo" className='h-44 w-full object-cover' />
+                </div>
             </div>
         </div>
     </div>
