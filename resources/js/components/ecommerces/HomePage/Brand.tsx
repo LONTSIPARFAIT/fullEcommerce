@@ -1,6 +1,6 @@
-import { Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
-import { Swiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -17,21 +17,53 @@ export default function Brand() {
         </h2>
 
         <div className="swiper brand-slider">
-          <div className="">
+          <div className="swiper-wrapper items-center">
             <Swiper
-              modules={[ Navigation, Pagination, Scrollbar, Autoplay ]}
+              modules={[ Navigation, Pagination, Autoplay ]}
               spaceBetween={0}
               slidesPerView={5}
-              navigation
+            //   navigation
               pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
+            //   scrollbar={{ draggable: true }}
               autoplay={{
                 delay: 3000,
                 disableOnInteraction: false,
               }}
               className="swiper-wrapper items-center"
-            ></Swiper>
+            >
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-1.jpg" alt="Brand Logo 1" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-2.jpg" alt="Brand Logo 2" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-3.jpg" alt="Brand Logo 3" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-4.jpg" alt="Brand Logo 4" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-5.jpg" alt="Brand Logo 5" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-6.jpg" alt="Brand Logo 6" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+            </Swiper>
           </div>
+          {/* <div className="swiper-pagination "></div> */}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -18,12 +18,12 @@ export default function BannerAndSlider() {
             {/* Left Slide Swipper slider */}
             <div className="w-full lg:w-3/4 px-4 mb-8 lg:mb-0">
                 <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, Autoplay]}
+                  modules={[Navigation, Pagination, Autoplay]}
                   spaceBetween={0}
                   slidesPerView={1}
                   navigation
                   pagination={{ clickable: true }}
-                  scrollbar= {{ draggable: true }}
+                //   scrollbar= {{ draggable: true }}
                   autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,

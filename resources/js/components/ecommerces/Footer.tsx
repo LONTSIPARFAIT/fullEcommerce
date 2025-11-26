@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { Clock, Facebook, Instagram, Mail, MapPin, Phone, X, Youtube } from "lucide-react";
 
 export default function Footer() {
 
@@ -16,9 +17,10 @@ export default function Footer() {
               shopping experiences with fast shipping and excelente customer services.
             </p>
             <div className="flex space-x-4">
-                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><i className="fab fa-facebook-f"></i></Link>
-                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><i className="fab fa-twitter"></i></Link>
-                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><i className="fab fa-youtube"></i></Link>
+                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><Facebook className="w-5 h-5" /></Link>
+                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><X className="w-5 h-5" /></Link>
+                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><Instagram className="w-5 h-5" /></Link>
+                <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 transition-colors hover:bg-indigo-600"><Youtube className="w-5 h-5" /></Link>
             </div>
           </div>
           {/* quik links */}
@@ -98,19 +100,19 @@ export default function Footer() {
             <h3 className="mb-4 text-lg font-semibold">Contact Us</h3>
             <ul className="space-y-3">
                 <li className="flex items-center">
-                    <i className="fas fa-map-marker-alt mt-1 mr-3 text-indigo-500">s</i>
+                    <MapPin className="mt-1 mr-3 text-indigo-500" />
                     <span className="text-gray-400">1234 Market St, Suite 980 <br />San Francisco </span>
                 </li>
                 <li className="flex items-center">
-                    <i className="fas fa-phone-alt mt-1 mr-3 text-indigo-500"></i>
+                    <Phone className="mt-1 mr-3 text-indigo-500" />
                     <span className="text-gray-400">+237 679324517</span>
                 </li>
                 <li className="flex items-center">
-                    <i className="fas fa-envelope mt-1 mr-3 text-indigo-500"></i>
+                    <Mail className="mt-1 mr-3 text-indigo-500" />
                     <span className="text-gray-400">lontsiparfait12@gmail.com</span>
                 </li>
                 <li className="flex items-center">
-                    <i className="fas fa-clock mt-1 mr-3 text-indigo-500"></i>
+                    <Clock className="mt-1 mr-3 text-indigo-500" />
                     <span className="text-gray-400">Lun-Dim: 7H30-20H</span>
                 </li>
             </ul>
