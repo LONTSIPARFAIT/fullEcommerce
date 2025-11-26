@@ -1,6 +1,7 @@
 import Footer from "@/components/ecommerces/Footer";
 import Header from "@/components/ecommerces/Header";
 import { Head } from "@inertiajs/react";
+import "../../css/frontend.css";
 
 interface EcommerceLayoutProps {
   children: React.ReactNode;

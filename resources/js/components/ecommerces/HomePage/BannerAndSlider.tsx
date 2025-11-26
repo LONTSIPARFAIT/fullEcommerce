@@ -1,11 +1,16 @@
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 
-// import swiper styles
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { delay } from "framer-motion";
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+import { Link } from "@inertiajs/react";
+// import { delay } from "framer-motion";
 
 export default function BannerAndSlider() {
    return (
@@ -14,7 +19,7 @@ export default function BannerAndSlider() {
             {/* Left Slide Swipper slider */}
             <div className="w-full lg:w-3/4 px-4 mb-8 lg:mb-0">
                 <Swiper
-                  module={Navigation, Pagination, Scrollbar, Autoplay}
+                  modules={[Navigation, Pagination, Scrollbar, Autoplay]}
                   spaceBetween={0}
                   slidesPerView={1}
                   navigation
@@ -27,16 +32,23 @@ export default function BannerAndSlider() {
                   className="main-slider overflow-hidden rounded-lg shadow-lg"
                 >
                     <SwiperSlide>
-                        <img src="./images/banner-1.png" alt="Banner 1" className="w-full h-64 object-cover rounded-lg" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="./images/banner-2.png" alt="Banner 2" className="w-full h-64 object-cover rounded-lg" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="./images/banner-3.png" alt="Banner 3" className="w-full h-64 object-cover rounded-lg" />
+                        <div className="relative h-96">
+                            <img src="./images/banner-1.png" alt="Banner 1" className="w-full h-full object-cover" />
+                            <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
+                                <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
+                                <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
+                                <Link
+                                 href="#"
+                                 className="inline-block max-w-xs rounded-md bg-indigo-600 px-6 py-3 text-center text-white transition duration-200 hover:bg-indigo-700">
+                                    Show Now
+                                 </Link>
+                            </div>
+                        </div>
                     </SwiperSlide>
                 </Swiper>
             </div>
+
+            {/* Right Side Cards */}
         </div>
     </div>
     )
