@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ChevronDown, Facebook, Instagram, Menu, Search, ShoppingCart, User, X, Youtube } from "lucide-react";
+import { ChevronDown, ChevronRight, Facebook, Instagram, Laptop, Menu, Search, ShoppingCart, User, X, Youtube } from "lucide-react";
 import { useState } from "react";
 
 
@@ -144,7 +144,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex">
             {/* categories Dropdows */}
-            <div className="relative group dropdown" x-data="{ open: false }">
+            <div className="relative group dropdown" >
               <button onClick={() => setIsCategoriesOpen(!isCategoriesOpen)} className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none">
                 <Menu className="h-5 w-5 mr-2" />
                 <span>All Categories</span>
@@ -156,10 +156,10 @@ export default function Header() {
                   <div className="relative nested-dropdown">
                     <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
                       <div className="flex items-center">
-                        <i className="fas fa-laptop mr-3 text-indigo-500"></i>
+                        <Laptop className="mr-3 text-indigo-500" />
                         <span>Electronics</span>
                       </div>
-                      <i className="fas fa-chevron-right text-xs"></i>
+                      <ChevronRight className="text-xs h-4 w-4" />
                     </Link>
                     <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
                       {/* Subcategory with more nested categorie */}
@@ -169,7 +169,7 @@ export default function Header() {
                             <i className="fas fa-mobile-alt mr-3 text-indigo-500"></i>
                             <span>Smartphones</span>
                           </div>
-                          <i className="fas fa-chevron-right text-xs"></i>
+                          <ChevronRight className="text-xs h-4 w-4" />
                         </Link>
                         <div className="nested-dropdown-menu absolute w-64 bg-white shadow-lg rounded-md">
                           <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Android Phones</Link>
