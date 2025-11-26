@@ -49,12 +49,12 @@ export default function BannerAndSlider() {
                         <div className="relative h-96">
                             <img src="./images/banner-2.jpg" alt="Banner 2" className="w-full h-full object-cover" />
                             <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
-                                <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
-                                <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
+                                <h2 className="mb-4 text-4xl font-bold text-white">New Arrival</h2>
+                                <p className="mb-6 text-lg text-white">Check out our latest products</p>
                                 <Link
                                  href="#"
                                  className="inline-block max-w-xs rounded-md bg-indigo-600 px-6 py-3 text-center text-white transition duration-200 hover:bg-indigo-700">
-                                    Show Now
+                                    Discover
                                  </Link>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ export default function BannerAndSlider() {
             {/* Right Side Cards */}
             <div className="w-full px-4 lg:w-1/4">
                 <div className="relative mb-4 overflow-hidden rounded-lg bg-white shadow-sm">
-                    <img src="./images/banner-4.jpg" alt="Promo" className='h-44 w-full object-cover' />
+                    <img src="./images/banner-4.png" alt="Promo" className='h-44 w-full object-cover' />
                     <div className="absolute top-0 right-0 rounded-bl-lg bg-red-500 px-3 py-1 text-white">-30%</div>
                     <div className="p-4">
                         <h3 className="mb-2 text-lg font-semibold">Flash Sale</h3>
@@ -90,7 +90,7 @@ export default function BannerAndSlider() {
                     </div>
                 </div>
                 <div className="bg-white rounded-lg overflow-hidden shadow-sm relative">
-                    <img src="./images/kjmlkoo.jpg" alt="Promo" className='h-44 w-full object-cover' />
+                    <img src="./images/banner-5.png" alt="Promo" className='h-44 w-full object-cover' />
                     <div className="absolute top-0 right-0 bg-green-500 text-white px-3 py-1 rounded-bl-lg">New</div>
                     <div className="p-4">
                         <h3 className="mb-2 text-lg font-semibold">Exclusive Items</h3>
