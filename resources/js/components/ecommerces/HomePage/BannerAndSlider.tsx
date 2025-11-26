@@ -33,7 +33,7 @@ export default function BannerAndSlider() {
                 >
                     <SwiperSlide>
                         <div className="relative h-96">
-                            <img src="./images/img2.jpg" alt="Banner 1" className="w-full h-full object-cover" />
+                            <img src="./images/banner-1.jpg" alt="Banner 1" className="w-full h-full object-cover" />
                             <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
                                 <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
                                 <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
@@ -47,7 +47,7 @@ export default function BannerAndSlider() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="relative h-96">
-                            <img src="./images/img.jpg" alt="Banner 2" className="w-full h-full object-cover" />
+                            <img src="./images/banner-2.jpg" alt="Banner 2" className="w-full h-full object-cover" />
                             <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
                                 <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
                                 <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
