@@ -10,7 +10,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 import { Link } from "@inertiajs/react";
-// import { delay } from "framer-motion";
 
 export default function BannerAndSlider() {
    return (
