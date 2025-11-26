@@ -33,7 +33,7 @@ export default function BannerAndSlider() {
                 >
                     <SwiperSlide>
                         <div className="relative h-96">
-                            <img src="./images/banner-1.png" alt="Banner 1" className="w-full h-full object-cover" />
+                            <img src="./images/img2.jpg" alt="Banner 1" className="w-full h-full object-cover" />
                             <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
                                 <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
                                 <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
@@ -47,7 +47,7 @@ export default function BannerAndSlider() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="relative h-96">
-                            <img src="./images/banner-2.png" alt="Banner 2" className="w-full h-full object-cover" />
+                            <img src="./images/img.jpg" alt="Banner 2" className="w-full h-full object-cover" />
                             <div className="bg-opacity-40 absolute inset-0 flex flex-col justify-center px-12">
                                 <h2 className="mb-4 text-4xl font-bold text-white">Summer Collection</h2>
                                 <p className="mb-6 text-lg text-white">Up to 50% off on seleted items</p>
@@ -93,10 +93,10 @@ export default function BannerAndSlider() {
                     <img src="./images/kjmlkoo.jpg" alt="Promo" className='h-44 w-full object-cover' />
                     <div className="absolute top-0 right-0 bg-green-500 text-white px-3 py-1 rounded-bl-lg">New</div>
                     <div className="p-4">
-                        <h3 className="mb-2 text-lg font-semibold">Flash Sale</h3>
-                        <p className="mb-3 text-sm text-gray-600">Limited time offer on premium products</p>
+                        <h3 className="mb-2 text-lg font-semibold">Exclusive Items</h3>
+                        <p className="mb-3 text-sm text-gray-600">Dicorver our premium collections</p>
                         <Link prefetch href="#" className='text-indigo-600 hover:text-indigo-800 text-sm font-medium' >
-                            Shop Now
+                            Learn More
                         </Link>
                     </div>
                 </div>
