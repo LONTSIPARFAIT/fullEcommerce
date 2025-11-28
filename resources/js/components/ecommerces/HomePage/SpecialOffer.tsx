@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { Heart, Search, ShoppingCart, Star } from "lucide-react";
+import { Heart, Search, ShoppingCart, Star, StarHalf } from "lucide-react";
 
 
 export default function SpecialOffer() {
@@ -43,6 +43,7 @@ export default function SpecialOffer() {
                                 <Star className="h-5 w-5" />
                                 <Star className="h-5 w-5" />
                                 <Star className="h-5 w-5" />
+                                <StarHalf className="h-5 w-5" />
                             </div>
                         </div>
                     </div>
