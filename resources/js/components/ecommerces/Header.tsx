@@ -1,24 +1,10 @@
 import { Link } from '@inertiajs/react';
-import {
-  ChevronDown,
-  ChevronRight,
-  Facebook,
-  Instagram,
-  Laptop,
-  Menu,
-  Search,
-  ShoppingCart,
-  Smartphone,
-  User,
-  X,
-  Youtube,
+import { Baby, ChevronDown, ChevronRight, Facebook, Home, Instagram, Laptop, Menu, Search, Shirt, ShoppingCart, Smartphone, Trash, User, X, Youtube,
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
@@ -44,78 +30,47 @@ export default function Header() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="relative" x-data="{ open: false }">
-              <button
-                onClick={() =>
-                  setIsCurrencyOpen(!isCurrencyOpen)
-                }
+              <button onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
                 className="flex items-center space-x-1 hover:text-gray-300"
               >
                 <span>FCFA</span>
                 <ChevronDown size={16} />
               </button>
               {isCurrencyOpen && (
-                <div
-                  x-show="open"
-                  className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-md bg-white text-gray-800 shadow-lg"
-                >
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                <div x-show="open" className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-md bg-white text-gray-800 shadow-lg">
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
                     FCFA - FR Dollar
                   </Link>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
                     USD -US Dollar
                   </Link>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
                     EUR - Euro
                   </Link>
                 </div>
               )}
             </div>
             <div className="relative" x-data="{ open: false }">
-              <button
-                onClick={() =>
-                  setIsLanguageOpen(!isLanguageOpen)
-                }
-                className="flex items-center space-x-1 hover:text-gray-300"
-              >
+              <button onClick={() =>  setIsLanguageOpen(!isLanguageOpen) }
+                className="flex items-center space-x-1 hover:text-gray-300">
                 <span>Francais</span>
                 <ChevronDown size={16} />
               </button>
               {isLanguageOpen && (
                 <div className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-md bg-white text-gray-800 shadow-lg">
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100" >
                     Francais
                   </Link>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
                     English
                   </Link>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
                     Espanol
                   </Link>
                 </div>
               )}
             </div>
-            <Link
-              href="login"
-              className="flex items-center space-x-1 hover:text-gray-300"
-            >
+            <Link href="login" className="flex items-center space-x-1 hover:text-gray-300" >
               <User className="h-5 w-5" />
               <span>Login</span>
             </Link>
@@ -126,10 +81,7 @@ export default function Header() {
       {/* Main Header with logo, search, and card */}
       <header className="bg-white py-4 shadow-sm">
         <div className="container mx-auto flex items-center justify-between px-4">
-          <Link
-            href="#"
-            className="text-2xl font-bold text-indigo-600"
-          >
+          <Link href="#" className="text-2xl font-bold text-indigo-600">
             ShopMart
           </Link>
 
@@ -150,17 +102,12 @@ export default function Header() {
               className="relative"
               x-data="{ open: false, count: 2 }"
             >
-              <button
-                onClick={() => setIsCardOpen(!isCardOpen)}
-                className="relative hover:text-indigo-600"
-              >
+              <button onClick={() => setIsCardOpen(!isCardOpen)}
+                className="relative hover:text-indigo-600" >
                 <ShoppingCart className="h-6 w-6" />
                 <span
                   className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
-                  x-text="count"
-                >
-                  2
-                </span>
+                  x-text="count">2</span>
               </button>
               {isCardOpen && (
                 <div className="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-md bg-white shadow-lg">
@@ -185,7 +132,7 @@ export default function Header() {
                             1 x 890Fcfa
                           </p>
                           <button className="text-red-500 hover:text-red-700">
-                            <i className="fas fa-trash-alt"></i>
+                            <Trash className="h-5 w-5" />
                           </button>
                         </div>
                       </div>
@@ -205,7 +152,7 @@ export default function Header() {
                             1 x 1200Fcfa
                           </p>
                           <button className="text-red-500 hover:text-red-700">
-                            <i className="fas fa-trash-alt"></i>
+                            <Trash className="h-5 w-5" />
                           </button>
                         </div>
                       </div>
@@ -288,10 +235,7 @@ export default function Header() {
                     <div className="nested-dropdown-menu absolute w-64 rounded-md bg-white shadow-lg">
                       {/* Subcategory with more nested categorie */}
                       <div className="nested-dropdown relative">
-                        <Link
-                          href="#"
-                          className="flex items-center justify-between px-4 py-3 hover:bg-gray-100"
-                        >
+                        <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
                           <div className="flex items-center">
                             <Smartphone className="mr-3 text-indigo-500" />
                             <span>Smartphones</span>
@@ -302,22 +246,30 @@ export default function Header() {
                           <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Android Phones</Link>
                           <Link href="#" className="block px-4 py-3 hover:bg-gray-100">IPhones</Link>
                           <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Acessories</Link>
-                          {/* <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Laptops</Link>
-                          <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Camera</Link>
-                          <Link href="#" className="block px-4 py-3 hover:bg-gray-100">Audio</Link> */}
                         </div>
                       </div>
+                      <Link href="#" className="block px-4 py-3 hover:bg-gray-100">
+                        <span>Laptops</span>
+                      </Link>
+                      <Link href="#" className="block px-4 py-3 hover:bg-gray-100">
+                        <span>Camera</span>
+                      </Link>
+                      <Link href="#" className="block px-4 py-3 hover:bg-gray-100">
+                        <span>Audio</span>
+                      </Link>
+                      </div>
+                    </div>
 
                       {/* More categories */}
                       <Link
                         href="#"
                         className="flex items-center px-4 py-3 hover:bg-gray-100"
                       >
-                        <i className="fas fa-tshirt mr-3 text-indigo-500"></i>
+                        <Shirt className="mr-3 text-indigo-500" />
                         <span>Fashion</span>
                       </Link>
                       <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100" >
-                        <i className="fas fa-home mr-3 text-indigo-500"></i>
+                        <Home className="mr-3 text-indigo-500" />
                         <span>Home & Garden</span>
                       </Link>
                       <Link
@@ -331,11 +283,9 @@ export default function Header() {
                         href="#"
                         className="flex items-center px-4 py-3 hover:bg-gray-100"
                       >
-                        <i className="fas fa-baby mr-3 text-indigo-500"></i>
+                        <Baby className="mr-3 text-indigo-500" />
                         <span>Baby & Kids</span>
                       </Link>
-                    </div>
-                  </div>
                 </div>
               )}
             </div>
