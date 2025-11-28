@@ -23,7 +23,9 @@ export default function CategoryMenuItem ({ category }: CategoryMenuItemProps){
                     <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100" 
                       onMouseEnter={()=> setIsSubMenuOpen(true)}
                       onMouseLeave={()=> setIsSubMenuOpen(false)} >
-                        .
+                        <div className="flex items-center ">
+                            <span>{category.name}</span>
+                        </div>
                     </Link>
                 </>
             ) : (
