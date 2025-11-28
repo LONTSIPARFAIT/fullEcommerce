@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\CategoryListResource;
 use App\Models\Category;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
@@ -40,7 +41,9 @@ class HandleInertiaRequests extends Middleware
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
         $parentCategories = [];
-        $pCategories = Category::isParent()->get();
+        $pCategories = Category::isParent()->with('children')->get();
+        // dd($pCategories);    
+        $parentCategories = CategoryListResource::collection($pCategories)->toArray($request);
 
         return [
             ...parent::share($request),

@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryListResource extends JsonResource
 {
+    public static $wrap = null;
     /**
      * Transform the resource into an array.
      *
@@ -21,13 +22,7 @@ class CategoryListResource extends JsonResource
             'slug' => $this->slug,
             'image' => $this->image?asset('storage/' . $this->image) : '',
             'parent_id' => $this->parent_id,
-            'children' => $this->whenLoaded(
-                'children',
-                function () {
-                    return CategoryListResource::collection($this->children);
-                }
-            ),
-            'updated_at' => $this->updated_at,
+            'children' => CategoryListResource::collection($this->children)->toArray($request),
         ];
     }
 }
