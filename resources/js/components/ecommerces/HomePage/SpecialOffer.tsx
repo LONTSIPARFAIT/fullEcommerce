@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { Heart, Search, ShoppingCart } from "lucide-react";
+import { Heart, Search, ShoppingCart, Star } from "lucide-react";
 
 
 export default function SpecialOffer() {
@@ -36,7 +36,13 @@ export default function SpecialOffer() {
                         <div className="flex items-center justify-between">
                             <div className="">
                                 <span className="font-bold text-indigo-600">65000 FCFA</span>
-                                <span className="font-bold text-indigo-600">100000 FCFA</span>
+                                <span className="ml-2 text-gray-400 line-through">100000 FCFA</span>
+                            </div>
+                            <div className="flex text-yellow-400">
+                                <Star className="h-5 w-5" />
+                                <Star className="h-5 w-5" />
+                                <Star className="h-5 w-5" />
+                                <Star className="h-5 w-5" />
                             </div>
                         </div>
                     </div>
