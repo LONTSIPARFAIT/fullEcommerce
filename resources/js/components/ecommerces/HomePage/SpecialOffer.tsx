@@ -6,7 +6,7 @@ export default function SpecialOffer() {
   return (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
-        <div className="container mx-auto px-4">
+        <div className="container flex justify-between items-center mx-auto px-4">
           <h2 className="mb-8 text-center text-2xl font-bold">Special Offers</h2>
           <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">View All</Link>
         </div>
@@ -16,7 +16,7 @@ export default function SpecialOffer() {
                 <div className="relative">
                     <img src="./images/p-1.jpg" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
-                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-black opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
                         <div className="mb-3 flex items-center text-sm text-gray-500">
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
@@ -29,12 +29,12 @@ export default function SpecialOffer() {
                             </button>
                         </div>
                     </div>
+                </div>
                     <div className="p-4">
                         <h3 className="font-medium text-lg mb-2">Leather Backpack</h3>
                         <p className="text-gray-600 text-sm mb-3">Stylish and durable everday bag.</p>
                         <div className="flex items-center justify-between"></div>
                     </div>
-                </div>
             </div>
         </div>
       </div>
