@@ -1,13 +1,15 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Baby, ChevronDown, ChevronRight, Facebook, Home, Instagram, Laptop, Menu, Search, Shirt, ShoppingCart, Smartphone, Trash, User, X, Youtube,
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
+  const { parentCategories } = usePage().props as any;
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  console.log(parentCategories);
 
   return (
     <>
@@ -221,6 +223,16 @@ export default function Header() {
               {isCategoriesOpen && (
                 <div className="dropdown-menu absolute left-0 z-50 w-64 rounded-b-md bg-white shadow-lg">
                   {/* category with subcategories */}
+                  {/* {parentCategories.lengh>0 && parentCategories.map((category:any) => (
+                    {category.children.length > 0 ? (
+
+                    ) : (
+                     <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100" >
+                        <Shirt className="mr-3 text-indigo-500" />
+                        <span>Fashion</span>
+                      </Link>
+                    )} */}
+                  {/* ))} */}
                   <div className="nested-dropdown relative">
                     <Link
                       href="#"

@@ -22,7 +22,7 @@ class CategoryStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:2|max:50',
+            'name' => 'required|min:2|max:50|unique:categories,name,'.$this->category?->id,
             // 'slug' => 'required|unique:categories,slug,' . $this->route('category')->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
