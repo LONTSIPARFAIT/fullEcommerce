@@ -78,8 +78,6 @@ export default function SpecialOffer() {
                             <div className="flex text-yellow-400">
                                 <Star className="h-5 w-5" />
                                 <Star className="h-5 w-5" />
-                                <Star className="h-5 w-5" />
-                                <Star className="h-5 w-5" />
                                 <StarHalf className="h-5 w-5" />
                             </div>
                         </div>
