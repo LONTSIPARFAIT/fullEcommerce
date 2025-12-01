@@ -38,7 +38,7 @@ export default function Brand() {
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
                     <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
-                        <img src="./images/b-2.jpg" alt="Brand Logo 2" className="max-h-16" />
+                        <img src="./images/b-2.png" alt="Brand Logo 2" className="max-h-16" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
