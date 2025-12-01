@@ -215,7 +215,7 @@ export default function Header() {
                 onClick={() =>
                   setIsCategoriesOpen(!isCategoriesOpen)
                 }
-                className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none"
+                className="flex cursor-pointer items-center px-4 py-3 text-gray-700 hover:text-indigo-600 focus:outline-none"
               >
                 <Menu className="mr-2 h-5 w-5" />
                 <span>All Categories</span>
