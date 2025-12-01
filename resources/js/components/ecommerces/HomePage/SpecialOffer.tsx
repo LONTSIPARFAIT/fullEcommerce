@@ -153,7 +153,6 @@ export default function SpecialOffer() {
                                 <Star className="h-5 w-5" />
                                 <Star className="h-5 w-5" />
                                 <Star className="h-5 w-5" />
-                                <StarHalf className="h-5 w-5" />
                             </div>
                         </div>
                     </div>
