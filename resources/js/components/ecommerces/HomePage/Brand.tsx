@@ -43,22 +43,32 @@ export default function Brand() {
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
                     <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
-                        <img src="./images/b-3.jpg" alt="Brand Logo 3" className="max-h-16" />
+                        <img src="./images/b-3.jpeg" alt="Brand Logo 3" className="max-h-16" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
                     <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
-                        <img src="./images/b-4.jpg" alt="Brand Logo 4" className="max-h-16" />
+                        <img src="./images/b-4.png" alt="Brand Logo 4" className="max-h-16" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
                     <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
-                        <img src="./images/b-5.jpg" alt="Brand Logo 5" className="max-h-16" />
+                        <img src="./images/b-5.png" alt="Brand Logo 5" className="max-h-16" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide className='swiper-slide p-4 text-center'>
                     <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
-                        <img src="./images/b-6.jpg" alt="Brand Logo 6" className="max-h-16" />
+                        <img src="./images/b-6.png" alt="Brand Logo 6" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-7.jpg" alt="Brand Logo 7" className="max-h-16" />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='swiper-slide p-4 text-center'>
+                    <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 p-6">
+                        <img src="./images/b-8.png" alt="Brand Logo 8" className="max-h-16" />
                     </div>
                 </SwiperSlide>
             </Swiper>
