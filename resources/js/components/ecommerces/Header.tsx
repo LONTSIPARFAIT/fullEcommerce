@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { Baby, ChevronDown, ChevronRight, Facebook, Home, Instagram, Laptop, Menu, Search, Shirt, ShoppingCart, Smartphone, Trash, User, X, Youtube,
 } from 'lucide-react';
 import { useState } from 'react';
+import CategoryMenuItem from './CategoryMenuItem';
 
 export default function Header() {
   const { parentCategories } = usePage().props as any;
@@ -9,7 +10,7 @@ export default function Header() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  console.log(parentCategories);
+//   console.log(parentCategories);
 
   return (
     <>
@@ -220,19 +221,10 @@ export default function Header() {
                 <span>All Categories</span>
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {isCategoriesOpen && (
+              {/* {isCategoriesOpen && ( */}
                 <div className="dropdown-menu absolute left-0 z-50 w-64 rounded-b-md bg-white shadow-lg">
                   {/* category with subcategories */}
-                  {/* {parentCategories.lengh>0 && parentCategories.map((category:any) => (
-                    {category.children.length > 0 ? (
-
-                    ) : (
-                     <Link href="#" className="flex items-center px-4 py-3 hover:bg-gray-100" >
-                        <Shirt className="mr-3 text-indigo-500" />
-                        <span>Fashion</span>
-                      </Link>
-                    )} */}
-                  {/* ))} */}
+                  {parentCategories.lengh>0 && parentCategories.map((category:any) => <CategoryMenuItem key={category.id} category={category} />)} 
                   <div className="nested-dropdown relative">
                     <Link
                       href="#"
@@ -245,7 +237,7 @@ export default function Header() {
                       <ChevronRight className="h-4 w-4 text-xs" />
                     </Link>
                     <div className="nested-dropdown-menu absolute w-64 rounded-md bg-white shadow-lg">
-                      {/* Subcategory with more nested categorie */}
+                      {/* Subcategory with more nested categori */}
                       <div className="nested-dropdown relative">
                         <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
                           <div className="flex items-center">
@@ -299,7 +291,7 @@ export default function Header() {
                         <span>Baby & Kids</span>
                       </Link>
                 </div>
-              )}
+              {/* )} */}
             </div>
             {/* Main Menu */}
             <ul className="flex">
