@@ -224,7 +224,7 @@ export default function Header() {
               {/* {isCategoriesOpen && ( */}
                 <div className="dropdown-menu absolute left-0 z-50 w-64 rounded-b-md bg-white shadow-lg">
                   {/* category with subcategories */}
-                  {parentCategories.lengh>0 && parentCategories.map((category:any) => <CategoryMenuItem key={category.id} category={category} />)} 
+                  {parentCategories.lengh>0 && parentCategories.map((category:any) => <CategoryMenuItem key={category.id} category={category} />)}
                   <div className="nested-dropdown relative">
                     <Link
                       href="#"
@@ -237,7 +237,7 @@ export default function Header() {
                       <ChevronRight className="h-4 w-4 text-xs" />
                     </Link>
                     <div className="nested-dropdown-menu absolute w-64 rounded-md bg-white shadow-lg">
-                      {/* Subcategory with more nested categori */}
+                      {/* Subcategory with more nested categorie */}
                       <div className="nested-dropdown relative">
                         <Link href="#" className="flex items-center justify-between px-4 py-3 hover:bg-gray-100">
                           <div className="flex items-center">
