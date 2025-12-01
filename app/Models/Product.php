@@ -68,4 +68,11 @@ class Product extends Model implements HasMedia
         }
         return $this->getFirstMediaUrl($collectionName, $conversion);
     }
+
+    public function getPriceForFirstOption(): float{
+        if ($this->options->count() > 0) { 
+            return $this->options->first()->price;
+        }
+        return $this->price;       
+    }
 }

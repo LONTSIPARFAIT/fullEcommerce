@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            //
+            $table->unsignedInteger('sales')->defaul(0)->after('quantity')->comment('Number of sales for the product');
+            $table->boolean('is_special_offer')->default(false)->after('sales')->comment('Indicates if the product is part of a special offer');
         });
     }
 
