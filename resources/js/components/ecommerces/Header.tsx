@@ -5,12 +5,12 @@ import { useState } from 'react';
 import CategoryMenuItem from './CategoryMenuItem';
 
 export default function Header() {
-  const { parentCategories } = usePage().props as any;
+  const { parentCategories } = usePage().props as any ;
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-//   console.log(parentCategories);
+  console.log(parentCategories);
 
   return (
     <>
@@ -221,10 +221,10 @@ export default function Header() {
                 <span>All Categories</span>
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {/* {isCategoriesOpen && ( */}
+              {isCategoriesOpen && (
                 <div className="dropdown-menu absolute left-0 z-50 w-64 rounded-b-md bg-white shadow-lg">
                   {/* category with subcategories */}
-                  {parentCategories.lengh>0 && parentCategories.map((category:any) => <CategoryMenuItem key={category.id} category={category} />)}
+                  {parentCategories.lengh > 0 && parentCategories.map((category:any) => <CategoryMenuItem key={category.id} category={category} /> )}
                   <div className="nested-dropdown relative">
                     <Link
                       href="#"
@@ -291,7 +291,7 @@ export default function Header() {
                         <span>Baby & Kids</span>
                       </Link>
                 </div>
-              {/* )} */}
+              )}
             </div>
             {/* Main Menu */}
             <ul className="flex">
