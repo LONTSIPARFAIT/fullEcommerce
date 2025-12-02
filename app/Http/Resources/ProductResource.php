@@ -56,6 +56,14 @@ class ProductResource extends JsonResource
                     }),
                 ];
             }),
+            'variations' => $this->variation->map(function ($variation) {
+                return [
+                    'id' => $variation->id,
+                    'variation_type_option_ids' => $variation->variation_type_option_ids,
+                    'quantity' => $variation->quantity,
+                    'price' => $variation->price,
+                ];
+            }),
         ];
     }
 }
