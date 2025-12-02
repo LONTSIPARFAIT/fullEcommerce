@@ -70,7 +70,11 @@ class Product extends Model implements HasMedia
     }
 
     public function getPriceForFirstOption(): float{
-        $firstOptions = $this->getFirstOptionMap;
+        $firstOptions = $this->getFirstOptionMap();
+
+        if($firstOptions){
+            return $this->getPriceForOption();
+        }
         return $this->price;
     }
 
