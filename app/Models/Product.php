@@ -69,12 +69,12 @@ class Product extends Model implements HasMedia
         return $this->getFirstMediaUrl($collectionName, $conversion);
     }
 
-    public function getPriceForFirstOption(): float{ 
-        $firstOptions = $this->getFirstOptionMap;
-        return $this->price;       
+    public function getPriceForFirstOption(): float{
+        $firstOptions = $this->getFirstOptionMa;
+        return $this->price;
     }
 
     public function getFirstOptionMap(): array{
-        return $this->variationTypes->mapWithKeys(fn($type));       
+        return $this->variationTypes->mapWithKeys(fn($type)=> [$type->id => $type->options[0]?->id])->toArray();
     }
 }
