@@ -14,6 +14,14 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $options = $request->input('options') ?: [];
+        if($options){
+            $images = $this->getImagesForOptions($options);
+        }else{
+            $images = $this->getImages();
+        }
+        return [
+            'id'
+        ];
     }
 }
