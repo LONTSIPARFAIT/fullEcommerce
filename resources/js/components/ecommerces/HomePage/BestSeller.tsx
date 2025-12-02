@@ -1,8 +1,10 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Heart, Search, ShoppingCart, Star, StarHalf } from "lucide-react";
+import { ProductCard } from "../ProductCard";
 
 
 export default function SpecialOffer() {
+    const { bestSellerProducts } = usePage().props as any;
   return (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
@@ -11,6 +13,12 @@ export default function SpecialOffer() {
           <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">View All</Link>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {bestSellerProducts.lenght > 0 ? 
+                (bestSellerProducts.map((product:any)=> <ProductCard key={product.id} {...product} />)
+            ) : (
+                <div className="cols-span-4 text-center text-gray-500">No best Seller available at the moment.</div>
+            )
+            }
             {/* Discount Product Card 1 */}
             <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
                 <div className="relative">
