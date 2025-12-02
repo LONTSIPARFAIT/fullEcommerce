@@ -32,8 +32,30 @@ class ProductResource extends JsonResource
                     'id' => $image->id,
                     'thumb' => $image->getUrl('thumb'),
                     'small' => $image->getUrl('small'),
-                ],
-            });
+                    'large' => $image->getUrl('large'),
+                ];
+            }),
+            'variationTypes' => $this->variation->map(function ($variationType){
+                return [
+                    'id' => $variationType->id,
+                    'name' => $variationType->name,
+                    'type' => $variationType->type,
+                    'options' => $variationType->options->map(function ($option) {
+                        return [
+                            'id' => $option->id,
+                            'name' => $option->name,
+                            'images' => $option->getMedia('images')->map(function ($image) {
+                                return [
+                                    'id' => $image->id,
+                                    'thumb' => $image->getUrl('thumb'),
+                                    'small' => $image->getUrl('small'),
+                                    'large' => $image->getUrl('large'),
+                                ];
+                            }),
+                        ];
+                    }),
+                ];
+            }),
         ];
     }
 }
