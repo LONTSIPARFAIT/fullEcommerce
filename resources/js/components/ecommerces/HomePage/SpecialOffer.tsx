@@ -16,7 +16,7 @@ export default function SpecialOffer() {
                 <div className="relative">
                     <img src="./images/p-1.png" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
-                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                         {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />

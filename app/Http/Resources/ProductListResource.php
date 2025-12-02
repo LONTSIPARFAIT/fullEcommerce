@@ -21,6 +21,8 @@ azeturn array<string, mixed>
             'price' => $this->getPriceForFirstOption(),
             'quantity' => $this->quantity,
             'image' => $this->getFirstImageUrl('images', 'small'),
+            'isDiscount' => false,
+            'discount' => 0,
         ];
     }
 }
