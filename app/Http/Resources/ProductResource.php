@@ -21,7 +21,19 @@ class ProductResource extends JsonResource
             $images = $this->getImages();
         }
         return [
-            'id'
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'price' => $this->price,
+            'quantity' => $this->quantity,
+            'image' => $this->getFirstMediaUrl('images'),
+            'images' => $images->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'thumb' => $image->getUrl('thumb'),
+                    'small' => $image->getUrl('small'),
+                ],
+            });
         ];
     }
 }
