@@ -82,7 +82,16 @@ class Product extends Model implements HasMedia
         return $this->variationTypes->mapWithKeys(fn($type)=> [$type->id => $type->options[0]?->id])->toArray();
     }
 
-    public function getPriceForOptions(): array{
-        return $this->variationTypes->mapWithKeys(fn($type)=> [$type->id => $type->options[0]?->id])->toArray();
+    public function getPriceForOptions(array $optionIds=[]) {
+        $optionIds = array_values($optionIds);
+        sort($optionIds);
+        $optionIds = json_encode($optionIds);
+        foreach($this->variations as $variation){
+            $a = $variation->variation_type_option_ids;
+            if($optionIds == $a) {
+                return $variation->price != null ? $variation->price : $this->price;
+            }
+        }
+        return $this->price;
     }
 }
