@@ -1,31 +1,31 @@
 import { Link, usePage } from "@inertiajs/react";
-import { Heart, Search, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { ProductCard } from "../ProductCard";
 
 
 export default function SpecialOffer() {
-    const { bestSellerProducts } = usePage().props as any;
+    const { bestSellingProducts } = usePage().props as any;
+    // console.log(bestSellingProducts);
+    
   return (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
         <div className="container flex justify-between items-center mx-auto px-4">
-          <h2 className="mb-8 text-center text-2xl font-bold">Special Offers</h2>
+          <h2 className="mb-8 text-center text-2xl font-bold">Best Sellers</h2>
           <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">View All</Link>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {bestSellerProducts.lenght > 0 ? 
-                (bestSellerProducts.map((product:any)=> <ProductCard key={product.id} {...product} />)
+            {bestSellingProducts.lenght > 0 ? 
+                (bestSellingProducts.map((product:any)=> <ProductCard key={product.id} {...product} />)
             ) : (
-                <div className="cols-span-4 text-center text-gray-500">No best Seller available at the moment.</div>
+                <div className="col-span-4 text-center text-gray-500">Nobest Seller available at the moment.</div>
             )
             }
             {/* Discount Product Card 1 */}
-            <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
+            {/* <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
                 <div className="relative">
                     <img src="./images/p-1.png" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
                     <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                        {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
                             </button>
@@ -35,7 +35,6 @@ export default function SpecialOffer() {
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Search className="h-5 w-5" />
                             </button>
-                        {/* </div> */}
                     </div>
                 </div>
                     <div className="p-4">
@@ -56,13 +55,12 @@ export default function SpecialOffer() {
                         </div>
                     </div>
             </div>
-            {/* Discount Product Card 2 */}
-            <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
+          
+            <div className="group overflow-hidden rounded-lg bg-white shadow-sm">   
                 <div className="relative">
                     <img src="./images/p-1.png" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
                     <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                        {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
                             </button>
@@ -72,7 +70,6 @@ export default function SpecialOffer() {
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Search className="h-5 w-5" />
                             </button>
-                        {/* </div> */}
                     </div>
                 </div>
                     <div className="p-4">
@@ -91,13 +88,12 @@ export default function SpecialOffer() {
                         </div>
                     </div>
             </div>
-            {/* Discount Product Card 3 */}
+           
             <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
                 <div className="relative">
                     <img src="./images/p-1.png" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
                     <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                        {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
                             </button>
@@ -107,7 +103,6 @@ export default function SpecialOffer() {
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Search className="h-5 w-5" />
                             </button>
-                        {/* </div> */}
                     </div>
                 </div>
                     <div className="p-4">
@@ -127,13 +122,12 @@ export default function SpecialOffer() {
                         </div>
                     </div>
             </div>
-            {/* Discount Product Card 4 */}
+        
             <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
                 <div className="relative">
                     <img src="./images/p-1.png" alt="Product 1" className="h-64 w-full object-cover" />
                     <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-30%</div>
                     <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                        {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
                             </button>
@@ -143,7 +137,6 @@ export default function SpecialOffer() {
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Search className="h-5 w-5" />
                             </button>
-                        {/* </div> */}
                     </div>
                 </div>
                     <div className="p-4">
@@ -162,7 +155,7 @@ export default function SpecialOffer() {
                             </div>
                         </div>
                     </div>
-            </div>
+            </div> */}
         </div>
       </div>
     </div>

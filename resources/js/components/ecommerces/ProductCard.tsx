@@ -1,7 +1,8 @@
+import { ProductListItem } from '@/types'
 import { Heart, Search, ShoppingCart, Star, StarHalf } from 'lucide-react'
 import React from 'react'
 
-export const ProductCard = (product : any) => {
+export const ProductCard = (product : ProductListItem) => {
   return (
                 <div className="group overflow-hidden rounded-lg bg-white shadow-sm">
                 <div className="relative">
