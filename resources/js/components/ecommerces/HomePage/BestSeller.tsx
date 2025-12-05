@@ -17,7 +17,7 @@ export default function SpecialOffer() {
             {bestSellingProducts.lenght > 0 ? 
                 (bestSellingProducts.map((product:any)=> <ProductCard key={product.id} {...product} />)
             ) : (
-                <div className="col-span-4 text-center text-gray-500">Nobest Seller available at the moment.</div>
+                <div className="col-span-4 text-center text-gray-500">No best Seller available at the moment.</div>
             )
             }
             {/* Discount Product Card 1 */}
