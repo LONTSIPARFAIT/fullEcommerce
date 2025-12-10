@@ -1,5 +1,6 @@
 import EcomLayout from '@/layouts/ecom-layout';
 import { Link } from '@inertiajs/react';
+import { Star, StarHalf } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
@@ -129,7 +130,30 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                     </div>
 
                     {/* Product info */}
-                    <div className="w-full "></div>
+                    <div className="w-full border-l p-6 lg:w-3/5">
+                        {/* Basic info */}
+                        <div className="mb-6">
+                            <h1 className="mb-2 text-2xl font-bold text-gray-800">{product.name}</h1>
+
+                            {/* Rating */}
+                            <div className="mb-4 flex items-center">
+                                <div className="flex text-yellow-400">
+                                    {[...Array(5)].map((_,index) => {
+                                        const rating = product.rating;
+                                        if (index + 1 <= Math.floor(rating)) {
+                                            return <Star key={index} className='fill-current' size={16}/>;
+                                        } else if (index < rating) {
+                                            return <StarHalf key={index} className='fill-current' size={16} />
+                                        }
+                                        return <Star key={index} size={16}/>
+                                    })}
+                                </div>
+                                <span className="ml-2 text-gray-600"> {product.rating} - {product.review_count} Review</span>
+                            </div>
+
+                            {/*  */}
+                        </div>
+                    </div>
 
                 </div>
             </div>
