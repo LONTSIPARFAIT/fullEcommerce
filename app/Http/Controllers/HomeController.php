@@ -33,7 +33,12 @@ class HomeController extends Controller
         $product = Product::where('slug')->firstOrFail();
         $productResource = new ProductResource($product);
         $relatedProducts = ProductListResource::collection(
-            Product::where('category_id', $product->category_id)->where('id', '=!', $product->id)->limit(4)->get()
+            Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(4)->get()
         );
+
+        return Inertia::render('Ecommerce/ProductDetail', [
+            'product' => $productResource->resolve(),
+            'relatedProducts' => $relatedProducts->resolve(),
+        ]); 
     }
 }

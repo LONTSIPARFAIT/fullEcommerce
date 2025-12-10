@@ -94,4 +94,34 @@ class Product extends Model implements HasMedia
         }
         return $this->price;
     }
+
+    public function getImages() {
+        if ($this->options()->count() > 0) {
+            foreach ($$this->options as $option) {
+                $images = $option->getMedia('images');
+                if ($images->count() > 0) {
+                    return $images;
+                }
+            }
+        }
+        return $this->getMedia('images');
+    }
+
+    public function getImagesForOptions(array $optionIds = null){
+
+        if ($optionIds) {
+            $optionIds = array_values($optionIds);
+            sort($optionIds);
+            $options = VariationTypeOption::whereIn('id',$optionIds)->get();
+    
+            foreach ($options as $option) {
+                $images = $option->getFirstImageUrl('images','small');
+                if ($images) {
+                    return $images;
+                }
+            }
+            return $images;
+        }
+        return $this->getFirstImageUrl('images','small'); 
+    }
 }
