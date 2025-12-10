@@ -64,6 +64,8 @@ class ProductResource extends JsonResource
                     'price' => $variation->price,
                 ];
             }),
+            'rating'=>4,
+            'review_count'=>100,            
         ];
     }
 }

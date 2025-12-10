@@ -1,6 +1,6 @@
 import EcomLayout from '@/layouts/ecom-layout';
 import { Link } from '@inertiajs/react';
-import { Star, StarHalf } from 'lucide-react';
+import { RefreshCcw, Shield, Star, StarHalf } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
@@ -35,6 +35,8 @@ interface ProductDetailProps {
         images: string[];
         variationTypes: VariationType[];
         variation: Variation[];
+        rating: number;
+        review_count: number;
     };
     variationOptions: Record<string, string>;
     relatedProducts: any[];
@@ -151,7 +153,21 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                 <span className="ml-2 text-gray-600"> {product.rating} - {product.review_count} Review</span>
                             </div>
 
-                            {/*  */}
+                            {/* Price and stock status */}
+                            <div className="mb-4 flex items-center">
+                                <span className="text-3xl font-bold text-indigo-600">{computerProduct.price}FCFA</span>
+                                {computerProduct.variation && <span className='ml-2 text-sm text-gray-500'>(Selected variation)</span>}
+                            </div>
+                            
+                            <div className="mb-4 flex items-center text-sm text-gray-500">
+                                <span className="mr-4 flex items-center">
+                                    <Shield className='mr-1 text-green-500' size={16} />
+                                    {computerProduct.quantity ? `In Stock (${computerProduct.quantity} available)` : 'Out of Stock'}
+                                </span>
+                                <div className="flex items-center">
+                                    <RefreshCcw className='mr-1 text-blue-500' size={16} /> Free Shiping
+                                </div>
+                            </div>
                         </div>
                     </div>
 
