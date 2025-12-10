@@ -10,18 +10,16 @@ export const ProductCard = (product : ProductListItem) => {
                     {product.isDiscount && (
                         <div className="absolute top-0 right-0 m-2 rounded-md bg-red-500 px-2 py-1 text-sm text-white">-{product.discount}%</div>   
                     )}
-                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                        {/* <div className="mb-3 flex items-center text-sm text-gray-500"> */}
+                    <div className="bg-opacity-20 absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <ShoppingCart className="h-5 w-5" />
                             </button>
                             <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Heart className="h-5 w-5" />
                             </button>
-                            <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
+                            {/* <button className="mx-2 bg-white rounded-full p-3 text-gray-800 transition hover:bg-indigo-600 hover:text-white">
                                 <Search className="h-5 w-5" />
-                            </button>
-                        {/* </div> */}
+                            </button> */}
                     </div>
                 </div>
                     <div className="p-4">
