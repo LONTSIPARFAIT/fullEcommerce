@@ -62,9 +62,19 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     useEffect(() => {
         if (product.variationTypes.length > 0 ){
             const initialOptions: Record<number, VariationOption> = {};
-            product.variationTypes.forEach
+            product.variationTypes.forEach((type)=>{
+                initialOptions[type.id] = type.options[0];
+            });
+            setSelectedOptions(initialOptions);
         }
-    });
+    }, [product.variationTypes]);
+
+    const handleOptionSelect = (typeId: number, option: VariationOption) => {
+        setSelectedOptions((prev) => ({
+            ...prev,
+            {typeId}: option,
+        }));
+    };
 
   return (
     <div>
