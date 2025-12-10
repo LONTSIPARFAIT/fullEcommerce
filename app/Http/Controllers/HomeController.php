@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductListResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,14 +14,26 @@ class HomeController extends Controller
     public function index(){
         $bestSellingProducts = ProductListResource::collection(Product::query()->limit(4)->orderBy('sales', 'desc')->get())->resolve();
         $specialOffers = ProductListResource::collection(Product::query()->where('is_special_offer', true)->limit(4)->get())->resolve();
-        
-        $brands = Brand::query()->select('id', 'name', 'slug', 'image')->get()->map(function ($brand){});
+
+        $brands = Brand::query()->select('id', 'name', 'slug', 'image')->get()->map(function ($brand){
+            $brand->image = asset('storage/' . $brand->image);
+            return $brand;
+        });
 
         return Inertia::render('Ecommerce/Home', [
             'title' => 'Welcome to our store',
             'description' => 'Explore our wide range of products and enjoy exclusive offers',
             'bestSellingProducts' => $bestSellingProducts,
             'specialOffers' => $specialOffers,
+            'brands' => $brands,
         ]);
+    }
+
+    public function productDetail(Request $resquest, $slug) {
+        $product = Product::where('slug')->firstOrFail();
+        $productResource = new ProductResource($product);
+        $relatedProducts = ProductListResource::collection(
+            Product::where('category_id', $product->category_id)->where('id', '=!', $product->id)->limit(4)->get()
+        );
     }
 }
