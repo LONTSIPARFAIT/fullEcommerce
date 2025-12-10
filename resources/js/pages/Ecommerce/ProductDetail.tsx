@@ -164,11 +164,29 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                     <Shield className='mr-1 text-green-500' size={16} />
                                     {computerProduct.quantity ? `In Stock (${computerProduct.quantity} available)` : 'Out of Stock'}
                                 </span>
-                                <div className="flex items-center">
-                                    <RefreshCcw className='mr-1 text-blue-500' size={16} /> Free Shiping
+                                <span className="flex items-center">
+                                    <RefreshCcw className='mr-1 text-blue-500' size={16} /> Free Shipping
+                                </span>
+                            </div>
+                            <p className="mb-4 text-gray-600">{product.description}</p>
+                        </div>
+
+                        {/* Variation options */}
+                        {product.variationTypes.map((type) => (
+                            <div key={type.id} className="mb-6">
+                                <h3 className=''>{type.name}</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {type.options.map((option) => (
+                                        <button 
+                                          key={option.id}
+                                          onClick={()=>handleOptionSelect(type.id, option)}
+                                          className="">
+                                            {option.name}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
 
                 </div>
