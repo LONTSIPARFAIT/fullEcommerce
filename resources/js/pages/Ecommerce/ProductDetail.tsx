@@ -1,6 +1,6 @@
 import EcomLayout from '@/layouts/ecom-layout';
 import { Link } from '@inertiajs/react';
-import { Heart, Minus, Plus, RefreshCcw, Shield, ShoppingCart, Star, StarHalf, Zap } from 'lucide-react';
+import { Facebook, Heart, Instagram, Lock, Minus, Plus, RefreshCw, Shield, ShoppingCart, Star, StarHalf, X, Zap } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
@@ -165,7 +165,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                     {computerProduct.quantity ? `In Stock (${computerProduct.quantity} available)` : 'Out of Stock'}
                                 </span>
                                 <span className="flex items-center">
-                                    <RefreshCcw className='mr-1 text-blue-500' size={16} /> Free Shipping
+                                    <RefreshCw className='mr-1 text-blue-500' size={16} /> Free Shipping
                                 </span>
                             </div>
                             <p className="mb-4 text-gray-600">{product.description}</p>
@@ -228,7 +228,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                             <button
                               onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                               className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
-                                <RefreshCcw size={20} />
+                                <RefreshCw size={20} />
                             </button>
                         </div>
 
@@ -240,8 +240,22 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                     <span className="">1 year warranty</span>
                                 </div>
                                 <div className="mb-2 flex items-center sm:mr-6 sm:mb-0">
-                                    <Shield className='mr-2 text-indigo-500' size={16} />
-                                    <span className="">1 year warranty</span>
+                                    <RefreshCw className='mr-2 text-indigo-500' size={16} />
+                                    <span className="">30-Day Return Policy</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <Lock className='mr-2 text-indigo-500' size={16} />
+                                    <span className="">Secure Checkout</span>
+                                </div>
+                            </div>
+
+                            {/* Share Links */}
+                            <div className="mt-4 flex items-center">
+                                <span className="mr-2 text-gray-600">Share:</span>
+                                <div className="flex space-x-2">
+                                    <Link prefetch href="#" className='text-gray-500 hover:text-blue-600'> <Facebook size={16}/></Link>
+                                    <Link prefetch href="#" className='text-gray-500 hover:text-blue-600'> <X size={16}/></Link>
+                                    <Link prefetch href="#" className='text-gray-500 hover:text-pink-600'> <Instagram size={16}/></Link>
                                 </div>
                             </div>
                         </div>
@@ -249,9 +263,102 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
 
                 </div>
             </div>
+
+            {/* description section */}
             <div className="mt-8">
                 <div className="border-b">
-                    <div className="-mb-px flex flex-wrap"></div>
+                    <div className="-mb-px flex flex-wrap">
+                        <button
+                            onClick={()=>setActiveTab('description')}
+                            className={`px-6 py-4 text-sm font-medium focus:outline-none ${
+                                activeTab === 'description' ? 'border-b-2 border-indigo-600 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+                            } `}>
+                            Description
+                        </button>
+                        <button
+                            onClick={()=>setActiveTab('specs')}
+                            className={`px-6 py-4 text-sm font-medium focus:outline-none ${
+                                activeTab === 'specs' ? 'border-b-2 border-indigo-600 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+                            } `}>
+                            Specifications
+                        </button>
+                        <button
+                            onClick={()=>setActiveTab('reviews')}
+                            className={`px-6 py-4 text-sm font-medium focus:outline-none ${
+                                activeTab === 'reviews' ? 'border-b-2 border-indigo-600 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+                            } `}>
+                            Reviews (125)
+                        </button>
+                    </div>
+                </div>
+
+                {/* tab content */}
+                <div className="mt-4 rounded-b-lg bg-white p-6 shadow-sm">
+                    {activeTab === 'description' && (
+                        <div className="">
+                            <h3 className="mb-3 text-lg font-semibold">Product Decription</h3>
+                            <p className="mb-4 text-gray-600">Experience Music</p>
+                            <p className="mb-4 text-gray-600">The active noice cancelation technology</p>
+                            <h4 className="mt-4 mb-2 font-semibold">Key Features:</h4>
+                            <ul className="mb-4 list-inside list-disc space-y-1 text-gray-600">
+                                <li>Active Noice Cancelation Technology</li>
+                                <li>Bluetooth 5.0 with 10 m range</li>
+                                <li>Up to 30 hours battery life</li>
+                                <li>Fast charging (10 min charge = 3 hours playback)</li>
+                                <li>Premium memory from ear cushions</li>
+                                <li>Built-in microphone for calls</li>
+                                <li>Voice assistant compatible (Siri, Google Assistant) </li>
+                            </ul>
+                            <h4 className="mt-4 mb-2 font-semibold">What's in the Box:</h4>
+                            <ul className="mb-4 list-inside list-disc space-y-1 text-gray-600">
+                                <li>Wireless Noice Canceling HeadPhones</li>
+                                <li>USB-C charging cable</li>
+                                <li>3.5 m Audio Cable</li>
+                                <li>Carrying Case</li>
+                                <li>User Manuel</li>
+                            </ul>
+                        </div>
+                    )}
+                    {activeTab === 'specs' && (
+                        <div className="">
+                            <h3 className="mb-3 text-lg font-semibold">Technical Specifications</h3>
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                    <div className="rounded bg-gray-50 p-4">
+                                        <h4 className="mb-2 font-medium text-gray-800">Audio</h4>
+                                        <div className="space-y-2 text-sm">
+                                            <div className="grid grid-cols-2">
+                                                <span className="text-gray-600">Driver Size</span>
+                                                <span>40 m</span>
+                                            </div>
+                                            <div className="grid grid-cols-2">
+                                                <span className="text-gray-600">Frequency Response</span>
+                                                <span>20Hz - 20KHz</span>
+                                            </div>
+                                            <div className="grid grid-cols-2">
+                                                <span className="text-gray-600">Impedance</span>
+                                                <span>32 Ohm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {activeTab === 'reviews' && (
+                        <div className="">
+                            <h3 className="mb-3 text-lg font-semibold">Custumer Reviews</h3>
+                        </div>
+                    )}
+                    
+                </div>
+            </div>
+            {/* related product */}
+            <div className="mt-12 bg-white py-12">
+                <div className="container mx-auto px-4">
+                    <div className="mb-8 flex items-center justify-between">
+                        <h2 className=""></h2>
+                    </div>
                 </div>
             </div>
         </div>
