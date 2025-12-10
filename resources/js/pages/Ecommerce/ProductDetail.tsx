@@ -59,11 +59,16 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     }, [product, selectedOptions]);
 
     // initilize with default options
-    useEffect(())
+    useEffect(() => {
+        if (product.variationTypes.length > 0 ){
+            const initialOptions: Record<number, VariationOption> = {};
+            product.variationTypes.forEach
+        }
+    });
 
   return (
     <div>
-      
+
     </div>
   )
 }
