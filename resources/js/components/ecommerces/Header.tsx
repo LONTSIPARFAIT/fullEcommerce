@@ -10,7 +10,7 @@ export default function Header() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  console.log(parentCategories);
+  console.log('parentCategories',parentCategories);
 
   return (
     <>
