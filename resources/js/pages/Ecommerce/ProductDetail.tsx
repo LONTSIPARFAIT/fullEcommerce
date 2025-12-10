@@ -1,3 +1,5 @@
+import EcomLayout from '@/layouts/ecom-layout';
+import { Link } from '@inertiajs/react';
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
@@ -72,14 +74,28 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     const handleOptionSelect = (typeId: number, option: VariationOption) => {
         setSelectedOptions((prev) => ({
             ...prev,
-            {typeId}: option,
+            [typeId]: option,
         }));
     };
 
-  return (
-    <div>
+    const discount = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
+    const savings = product.original_price ? (product.original_price - product.price).toFixed(2) : 0;
 
-    </div>
+  return (
+    <EcomLayout >
+        {/* Breadcrumb */}
+        <div className="bg-gray-100 py-3">
+            <div className="container mx-auto px-4">
+                <div className="flex items-center text-sm text-gray-600">
+                    <Link href="/" className='hover:text-indigo-600'>Home</Link>
+                    <span className="mx-2">/</span>
+                    <Link href="/products" className='hover:text-indigo-600'>Products</Link>
+                    <span className="mx-2">/</span>
+                    <span className="text-gray-800">{product.name}</span>
+                </div>
+            </div>
+        </div>
+    </EcomLayout>
   )
 }
 
