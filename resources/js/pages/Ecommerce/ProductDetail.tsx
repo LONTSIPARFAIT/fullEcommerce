@@ -223,13 +223,27 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                             <button
                               onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                               className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
-                                <Heart size={20} /> Add to Card
+                                <Heart size={20} />
                             </button>
                             <button
                               onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                               className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
-                                <RefreshCcw size={20} /> Add to Card
+                                <RefreshCcw size={20} />
                             </button>
+                        </div>
+
+                        {/* Additionnal info */}
+                        <div className="border-t pt-4">
+                            <div className="flex flex-col text-sm text-gray-600 sm:flex-row sm:items-center">
+                                <div className="mb-2 flex items-center sm:mr-6 sm:mb-0">
+                                    <Shield className='mr-2 text-indigo-500' size={16} />
+                                    <span className="">1 year warranty</span>
+                                </div>
+                                <div className="mb-2 flex items-center sm:mr-6 sm:mb-0">
+                                    <Shield className='mr-2 text-indigo-500' size={16} />
+                                    <span className="">1 year warranty</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
