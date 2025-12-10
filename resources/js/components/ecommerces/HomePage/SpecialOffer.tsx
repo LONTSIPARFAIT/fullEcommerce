@@ -3,6 +3,7 @@ import { Heart, Search, ShoppingCart, Star, StarHalf } from "lucide-react";
 
 
 export default function SpecialOffer() {
+    const
   return (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
