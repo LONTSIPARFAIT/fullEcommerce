@@ -1,9 +1,13 @@
 import { Link } from "@inertiajs/react";
 import { Heart, Search, ShoppingCart, Star, StarHalf } from "lucide-react";
 
+interface SpecialOfferProps(){
+    specialOffer: ProductListItem[];
+}
+
 
 export default function SpecialOffer() {
-    const
+    const { specialOffer } = usePage().props as any;
   return (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
