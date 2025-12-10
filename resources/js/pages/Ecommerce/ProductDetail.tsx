@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
     id: number;
@@ -41,7 +41,25 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     const [activeImage, setActiveImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState('description');
-    const [selectedOptions, setSelectedOptions] = useState<Record<>>;
+    const [selectedOptions, setSelectedOptions] = useState<Record<number, VariationOption>>({});
+
+    // computer product detail based on selected variation
+    const computerProduct = useMemo(()=>{
+        const selectedOptionIds = Object.values(selectedOptions).map((op)=>op.id).sort((a,b)=> a - b);
+        const matchingVariation = product.variation.find((variation)=>{
+            const variationIds = JSON.parse(variation.variation_type_option_ids).sort((a: number, b: number)=> a - b);
+            return JSON.stringify(selectedOptionIds) === JSON.stringify(variationIds);
+        });
+
+        return {
+            price: matchingVariation?.price || product.price,
+            quantity: matchingVariation?.quantity || product.quantity,
+            variation: matchingVariation,
+        };
+    }, [product, selectedOptions]);
+
+    // initilize with default options
+    useEffect(())
 
   return (
     <div>
