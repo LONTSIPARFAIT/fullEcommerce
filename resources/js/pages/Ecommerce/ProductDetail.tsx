@@ -1,3 +1,4 @@
+import { ProductCard } from '@/components/ecommerces/ProductCard';
 import EcomLayout from '@/layouts/ecom-layout';
 import { Link } from '@inertiajs/react';
 import { Facebook, Heart, Instagram, Lock, Minus, Plus, RefreshCw, Shield, ShoppingCart, Star, StarHalf, X, Zap } from 'lucide-react';
@@ -357,7 +358,13 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
             <div className="mt-12 bg-white py-12">
                 <div className="container mx-auto px-4">
                     <div className="mb-8 flex items-center justify-between">
-                        <h2 className=""></h2>
+                        <h2 className="text-2xl font-bold">Related Products</h2>
+                        <Link href="/product" className='text-indigo-600 hover:text-indigo-800' >View All</Link>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {relatedProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
                     </div>
                 </div>
             </div>
