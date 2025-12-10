@@ -114,7 +114,28 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
 
 
                         {/* Thumbail images */}
+                        <div className="grid grid-cols-4 gap-2">
+                            {product.images.map((image, index) => (
+                                <button 
+                                  key={index}
+                                  onClick={()=>setActiveImage(index)}
+                                  className={`overflow-hidden rounded-md border-2 ${
+                                    activeImage === index ? 'border-indigo-600' : 'border-transparent'
+                                  }`}>
+                                    <img src={image} alt={`${product.name} thumbnail ${index + 1}`} className="h-20 w-full object-cover" />
+                                </button>
+                            ))}
+                        </div>
                     </div>
+
+                    {/* Product info */}
+                    <div className="w-full "></div>
+
+                </div>
+            </div>
+            <div className="mt-8">
+                <div className="border-b">
+                    <div className="-mb-px flex flex-wrap"></div>
                 </div>
             </div>
         </div>
