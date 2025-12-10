@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 interface VariationOption {
     id: number;
@@ -37,7 +37,12 @@ interface ProductDetailProps {
     relatedProducts: any[];
 }
 
-const ProductDetail = () => {
+const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDetailProps) => {
+    const [activeImage, setActiveImage] = useState(0);
+    const [quantity, setQuantity] = useState(1);
+    const [activeTab, setActiveTab] = useState('description');
+    const [selectedOptions, setSelectedOptions] = useState<Record<>>;
+
   return (
     <div>
       
