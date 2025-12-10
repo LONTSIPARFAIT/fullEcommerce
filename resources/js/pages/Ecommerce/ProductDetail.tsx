@@ -78,8 +78,9 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
         }));
     };
 
-    const discount = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
-    const savings = product.original_price ? (product.original_price - product.price).toFixed(2) : 0;
+    // const discount = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
+    // const savings = product.original_price ? (product.original_price - product.price).toFixed(2) : 0;
+    const discount = 0;
 
   return (
     <EcomLayout >
@@ -92,6 +93,28 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                     <Link href="/products" className='hover:text-indigo-600'>Products</Link>
                     <span className="mx-2">/</span>
                     <span className="text-gray-800">{product.name}</span>
+                </div>
+            </div>
+        </div>
+
+        {/* Main content */}
+        <div className="container mx-auto px-4 py-8">
+            <div className="overflow-hidden rounded-lg bg-white shadow-sm">
+                <div className="flex flex-cols lg:flex-row">
+                    {/* Product Images */}
+                    <div className="w-full p-6 lg:w-2/5">
+                        <div className="relative mb-4">
+                            {discount > 0 && (
+                                <div className="absolute top-2 left-0 z-10">
+                                    <span className="rounded bg-red-500 px-2 py-1 text-xs text-white">-{discount}%</span>
+                                </div>
+                            )}
+                            <img src={product.images[activeImage]} alt={product.name} className='h-96 w-full rounded-lg object-contain' />
+                        </div>
+
+
+                        {/* Thumbail images */}
+                    </div>
                 </div>
             </div>
         </div>
