@@ -1,6 +1,6 @@
 import EcomLayout from '@/layouts/ecom-layout';
 import { Link } from '@inertiajs/react';
-import { RefreshCcw, Shield, Star, StarHalf } from 'lucide-react';
+import { Heart, Minus, Plus, RefreshCcw, Shield, ShoppingCart, Star, StarHalf, Zap } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface VariationOption {
@@ -174,19 +174,63 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                         {/* Variation options */}
                         {product.variationTypes.map((type) => (
                             <div key={type.id} className="mb-6">
-                                <h3 className=''>{type.name}</h3>
+                                <h3 className='mb-2 font-semibold text-gray-800'>{type.name}</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {type.options.map((option) => (
                                         <button 
                                           key={option.id}
                                           onClick={()=>handleOptionSelect(type.id, option)}
-                                          className="">
+                                          className={`rounded-md border px-4 py-2 ${
+                                          selectedOptions[type.id]?.id === option.id ? 'border-indigo-600 bg-indigo-50 text-indigo-600' : 'border-gray-300 text-gray-600 hover:border-gray-400'
+                                        }`}>
                                             {option.name}
                                         </button>
                                     ))}
                                 </div>
                             </div>
                         ))}
+
+                        {/* Quantite a selectionner */}
+                        <div className="mb-6">
+                            <h3 className='mb-2 font-semibold text-gray-800'>Quantité</h3>
+                            <div className="flex w-32 items-center rounded-md border">
+                                <button
+                                  onClick={()=>setQuantity((q)=>Math.max(1, q - 1))}
+                                  className="px-3 py-1 text-gray-600 hover:text-indigo-600">
+                                    <Minus size={16} />
+                                </button>
+                                <input type="number" min="1" value={quantity} onChange={(e)=>setQuantity(Math.max(1, parseInt(e.target.value)))} className="w-12 border-none text-center focus:ring-0" />
+                                <button
+                                  onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
+                                  className="px-3 py-1 text-gray-600 hover:text-indigo-600">
+                                    <Plus size={16} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Action Button */}
+                        <div className="mb-6 flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                            <button
+                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
+                              className="flex flex-1 items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-white hover:text-indigo-700">
+                                <ShoppingCart className='mr-2' size={20} /> Add to Card
+                            </button>
+                            <button
+                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
+                              className="flex flex-1 items-center justify-center rounded-md bg-gray-800 px-6 py-3 text-white hover:text-gray-900">
+                                <Zap className='mr-2' size={20} /> Buy Now
+                            </button>
+                            <button
+                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
+                              className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
+                                <Heart size={20} /> Add to Card
+                            </button>
+                            <button
+                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
+                              className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
+                                <RefreshCcw size={20} /> Add to Card
+                            </button>
+                        </div>
                     </div>
 
                 </div>
