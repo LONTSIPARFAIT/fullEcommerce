@@ -115,13 +115,12 @@ class Product extends Model implements HasMedia
             $options = VariationTypeOption::whereIn('id',$optionIds)->get();
     
             foreach ($options as $option) {
-                $images = $option->getFirstImageUrl('images','small');
-                if ($images) {
-                    return $images;
+                $image = $option->getFirstImageUrl('images','small');
+                if ($image) {
+                    return $image;
                 }
             }
-            return $images;
         }
-        return $this->getFirstImageUrl('images','small'); 
+        return $this->getFirstImageUrl('images','small')?:asset('images/p-1.png'); 
     }
 }
