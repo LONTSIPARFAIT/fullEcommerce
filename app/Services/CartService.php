@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +20,20 @@ use Illuminate\Support\Facades\Auth;
 
         if (Auth::check()) {
             // save the database
+            $this->saveItemToDatabase($product->id, $quantity, $price, $optionIds);
         } else {
             // save to the cookies
+            $this->saveItemToCookies($product->id, $quantity, $price, $optionIds);
         }
     }
+
+    protected function saveItemToDatabase(int $productId, int $quantity, int $price, array $optionIds){
+        $userId=Auth::id();
+        krsort($optionIds);
+
+        $cartItem=Cart::where('product_id', $productId)
+        ->where('user_id', $userId)
+        ->where('variation_type_option_ids');
+    }
+    protected function saveItemToCookies(int $productId, int $quantity, int $price, array $optionIds){}
  }

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    //
+    protected $guarded = []; 
+
+    protected $carts=[
+        'variation_type_option_ids' => 'array',
+    ];
 }
