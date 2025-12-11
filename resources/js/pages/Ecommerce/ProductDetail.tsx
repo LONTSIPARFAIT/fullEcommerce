@@ -114,7 +114,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                 const option = selectedOptions[typeId];
                 if (option?.images && option.images.length > 0) {
                     // Filters out invalid images
-                    imagesList = option.images.filter((img)=> img && (typeof img === 'string' || img === 'object'));
+                    imagesList = option.images.filter((img)=> img && (typeof img === 'string' || typeof img === 'object'));
                     if (imagesList.length > 0) {
                         break;
                     }
@@ -123,6 +123,14 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
         }
 
         // if not images from selected options, use product images
+        if(imageList.length === 0) {
+            imagesList = option.images?.filter((img)=> img && (typeof img === 'string' || typeof img === 'object')) || [];
+        }
+
+        // if still no images, use the main product image
+        if(imageList.length === 0 && product.image) {
+            imageList = {product.image};  
+        }
     });
 
     // computer product detail based on selected variation
