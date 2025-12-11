@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
  class CartService {
     private ?array $cachedCartItems = null;
@@ -11,6 +12,14 @@ use App\Models\Product;
     public function addItemCart(Product $product, int $quantity=1, array $optionIds=[]) {
         if(!$optionIds) {
             $optionIds = $product->getFirstOptionMap();
+        }
+
+        $price=$product->getPriceForOptions($optionIds);
+
+        if (Auth::check()) {
+            // save the database
+        } else {
+            // save to the cookies
         }
     }
  }
