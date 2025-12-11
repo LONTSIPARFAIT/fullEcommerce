@@ -123,18 +123,33 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
         }
 
         // if not images from selected options, use product images
-        if(imageList.length === 0) {
-            imagesList = option.images?.filter((img)=> img && (typeof img === 'string' || typeof img === 'object')) || [];
+        if(imagesList.length === 0) {
+            imagesList = product.images?.filter((img)=> img && (typeof img === 'string' || typeof img === 'object')) || [];
         }
 
         // if still no images, use the main product image
-        if(imageList.length === 0 && product.image) {
-            imageList = [product.image];  
+        if(imagesList.length === 0 && product.image) {
+            imagesList = [product.image];  
         }
-    });
+        
+        // if still no images, use default images
+        if (imagesList.length === 0) {
+            imagesList = ['/images/p-1.png'];
+        }
+
+        return imagesList;
+    }, [product, selectedOptions]);
 
     // computer product detail based on selected variation
     const computerProduct = useMemo(()=>{
+        if (!product.variation?.length || !Object.keys(selectedOptions).length) {
+            return {
+                price: product.price,
+                quantity: product.quantity,
+                variation: null,
+            };
+        }
+        
         const selectedOptionIds = Object.values(selectedOptions).map((op)=>op.id).sort((a,b)=> a - b);
         const matchingVariation = product.variation.find((variation)=>{
             const variationIds = JSON.parse(variation.variation_type_option_ids).sort((a: number, b: number)=> a - b);
