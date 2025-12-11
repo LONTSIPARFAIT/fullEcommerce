@@ -33,7 +33,37 @@ use Illuminate\Support\Facades\Auth;
 
         $cartItem=Cart::where('product_id', $productId)
         ->where('user_id', $userId)
-        ->where('variation_type_option_ids');
+        ->where('variation_type_option_ids', $optionIds)
+        ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity = $cartItem->quantity + $quantity;
+            // $cartItem->price = $cartItem->price + $price;
+            $cartItem->save();
+        } else {
+            $cartItem = new Cart();
+            $cartItem->user_id=$userId;
+            $cartItem->product_id=$productId;
+            $cartItem->quantity=$quantity;
+            $cartItem->price=$price;
+            $cartItem->variation_type_option_ids=json_encode($optionIds);
+            $cartItem->save();
+        }
     }
-    protected function saveItemToCookies(int $productId, int $quantity, int $price, array $optionIds){}
+    protected function saveItemToCookies(int $productId, int $quantity, int $price, array $optionIds){
+        $cartItems= $this->getCartItemsFromCookies();
+        krsort($optionIds);
+        $cartItemKey=$productId.'_'.json_encode($optionIds);
+        if (!isset($cartItems[$cartItemKey])) {
+            $cartItems[$cartItemKey] = [
+                'id' => uniqid(),
+                'product_id' => $productId,
+                'quantity' => $quantity,
+                'price' => $price,
+                'option_ids' => $optionIds,
+            ];
+        } else {
+            $cartItems[$cartItemKey]['quantity'] == $quantity;
+        }
+    }
  }
