@@ -19,7 +19,7 @@ interface VariationType {
 
 interface Variation {
     id: number;
-    variation_type_option_ids: string;
+    variation_type_option_ids: number[] | string;
     quantity: number;
     price: string;
 }
@@ -39,7 +39,7 @@ interface ProductDetailProps {
         rating: number;
         review_count: number;
     };
-    variationOptions: Record<string, string>;
+    variationOptions: Record<string, number>;
     relatedProducts: any[];
 }
 
@@ -120,7 +120,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                         {/* Thumbail images */}
                         <div className="grid grid-cols-4 gap-2">
                             {product.images.map((image, index) => (
-                                <button 
+                                <button
                                   key={index}
                                   onClick={()=>setActiveImage(index)}
                                   className={`overflow-hidden rounded-md border-2 ${
@@ -159,7 +159,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                 <span className="text-3xl font-bold text-indigo-600">{computerProduct.price}FCFA</span>
                                 {computerProduct.variation && <span className='ml-2 text-sm text-gray-500'>(Selected variation)</span>}
                             </div>
-                            
+
                             <div className="mb-4 flex items-center text-sm text-gray-500">
                                 <span className="mr-4 flex items-center">
                                     <Shield className='mr-1 text-green-500' size={16} />
@@ -178,7 +178,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                 <h3 className='mb-2 font-semibold text-gray-800'>{type.name}</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {type.options.map((option) => (
-                                        <button 
+                                        <button
                                           key={option.id}
                                           onClick={()=>handleOptionSelect(type.id, option)}
                                           className={`rounded-md border px-4 py-2 ${
@@ -351,7 +351,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                             <h3 className="mb-3 text-lg font-semibold">Custumer Reviews</h3>
                         </div>
                     )}
-                    
+
                 </div>
             </div>
             {/* related product */}

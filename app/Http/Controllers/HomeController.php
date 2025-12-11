@@ -29,8 +29,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function productDetail(Request $resquest, $slug) {
-        $product = Product::where('slug')->firstOrFail();
+    public function productDetail(Request $request, $slug) {
+        $product = Product::where('slug', $slug)->firstOrFail();
         $productResource = new ProductResource($product);
         $relatedProducts = ProductListResource::collection(
             Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(4)->get()
@@ -38,7 +38,8 @@ class HomeController extends Controller
 
         return Inertia::render('Ecommerce/ProductDetail', [
             'product' => $productResource->resolve(),
+            'variationOptions' => request('options', []),
             'relatedProducts' => $relatedProducts->resolve(),
-        ]); 
+        ]);
     }
 }
