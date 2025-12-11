@@ -186,23 +186,57 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
              
             product.variationTypes.forEach((type)=>{
                 if (type.options?.length > 0) {
-                    // Check if we have
+                    // Check if we have URL parameters for this type
+                    const selectedOptionId = variationOptions?.[type.id.toString()];
+                    if (selectedOptionId) {
+                        // if we have a URL parameter, find and use that option
+                        const selectedOption = type.options.find((op)=> op.id === Number(selectedOptionId));
+                        if (selectedOption) {
+                            initialOptions[type.id] = selectedOption;
+                        } else {
+                            // if URL option not found, use first option
+                            initialOptions[type.id] = type.options[0];
+                        }
+                    } else {
+                        // if not URL parameter, use the first option as default
+                        initialOptions[type.id] = type.options[0];
+                    }
                 };
             });
             setSelectedOptions(initialOptions);
+            setIsInitialized(true);
         }
-    }, [product.variationTypes]);
+    }, [product.variationTypes, variationOptions, isInitialized]);
 
+    // update from data when computed product changes
+    useEffect(() => {
+        if(Object.keys(selectedOptions).length > 0 && isInitialized) {
+            form.setData({
+                option_ids: getOptionIdsMap(selectedOptions),
+                quantity: quantity,
+                price: parseFloat(computerProduct.price.toString()),
+            });
+        }
+    }, [selectedOptions, quantity, computerProduct.price, isInitialized]);
+
+    const discount = 0;
+
+    // Handle Option selection and URL update
     const handleOptionSelect = (typeId: number, option: VariationOption) => {
-        setSelectedOptions((prev) => ({
-            ...prev,
+        if (!option || !typeId) return ;
+
+        const newOptions = {
+            ...selectedOptions,
             [typeId]: option,
-        }));
+        };
+        setSelectedOptions(newOptions);
+
+        // Update URL with new options
+        const
     };
 
     // const discount = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
     // const savings = product.original_price ? (product.original_price - product.price).toFixed(2) : 0;
-    const discount = 0;
 
   return (
     <EcomLayout >
