@@ -283,20 +283,20 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                     <span className="rounded bg-red-500 px-2 py-1 text-xs text-white">-{discount}%</span>
                                 </div>
                             )}
-                            <img src={product.images[activeImage].large} alt={product.name} className='h-96 w-full rounded-lg object-contain' />
+                            <img src={getSafeImageUrl(images[activeImage]?.large || images[activeImage])} alt={product.name} className='h-96 w-full rounded-lg object-contain' />
                         </div>
 
 
                         {/* Thumbail images */}
                         <div className="grid grid-cols-4 gap-2">
-                            {product.images.map((image, index) => (
+                            {product.images.map((image: any, index: number) => (
                                 <button
                                   key={index}
                                   onClick={()=>setActiveImage(index)}
                                   className={`overflow-hidden rounded-md border-2 ${
                                     activeImage === index ? 'border-indigo-600' : 'border-transparent'
                                   }`}>
-                                    <img src={image.thumb} alt={`${product.name} thumbnail ${index + 1}`} className="h-20 w-full object-cover" />
+                                    <img src={getSafeImageUrl(image?.thumb || image)} alt={`${product.name} thumbnail ${index + 1}`} className="h-20 w-full object-cover" />
                                 </button>
                             ))}
                         </div>
@@ -333,7 +333,12 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                             <div className="mb-4 flex items-center text-sm text-gray-500">
                                 <span className="mr-4 flex items-center">
                                     <Shield className='mr-1 text-green-500' size={16} />
-                                    {computerProduct.quantity ? `In Stock (${computerProduct.quantity} available)` : 'Out of Stock'}
+                                    {computerProduct.quantity && computerProduct.quantity !== Number.MAX_VALUE 
+                                        ? `In Stock (${computerProduct.quantity} available)` 
+                                        : computerProduct.quantity === Number.MAX_VALUE 
+                                            ? 'In Stock'
+                                            : 'Out of Stock'
+                                    }
                                 </span>
                                 <span className="flex items-center">
                                     <RefreshCw className='mr-1 text-blue-500' size={16} /> Free Shipping
@@ -343,20 +348,25 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                         </div>
 
                         {/* Variation options */}
-                        {product.variationTypes.map((type) => (
+                        {product.variationTypes?.map((type) => (
                             <div key={type.id} className="mb-6">
                                 <h3 className='mb-2 font-semibold text-gray-800'>{type.name}</h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {type.options.map((option) => (
-                                        <button
+                                    {type.options?.map((option) => {
+                                        const isSelected = selectedOptions[type.id]?.id === option.id;
+                                        return (
+                                           <button
                                           key={option.id}
                                           onClick={()=>handleOptionSelect(type.id, option)}
                                           className={`rounded-md border px-4 py-2 ${
-                                          selectedOptions[type.id]?.id === option.id ? 'border-indigo-600 bg-indigo-50 text-indigo-600' : 'border-gray-300 text-gray-600 hover:border-gray-400'
+                                          isSelected
+                                           ? 'border-indigo-600 bg-indigo-50 text-indigo-600' 
+                                           : 'border-gray-300 text-gray-600 hover:border-gray-400'
                                         }`}>
                                             {option.name}
-                                        </button>
-                                    ))}
+                                        </button> 
+                                        )                                        
+                                    })}
                                 </div>
                             </div>
                         ))}
@@ -370,7 +380,11 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                   className="px-3 py-1 text-gray-600 hover:text-indigo-600">
                                     <Minus size={16} />
                                 </button>
-                                <input type="number" min="1" value={quantity} onChange={(e)=>setQuantity(Math.max(1, parseInt(e.target.value)))} className="w-12 border-none text-center focus:ring-0" />
+                                <input 
+                                  type="number" 
+                                  min="1" value={quantity} 
+                                  onChange={(e)=>setQuantity(Math.max(1, parseInt(e.target.value)))} 
+                                  className="w-12 border-none text-center focus:ring-0" />
                                 <button
                                   onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                                   className="px-3 py-1 text-gray-600 hover:text-indigo-600">
@@ -382,22 +396,20 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                         {/* Action Button */}
                         <div className="mb-6 flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
                             <button
-                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
-                              className="flex flex-1 items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-white hover:text-indigo-700">
+                              disabled={!computerProduct.quantity || computerProduct.quantity === 0}
+                              className="flex flex-1 items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-white hover:text-indigo-700 disabled:cursor-not-allowed disabled:bg-gray-400">
                                 <ShoppingCart className='mr-2' size={20} /> Add to Card
                             </button>
                             <button
-                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
-                              className="flex flex-1 items-center justify-center rounded-md bg-gray-800 px-6 py-3 text-white hover:text-gray-900">
+                              disabled={!computerProduct.quantity || computerProduct.quantity === 0}
+                              className="flex flex-1 items-center justify-center rounded-md bg-gray-800 px-6 py-3 text-white hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-400">
                                 <Zap className='mr-2' size={20} /> Buy Now
                             </button>
                             <button
-                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                               className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
                                 <Heart size={20} />
                             </button>
                             <button
-                              onClick={()=>setQuantity((q)=>Math.max(1, q + 1))}
                               className="rounded-md border border-gray-300 p-3 text-gray-600 hover:bg-gray-100">
                                 <RefreshCw size={20} />
                             </button>
@@ -458,7 +470,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                             className={`px-6 py-4 text-sm font-medium focus:outline-none ${
                                 activeTab === 'reviews' ? 'border-b-2 border-indigo-600 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
                             } `}>
-                            Reviews (125)
+                            Reviews ({product.review_count})
                         </button>
                     </div>
                 </div>
@@ -519,11 +531,13 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                     {activeTab === 'reviews' && (
                         <div className="">
                             <h3 className="mb-3 text-lg font-semibold">Custumer Reviews</h3>
+                            <p className="text-gray-600">Reviews content will be displayed here</p>
                         </div>
                     )}
 
                 </div>
             </div>
+
             {/* related product */}
             <div className="mt-12 bg-white py-12">
                 <div className="container mx-auto px-4">
@@ -533,7 +547,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                     </div>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {relatedProducts.map((product) => (
-                            <ProductCard key={product.id} {...product} />
+                            <ProductCard key={product.id} {...product} image={getSafeImageUrl(product.image)} />
                         ))}
                     </div>
                 </div>
