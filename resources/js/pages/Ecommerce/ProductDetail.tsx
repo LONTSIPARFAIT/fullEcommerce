@@ -49,11 +49,36 @@ const arraysAreEqual = ( arr1:number[], arr2: number[] ): boolean => {
     return arr1.every((val, index) => val === arr2[index]);
 };
 
+// Update the getSafeImageUrl function to handle different  type of inputs
+const getSafeImageUrl = ( imageUrl: any, fallback: string = '/images/p-1.png') : string => {
+    if (!imageUrl) {
+        return fallback;
+    }
+
+    // If it's a string check if it's empty
+    if (typeof imageUrl === 'string') {
+        return imageUrl.trim() === '' ? fallback : imageUrl;
+    }
+
+    // If it's an object with large/thumb properties
+    if (typeof imageUrl === 'object') {
+        if (imageUrl.large) {
+            return typeof imageUrl.large === 'string' ? imageUrl.large : fallback;
+        }
+        if (imageUrl.thumb) {
+            return typeof imageUrl.thumb === 'string' ? imageUrl.thumb : fallback;
+        }
+    }
+
+    return fallback;
+};
+
 const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDetailProps) => {
     const [activeImage, setActiveImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState('description');
     const [selectedOptions, setSelectedOptions] = useState<Record<number, VariationOption>>({});
+    const [isInitialized, setQuantity] = useState(false);
 
     // computer product detail based on selected variation
     const computerProduct = useMemo(()=>{
