@@ -149,26 +149,45 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                 variation: null,
             };
         }
-        
-        const selectedOptionIds = Object.values(selectedOptions).map((op)=>op.id).sort((a,b)=> a - b);
-        const matchingVariation = product.variation.find((variation)=>{
-            const variationIds = JSON.parse(variation.variation_type_option_ids).sort((a: number, b: number)=> a - b);
-            return JSON.stringify(selectedOptionIds) === JSON.stringify(variationIds);
+
+        const selectedOptionIds = Object.values(selectedOptions)
+        .filter((op) => op && op.id )
+        .map( (op) => op.id )
+        .sort( (a,b) => a - b );
+
+        const matchingVariation = product.variation.find((variation) => {
+            if(!variation.variation_type_option_ids) return false;
+
+            let variationIds: number[];
+            try {
+                if(Array.isArray(variation.variation_type_option_ids)) {
+                    variationIds = variation.variation_type_option_ids.sort((a, b) => a - b);
+                } else {
+                    variationIds = JSON.parse(variation.variation_type_option_ids as string).sort((a: number, b: number) => a - b);
+                }
+            } catch (e) {
+                console.error('Error parsing variation IDs: ', e);
+                return false;
+            }
+            return arraysAreEqual(selectedOptionIds, variationIds);
         });
 
         return {
             price: matchingVariation?.price || product.price,
-            quantity: matchingVariation?.quantity || product.quantity,
+            quantity: matchingVariation?.quantity === null ? Number.MAX_VALUE : matchingVariation?.quantity || product.quantity,
             variation: matchingVariation,
         };
     }, [product, selectedOptions]);
 
-    // initilize with default options
+    // initilize selected options from URL parameters or defaults
     useEffect(() => {
-        if (product.variationTypes.length > 0 ){
+        if (product.variationTypes?.length > 0 && !isInitialized ){
             const initialOptions: Record<number, VariationOption> = {};
+             
             product.variationTypes.forEach((type)=>{
-                initialOptions[type.id] = type.options[0];
+                if (type.options?.length > 0) {
+                    // Check if we have
+                };
             });
             setSelectedOptions(initialOptions);
         }
