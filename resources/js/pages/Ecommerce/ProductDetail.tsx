@@ -1,6 +1,6 @@
 import { ProductCard } from '@/components/ecommerces/ProductCard';
 import EcomLayout from '@/layouts/ecom-layout';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Link, router, useForm, usePage } from '@inertiajs/react';
 import { Facebook, Heart, Instagram, Lock, Minus, Plus, RefreshCw, Shield, ShoppingCart, Star, StarHalf, X, Zap } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -232,11 +232,29 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
         setSelectedOptions(newOptions);
 
         // Update URL with new options
-        const
-    };
+        const optionIds = getOptionIdsMap(newOptions);
+        if (Object.keys(optionIds).length > 0 ) {
+            const searchParams = new URLSearchParams();
+            Object.entries(optionIds).forEach(([typeId, optionId]) => {
+                searchParams.append(`options[${typeId}]`, optionId.toString());
+            });
 
-    // const discount = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
-    // const savings = product.original_price ? (product.original_price - product.price).toFixed(2) : 0;
+            const newUrl = `${url.split('?')[0]}?${searchParams.toString()}`;
+
+            // only update url is it's different from current url
+            if (window.location.href != window.location.origin + newUrl) {
+                router.get(
+                    newUrl,
+                    {},
+                    {
+                        preserveScroll: true,
+                        preserveState: true,
+                        replace: true, // use replace to avoid creating too many history emtries
+                    },
+                );
+            }
+        }
+    };
 
   return (
     <EcomLayout >
