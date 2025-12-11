@@ -35,7 +35,7 @@ class HomeController extends Controller
         $relatedProducts = ProductListResource::collection(
             Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(4)->get()
         );
-
+        // dd($request->option);
         return Inertia::render('Ecommerce/ProductDetail', [
             'product' => $productResource->resolve(),
             'variationOptions' => request('options', []),

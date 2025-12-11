@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Services;
 use App\Models\Product;
@@ -9,6 +9,8 @@ use App\Models\Product;
     protected const COOKIE_LIFETIME=60*24*365;
 
     public function addItemCart(Product $product, int $quantity=1, array $optionIds=[]) {
-        
+        if(!$optionIds) {
+            $optionIds = $product->getFirstOptionMap();
+        }
     }
  }
