@@ -129,7 +129,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
 
         // if still no images, use the main product image
         if(imageList.length === 0 && product.image) {
-            imageList = {product.image};  
+            imageList = [product.image];  
         }
     });
 
