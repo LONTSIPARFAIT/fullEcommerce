@@ -1,6 +1,6 @@
 import { ProductCard } from '@/components/ecommerces/ProductCard';
 import EcomLayout from '@/layouts/ecom-layout';
-import { Link } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { Facebook, Heart, Instagram, Lock, Minus, Plus, RefreshCw, Shield, ShoppingCart, Star, StarHalf, X, Zap } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -78,7 +78,37 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState('description');
     const [selectedOptions, setSelectedOptions] = useState<Record<number, VariationOption>>({});
-    const [isInitialized, setQuantity] = useState(false);
+    const [isInitialized, setIsInitialized] = useState(false);
+
+    const { url } = usePage();
+
+    const form = useForm<{
+        option_ids : Record<string, number>;
+        quantity: number;
+        price : number | null;
+    }>({
+        option_ids: {},
+        quantity: 1,
+        price: null,
+    });
+
+    // Helper function to get option IDs map
+    const getOptionIdsMap = (options: Record<number, VariationOption>) => {
+        const validOptions = Object.entries(options)
+        .filter(([_, option]) => option && option.id)
+        .map(([typeId, option]) =>[ typeId && option.id]);
+
+        if (validOptions.length === 0) {
+            return {};
+        }
+
+        return Object.fromEntries(validOptions);
+    };
+
+    // Update the images useMemo to handle the image objects property
+    const images = useMemo(()=>{
+        let imagesList: any[] = [];
+    });
 
     // computer product detail based on selected variation
     const computerProduct = useMemo(()=>{
