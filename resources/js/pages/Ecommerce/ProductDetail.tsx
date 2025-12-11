@@ -113,7 +113,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                     <span className="rounded bg-red-500 px-2 py-1 text-xs text-white">-{discount}%</span>
                                 </div>
                             )}
-                            <img src={product.images[activeImage]} alt={product.name} className='h-96 w-full rounded-lg object-contain' />
+                            <img src={product.images[activeImage].large} alt={product.name} className='h-96 w-full rounded-lg object-contain' />
                         </div>
 
 
@@ -126,7 +126,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                                   className={`overflow-hidden rounded-md border-2 ${
                                     activeImage === index ? 'border-indigo-600' : 'border-transparent'
                                   }`}>
-                                    <img src={image} alt={`${product.name} thumbnail ${index + 1}`} className="h-20 w-full object-cover" />
+                                    <img src={image.thumb} alt={`${product.name} thumbnail ${index + 1}`} className="h-20 w-full object-cover" />
                                 </button>
                             ))}
                         </div>
@@ -363,7 +363,7 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
                     </div>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {relatedProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} {...product} />
                         ))}
                     </div>
                 </div>
