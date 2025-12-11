@@ -108,6 +108,21 @@ const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDeta
     // Update the images useMemo to handle the image objects property
     const images = useMemo(()=>{
         let imagesList: any[] = [];
+
+        if(selectedOptions && Object.keys(selectedOptions).length > 0) {
+            for (let typeId in selectedOptions) {
+                const option = selectedOptions[typeId];
+                if (option?.images && option.images.length > 0) {
+                    // Filters out invalid images
+                    imagesList = option.images.filter((img)=> img && (typeof img === 'string' || img === 'object'));
+                    if (imagesList.length > 0) {
+                        break;
+                    }
+                }                
+            }
+        }
+
+        // if not images from selected options, use product images
     });
 
     // computer product detail based on selected variation
