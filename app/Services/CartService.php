@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
  class CartService {
     private ?array $cachedCartItems = null;
@@ -65,5 +66,27 @@ use Illuminate\Support\Facades\Auth;
         } else {
             $cartItems[$cartItemKey]['quantity'] == $quantity;
         }
+
+        Cookie::queue(self::COOKIE_NAME, json_encode($cartItems), self::COOKIE_LIFETIME);
+    }
+
+    public function getCartItemsFromDatabase() {
+        $userId = Auth::id();
+        $cartItems = Cart::where('user_id', $userId)->get()
+        ->map(function($item){
+            return [
+                'id' => $item->id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+                'option_ids' => $item->variation_type_option_ids,
+            ];
+        })->toArray();
+        return $cartItems;
+    }
+
+    public function getCartItemsFromCookies(): array{
+        $cartItems = json_decode(Cookie::get(self::COOKIE_NAME,'[]'),true);
+        return $cartItems;
     }
  }
