@@ -43,6 +43,12 @@ interface ProductDetailProps {
     relatedProducts: any[];
 }
 
+// Helpers function to compare arrays
+const arraysAreEqual = ( arr1:number[], arr2: number[] ): boolean => {
+    if(arr1.length != arr2.length) return false;
+    return arr1.every((val, index) => val === arr2[index]);
+};
+
 const ProductDetail = ({product, variationOptions, relatedProducts}: ProductDetailProps) => {
     const [activeImage, setActiveImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
