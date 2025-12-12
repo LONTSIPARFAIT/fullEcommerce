@@ -24,6 +24,22 @@ export default function CustomerLogin() {
                         <div className="overflow-hidden rounded-lg bg-white shadow-sm">
                             <div className="border-b p-6">
                                 <h2 className="text-lg font-semibold">Login</h2>
+                                <p className="mt-1 text-gray-600">Welcome back! Sign in to your account.</p>
+                            </div>
+                            <div className="p-6">
+                                <form onSubmit={handleSubmit} className="">
+                                    <div className="mb-4">
+                                        <label htmlFor="login-email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                                        <input 
+                                          type="email"
+                                          id="login-email"
+                                          value={data.email}
+                                          onChange={(e) => setData('email', e.target.value)}
+                                          className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                          placeholder="your@gmail.com"
+                                          required />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
