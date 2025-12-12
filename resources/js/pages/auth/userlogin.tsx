@@ -1,7 +1,7 @@
 import EcomLayout from "@/layouts/ecom-layout";
 import { register } from "@/routes";
 import { Link, useForm } from "@inertiajs/react";
-import { Eye, EyeOff, History, Tag, Truck } from "lucide-react";
+import { Eye, EyeOff, Heart, History, Tag, Truck } from "lucide-react";
 import { useState } from "react";
 
 export default function CustomerLogin() {
