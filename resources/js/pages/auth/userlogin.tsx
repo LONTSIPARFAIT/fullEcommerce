@@ -1,7 +1,7 @@
 import EcomLayout from "@/layouts/ecom-layout";
 import { register } from "@/routes";
 import { Link, useForm } from "@inertiajs/react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, History, Tag, Truck } from "lucide-react";
 import { useState } from "react";
 
 export default function CustomerLogin() {
@@ -82,7 +82,7 @@ export default function CustomerLogin() {
                                         {processing ? 'Signing In...' : 'Sign In'}
                                     </button>
                                 </form>
-                                <div className="mb-6">
+                                <div className="mt-6">
                                     <div className="relative">
                                         <div className="absolute inset-0 flex items-center">
                                             <div className="w-full border-t border-gray-300"></div>
@@ -102,12 +102,42 @@ export default function CustomerLogin() {
                     </div>
                 </div>
 
-                {/* Beneficts Section  */}
+                               {/* Beneficts Section  */}
                 <div className="mt-12">
                     <h2 className="mb-6 text-xl font-semibold">Why Create an Account ?</h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {/* Beneficts 1 */}
-                        <div className=""></div>
+                        <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
+                            <div className="mb-4 flex h-12 items-center justify-center rounded-full bg-indigo-100">
+                                <Truck className="text-xl text-indigo-600" />
+                            </div>
+                            <h3 className="mb-2 text-lg font-medium">Faster Checkout</h3>
+                            <p className="text-gray-600">Save your Shipping and payment details for quicker checkout on future orders.</p>
+                        </div>
+                        {/* Beneficts 2 */}
+                        <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
+                            <div className="mb-4 flex h-12 items-center justify-center rounded-full bg-indigo-100">
+                                <History className="text-xl text-indigo-600" />
+                            </div>
+                            <h3 className="mb-2 text-lg font-medium">Order History</h3>
+                            <p className="text-gray-600">Easilly track and view all your past and current orders in one place.</p>
+                        </div>
+                        {/* Beneficts 3 */}
+                        <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
+                            <div className="mb-4 flex h-12 items-center justify-center rounded-full bg-indigo-100">
+                                <Heart className="text-xl text-indigo-600" />
+                            </div>
+                            <h3 className="mb-2 text-lg font-medium">Wishlist</h3>
+                            <p className="text-gray-600">Save products to yours wishlist for later and get notified about special offers.</p>
+                        </div>
+                        {/* Beneficts 4 */}
+                        <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
+                            <div className="mb-4 flex h-12 items-center justify-center rounded-full bg-indigo-100">
+                                <Tag className="text-xl text-indigo-600" />
+                            </div>
+                            <h3 className="mb-2 text-lg font-medium">Exclisive Deals</h3>
+                            <p className="text-gray-600">Get access to member-only discounts and be the first to know about new promotion.</p>
+                        </div>
                     </div>
                 </div>
             </div>

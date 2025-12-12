@@ -1,6 +1,6 @@
 import EcomLayout from "@/layouts/ecom-layout";
 import { Link, useForm } from "@inertiajs/react";
-import { Eye, EyeOff, Heart, History, Truck } from "lucide-react";
+import { Eye, EyeOff, Heart, History, Tag, Truck } from "lucide-react";
 import { useState } from "react";
 
 export default function CustomerLogin() {
@@ -168,10 +168,10 @@ export default function CustomerLogin() {
                         {/* Beneficts 4 */}
                         <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
                             <div className="mb-4 flex h-12 items-center justify-center rounded-full bg-indigo-100">
-                                <Heart className="text-xl text-indigo-600" />
+                                <Tag className="text-xl text-indigo-600" />
                             </div>
-                            <h3 className="mb-2 text-lg font-medium">Wishlist</h3>
-                            <p className="text-gray-600">Save products to yours wishlist for later and get notified about special offers.</p>
+                            <h3 className="mb-2 text-lg font-medium">Exclisive Deals</h3>
+                            <p className="text-gray-600">Get access to member-only discounts and be the first to know about new promotion.</p>
                         </div>
                     </div>
                 </div>
