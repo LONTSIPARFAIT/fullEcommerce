@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\VariationTypeOption;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use PhpParser\Node\Stmt\TryCatch;
@@ -104,9 +105,28 @@ use PhpParser\Node\Stmt\TryCatch;
                 $cartItemData = [];
                 foreach ($cartItems as $cartItem) {
                     $product = data_get($products, $cartItem['product_id']);
+                    if (!$product) continue;
 
-                    if (!$product) {
-                        # code...
+                    $optionInfo = [];
+
+                    $options = VariationTypeOption::with('variationType')->whereIn('id', $cartItem['option_ids'])->get()->keyBy('id');
+
+                    $imageUrl = null;
+                    foreach ($cartItem['option_Ids'] as $optionId) {
+                        $option = data_get($options, $optionId);
+
+                        if (!$imageUrl) {
+                            $imageUrl = $option->getFirstMediaUrl('images', 'small');
+                        };
+
+                        $optionInfo[] = [
+                            'id' => $option->id,
+                            'name' => $option->name,
+                            'type' => [
+                                'id' => $option->variationType->id,                                
+                                'name' => $option->variationType->name,                                
+                            ],
+                        ]; 
                     }
                 }
             }
