@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/product/{slug}', [HomeController::class, 'productDetail']);
 // Route::get('/', function () {
 //     return Inertia::render('welcome');
 // })->name('home');
