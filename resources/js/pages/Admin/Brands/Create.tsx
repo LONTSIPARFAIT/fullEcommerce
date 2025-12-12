@@ -33,8 +33,8 @@ export default function Create() {
     e.preventDefault();
     setIsUploading(true);
 
-    // post(route('admin.brands.store'), {
-    post(('admin/brands/store'), {
+    post(route('admin.brands.store'), {
+    // post(('admin/brands/store'), {
       data: {
         ...data,
       },

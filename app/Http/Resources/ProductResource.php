@@ -35,7 +35,7 @@ class ProductResource extends JsonResource
                     'large' => $image->getUrl('large'),
                 ];
             }),
-            'variationTypes' => $this->variation->map(function ($variationType){
+            'variationTypes' => optional($this->variations)->map(function ($variationType){
                 return [
                     'id' => $variationType->id,
                     'name' => $variationType->name,
@@ -56,7 +56,7 @@ class ProductResource extends JsonResource
                     }),
                 ];
             }),
-            'variations' => $this->variation->map(function ($variation) {
+            'variations' =>optional($this->variations)->map(function ($variation) {
                 return [
                     'id' => $variation->id,
                     'variation_type_option_ids' => $variation->variation_type_option_ids,
