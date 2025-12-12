@@ -46,21 +46,31 @@ export default function CustomerLogin() {
                                             placeholder="Enter Your Name"
                                             required />
                                             {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                                        </div>
-                                        
-                                        <div className="mb-4">
-                                            <label htmlFor="login-email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
-                                            <input 
+                                        </div>                                    
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                                        <input 
                                             type="email"
-                                            id="login-email"
+                                            id="email"
                                             value={data.email}
                                             onChange={(e) => setData('email', e.target.value)}
                                             className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                                             placeholder="your@gmail.com"
                                             required />
-                                            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
-                                        </div>
-                                    
+                                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                                        <input 
+                                            type="email"
+                                            id="email"
+                                            value={data.email}
+                                            onChange={(e) => setData('email', e.target.value)}
+                                            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                            placeholder="your@gmail.com"
+                                            required />
+                                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                                     </div>
                                     <div className="mb-4">
                                         <div className="flex items-center justify-between">
