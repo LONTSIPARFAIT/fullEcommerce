@@ -59,7 +59,7 @@ export default function CustomerLogin() {
                                             required />
                                             <button
                                               type="button"
-                                              onChange={(e) => setShowPassword(!showPassword)}
+                                              onChange={() => setShowPassword(!showPassword)}
                                               className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700" >
                                                 { showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                                               </button>
@@ -91,7 +91,7 @@ export default function CustomerLogin() {
                                             <div className="mt-6 text-center">
                                                 <p className="text-sm text-gray-600">
                                                     Dont's have account?{' '}
-                                                    <a href={register()} className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</a>
+                                                    <Link href={register()} className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</Link>
                                                 </p>
                                             </div>
                                         </div>
@@ -104,7 +104,11 @@ export default function CustomerLogin() {
 
                 {/* Beneficts Section  */}
                 <div className="mt-12">
-                    <h2 className="mb-6 text-xl"></h2>
+                    <h2 className="mb-6 text-xl font-semibold">Why Create an Account ?</h2>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                        {/* Beneficts 1 */}
+                        <div className=""></div>
+                    </div>
                 </div>
             </div>
         </EcomLayout>

@@ -1,117 +1,116 @@
-import RegisteredUserController from '@/actions/App/Http/Controllers/Auth/RegisteredUserController';
-import { login } from '@/routes';
-import { Form, Head } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import EcomLayout from "@/layouts/ecom-layout";
+import { login, register } from "@/routes";
+import { Link, useForm } from "@inertiajs/react";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
-import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
+export default function CustomerLogin() {
+    const [showPassword, setShowPassword] = useState(false);
 
-export default function Register() {
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+    }); 
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post('/login');
+    }
+
     return (
-        <AuthLayout
-            title="Create an account"
-            description="Enter your details below to create your account"
-        >
-            <Head title="Register" />
-            <Form
-                {...RegisteredUserController.store.form()}
-                resetOnSuccess={['password', 'password_confirmation']}
-                disableWhileProcessing
-                className="flex flex-col gap-6"
-            >
-                {({ processing, errors }) => (
-                    <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    required
-                                    autoFocus
-                                    tabIndex={1}
-                                    autoComplete="name"
-                                    name="name"
-                                    placeholder="Full name"
-                                />
-                                <InputError
-                                    message={errors.name}
-                                    className="mt-2"
-                                />
+        <EcomLayout title="Custumer Login - ShopMart">
+            <div className="container mx-auto px-4 py-8">
+                <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
+                    {/* Login Form */}
+                    <div className="md:w-1/2">
+                        <div className="overflow-hidden rounded-lg bg-white shadow-sm">
+                            <div className="border-b p-6">
+                                <h2 className="text-lg font-semibold">Login</h2>
+                                <p className="mt-1 text-gray-600">Welcome back! Sign in to your account.</p>
                             </div>
+                            <div className="p-6">
+                                <form onSubmit={handleSubmit} className="">
+                                    <div className="mb-4">
+                                        <label htmlFor="login-email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                                        <input 
+                                          type="email"
+                                          id="login-email"
+                                          value={data.email}
+                                          onChange={(e) => setData('email', e.target.value)}
+                                          className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                          placeholder="your@gmail.com"
+                                          required />
+                                          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                                    </div>
+                                    <div className="mb-4">
+                                        <div className="flex items-center justify-between">
+                                            <label htmlFor="login-password" className="mb-2 block text-sm font-medium text-gray-700">Password</label>
+                                            <Link href='/forgot-password' className="text-sm text-indigo-600 hover:text-indigo-800">Forgot Password ?</Link>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="email"
-                                    name="email"
-                                    placeholder="email@example.com"
-                                />
-                                <InputError message={errors.email} />
+                                        </div>
+                                        <div className="relative">
+                                            <input 
+                                            type={showPassword ? 'text' : 'password'}
+                                            id="login-password"
+                                            value={data.password}
+                                            onChange={(e) => setData('password', e.target.value)}
+                                            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                            placeholder="*********"
+                                            required />
+                                            <button
+                                              type="button"
+                                              onChange={(e) => setShowPassword(!showPassword)}
+                                              className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700" >
+                                                { showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                              </button>
+                                        </div>
+                                        {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+                                    </div>
+                                    <div className="mb-6 flex items-center">
+                                        <input 
+                                          type="checkbox" 
+                                          id="remember-me"
+                                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <button 
+                                      type="submit"
+                                      disabled={processing}
+                                      className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                                        {processing ? 'Signing In...' : 'Sign In'}
+                                    </button>
+                                </form>
+                                <div className="mb-6">
+                                    <div className="relative">
+                                        <div className="absolute inset-0 flex items-center">
+                                            <div className="w-full border-t border-gray-300"></div>
+                                        </div>
+                                        <div className="relative flex justify-center text-sm">
+                                            <div className="mt-6 text-center">
+                                                <p className="text-sm text-gray-600">
+                                                    Dont's have account?{' '}
+                                                    <Link href={login()} className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</Link>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    required
-                                    tabIndex={3}
-                                    autoComplete="new-password"
-                                    name="password"
-                                    placeholder="Password"
-                                />
-                                <InputError message={errors.password} />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
-                                    Confirm password
-                                </Label>
-                                <Input
-                                    id="password_confirmation"
-                                    type="password"
-                                    required
-                                    tabIndex={4}
-                                    autoComplete="new-password"
-                                    name="password_confirmation"
-                                    placeholder="Confirm password"
-                                />
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="mt-2 w-full"
-                                tabIndex={5}
-                                data-test="register-user-button"
-                            >
-                                {processing && (
-                                    <LoaderCircle className="h-4 w-4 animate-spin" />
-                                )}
-                                Create account
-                            </Button>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
-                                Log in
-                            </TextLink>
-                        </div>
-                    </>
-                )}
-            </Form>
-        </AuthLayout>
-    );
+                {/* Beneficts Section  */}
+                <div className="mt-12">
+                    <h2 className="mb-6 text-xl font-semibold">Why Create an Account ?</h2>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                        {/* Beneficts 1 */}
+                        <div className=""></div>
+                    </div>
+                </div>
+            </div>
+        </EcomLayout>
+    )
 }
