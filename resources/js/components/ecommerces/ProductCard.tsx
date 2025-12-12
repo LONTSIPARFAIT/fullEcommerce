@@ -24,7 +24,7 @@ export const ProductCard = (product : ProductListItem) => {
                 </div>
                     <div className="p-4">
                         <h3 className="font-medium text-lg mb-2">{product.name}</h3>
-                        <p className="text-gray-600 text-sm mb-3">{product.description.substring(0, 100)}...</p>
+                        <p className="text-gray-600 text-sm mb-3">{product.description}...</p>
                         <div className="flex items-center justify-between">
                             <div className="">
                                 <span className="font-bold text-indigo-600">{product.price} FCFA</span>

@@ -19,7 +19,7 @@ export default function SpecialOffer() {
           <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">View All</Link>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {specialOffers.lenght > 0 ? ( 
+            {specialOffers.length > 0 ? ( 
                 specialOffers.map((product: ProductListItem) => {
                     <ProductCard key={product.id} {...product} className='rounded-lg bg-white shadow-sm transition-shadow duration-300 hover:shadow-md' style={{width: '100%'}} />
                 })

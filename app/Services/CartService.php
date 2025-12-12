@@ -28,6 +28,45 @@ use Illuminate\Support\Facades\Cookie;
         }
     }
 
+    public function updateItemQuantity(int $productId, int $quantity, array $optionIds=[]){
+        if (Auth::check()) {
+            $this->updateItemQuantityToDatabase($productId, $quantity, $optionIds);
+        } else {
+            $this->updateItemQuantityToCookies($productId, $quantity, $optionIds);
+        }
+    }
+    
+    public function removeItemFromCart(int $productId, array $optionIds = []) {
+        if (Auth::check()) {
+            $this->removeItemFromDatabase($productId, $optionIds);
+        } else {
+            $this->removeItemFromCookies($productId, $optionIds);
+        }
+    }
+
+    protected function updateItemQuantityToDatabase(int $productId, int $quantity, array $optionIds=[]){
+        $userId = Auth::id();
+        krsort($optionIds);
+        $cartItems = Cart::where('product_id', $productId)->where('user_id', $userId)
+        ->where('variation_type_option_ids', $optionIds)
+        ->first();
+
+        if ($cartItems) {
+            $cartItems->quantity=$quantity;
+            $cartItems->save();
+        }
+    }
+
+    protected function updateItemQuantityToCookies(int $productId, int $quantity, array $optionIds=[]){
+        $cartItems = $this->getCartItemsFromCookies();
+        krsort($optionIds);
+        $cartItemKey = $productId.'_'.json_encode($optionIds);
+        if (isset($cartItems[$cartItemKey])) {
+            $cartItems[$cartItemKey]['quantity']=$cartItems[$cartItemKey]*$quantity;
+        }
+        return $cartItems;
+    }
+
     protected function saveItemToDatabase(int $productId, int $quantity, int $price, array $optionIds){
         $userId=Auth::id();
         krsort($optionIds);
