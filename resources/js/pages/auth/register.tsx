@@ -61,16 +61,14 @@ export default function CustomerLogin() {
                                         {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                                        <label htmlFor="phone" className="mb-2 block text-sm font-medium text-gray-700">Phone (Optional) </label>
                                         <input 
-                                            type="email"
-                                            id="email"
-                                            value={data.email}
-                                            onChange={(e) => setData('email', e.target.value)}
-                                            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                                            placeholder="your@gmail.com"
-                                            required />
-                                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                                            type="text"
+                                            id="phone"
+                                            value={data.phone}
+                                            onChange={(e) => setData('phone', e.target.value)}
+                                            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
+                                        {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
                                     </div>
                                     <div className="mb-4">
                                         <div className="flex items-center justify-between">
@@ -89,7 +87,31 @@ export default function CustomerLogin() {
                                             required />
                                             <button
                                               type="button"
-                                              onChange={(e) => setShowPassword(!showPassword)}
+                                              onChange={() => setShowPassword(!showPassword)}
+                                              className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700" >
+                                                { showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                              </button>
+                                        </div>
+                                        {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+                                    </div>
+                                    <div className="mb-4">
+                                        <div className="flex items-center justify-between">
+                                            <label htmlFor="login-password" className="mb-2 block text-sm font-medium text-gray-700">Password</label>
+                                            <Link href='/forgot-password' className="text-sm text-indigo-600 hover:text-indigo-800">Forgot Password ?</Link>
+
+                                        </div>
+                                        <div className="relative">
+                                            <input 
+                                            type={showPassword ? 'text' : 'password'}
+                                            id="login-password"
+                                            value={data.password}
+                                            onChange={(e) => setData('password', e.target.value)}
+                                            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                            placeholder="*********"
+                                            required />
+                                            <button
+                                              type="button"
+                                              onChange={() => setShowPassword(!showPassword)}
                                               className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700" >
                                                 { showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                                               </button>
