@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use PhpParser\Node\Stmt\TryCatch;
 
  class CartService {
     private ?array $cachedCartItems = null;
@@ -88,6 +89,24 @@ use Illuminate\Support\Facades\Cookie;
         Cookie::queue(self::COOKIE_NAME, json_encode($cartItems), self::COOKIE_LIFETIME);
     }
 
+    public function getCartItems() {
+        try {
+            if ($this->cachedCartItems === null) {
+                if (Auth::check()) {
+                   $cartItems = $this->cachedCartItems = $this->getCartItemsFromDatabase();
+                } else {
+                    $cartItems = $this->cachedCartItems = $this->getCartItemsFromCookies();
+                }
+
+                $productIds = collect($cartItems);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return $this->cachedCartItems;
+    }
+
     protected function saveItemToDatabase(int $productId, int $quantity, int $price, array $optionIds){
         $userId=Auth::id();
         krsort($optionIds);
@@ -148,5 +167,13 @@ use Illuminate\Support\Facades\Cookie;
     public function getCartItemsFromCookies(): array{
         $cartItems = json_decode(Cookie::get(self::COOKIE_NAME,'[]'),true);
         return $cartItems;
+    }
+
+    public function clearCar() {
+        if(Auth::check()) {
+            Cart::where('user_id', Auth::id())->delete();
+        } else {
+            Cookie::queue(self::COOKIE_NAME, json_encode([]), self::COOKIE_LIFETIME);
+        }
     }
  }
