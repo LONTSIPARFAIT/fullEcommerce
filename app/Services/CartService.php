@@ -98,7 +98,17 @@ use PhpParser\Node\Stmt\TryCatch;
                     $cartItems = $this->cachedCartItems = $this->getCartItemsFromCookies();
                 }
 
-                $productIds = collect($cartItems);
+                $productIds = collect($cartItems)->map(fn($item)=> $item['product_id']);
+                $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+                $cartItemData = [];
+                foreach ($cartItems as $cartItem) {
+                    $product = data_get($products, $cartItem['product_id']);
+
+                    if (!$product) {
+                        # code...
+                    }
+                }
             }
         } catch (\Throwable $th) {
             //throw $th;
