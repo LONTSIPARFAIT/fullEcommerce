@@ -296,7 +296,7 @@ export default function Header() {
             {/* Main Menu */}
             <ul className="flex">
               <li>
-                <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Home</Link>
+                <Link href="/" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600">Home</Link>
               </li>
               <li>
                 <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-600" >Shop</Link>

@@ -62,9 +62,30 @@ use Illuminate\Support\Facades\Cookie;
         krsort($optionIds);
         $cartItemKey = $productId.'_'.json_encode($optionIds);
         if (isset($cartItems[$cartItemKey])) {
-            $cartItems[$cartItemKey]['quantity']=$cartItems[$cartItemKey]*$quantity;
+            $cartItems[$cartItemKey]['quantity']=$quantity;
         }
-        return $cartItems;
+
+        Cookie::queue(self::COOKIE_NAME, json_encode($cartItems));
+    }
+
+    protected function removeItemFromDatabase(int $productId, array $optionIds=[]){
+        $userId = Auth::id();
+        krsort($optionIds);
+        Cart::where('product_id', $productId)
+        ->where('user_id', $userId)
+        ->where('variation_type_option_ids', $optionIds)
+        ->delete();
+    }
+
+    protected function removeItemFromCookies(int $productId, array $optionIds=[]){
+        $cartItems = $this->getCartItemsFromCookies();
+        krsort($optionIds);
+        $cartItemKey = $productId.'_'.json_encode($optionIds);
+        if (isset($cartItems[$cartItemKey])) {
+            unset($cartItems[$cartItemKey]);
+        }
+
+        Cookie::queue(self::COOKIE_NAME, json_encode($cartItems), self::COOKIE_LIFETIME);
     }
 
     protected function saveItemToDatabase(int $productId, int $quantity, int $price, array $optionIds){
