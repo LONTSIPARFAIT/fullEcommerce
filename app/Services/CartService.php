@@ -128,6 +128,18 @@ use PhpParser\Node\Stmt\TryCatch;
                             ],
                         ]; 
                     }
+
+                    $cartItemData[] = [
+                        'id' => $cartItem['id'],
+                        'product_id' => $product->id,
+                        'name' => $product->name,
+                        'slug' => $product->slug,
+                        'quantity' => $cartItem['quantity'],
+                        'price' => $cartItem['price'],
+                        'option_ids' => $cartItem['option_ids'],
+                        'options' => $optionInfo,
+                        'image' => $imageUrl?:$product->getFirstMediaUrl('images', 'small'),
+                    ];
                 }
             }
         } catch (\Throwable $th) {
