@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\VariationTypeOption;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\TryCatch;
 
  class CartService {
@@ -141,12 +142,15 @@ use PhpParser\Node\Stmt\TryCatch;
                         'image' => $imageUrl?:$product->getFirstMediaUrl('images', 'small'),
                     ];
                 }
-            }
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
 
-        return $this->cachedCartItems;
+                $this->cachedCartItems = $cartItemData;
+            }
+            return $this->cachedCartItems;
+        } catch (\Exception $e) {
+            //throw $e;
+            Log::error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
+        }
+        return [];
     }
 
     protected function saveItemToDatabase(int $productId, int $quantity, int $price, array $optionIds){
@@ -218,4 +222,35 @@ use PhpParser\Node\Stmt\TryCatch;
             Cookie::queue(self::COOKIE_NAME, json_encode([]), self::COOKIE_LIFETIME);
         }
     }
+
+    public function moveCartItemsToDatabase($userId){
+        $cartItems = $this->getCartItemsFromCookies();
+        foreach ($cartItems as $cartItem) {
+            $existingItem = Cart::where('product_id', $cartItem['product_id'])->where('user_id', $cartItem['user_id'])->where('variation_type_option_ids', $cartItem['option_ids'])->first();
+            if ($existingItem) {
+                $existingItem->quantity =  $cartItem['quantity'];
+                $existingItem->save();
+            } else {
+                $newItem = new Cart;
+                $newItem->user_id = $userId;
+                $newItem->product_id = $cartItem['product_id'];
+                $newItem->quantity = $cartItem['quantity'];
+                $newItem->price = $cartItem['price'];
+                $newItem->variation_type_option_ids = $cartItem['option_ids'];
+                $newItem->save();
+            }
+        }
+        Cookie::queue(self::COOKIE_NAME, '', -1);
+    }
+
+    public function getTotalQuantity() {
+        $totalQuantity = 0;
+        foreach ($this->getCartItems() as $cartItem) {
+            $totalQuantity += $cartItem['quantity'];
+        }
+
+        return $totalQuantity;
+    }
+
+    public function getCartCount() {}
  }
