@@ -1,4 +1,5 @@
 import EcomLayout from "@/layouts/ecom-layout";
+import { register } from "@/routes";
 import { Link, useForm } from "@inertiajs/react";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
@@ -79,11 +80,31 @@ export default function CustomerLogin() {
                                       disabled={processing}
                                       className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
                                         {processing ? 'Signing In...' : 'Sign In'}
-                                      </button>
+                                    </button>
                                 </form>
+                                <div className="mb-6">
+                                    <div className="relative">
+                                        <div className="absolute inset-0 flex items-center">
+                                            <div className="w-full border-t border-gray-300"></div>
+                                        </div>
+                                        <div className="relative flex justify-center text-sm">
+                                            <div className="mt-6 text-center">
+                                                <p className="text-sm text-gray-600">
+                                                    Dont's have account?{' '}
+                                                    <a href={register()} className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Beneficts Section  */}
+                <div className="mt-12">
+                    <h2 className="mb-6 text-xl"></h2>
                 </div>
             </div>
         </EcomLayout>

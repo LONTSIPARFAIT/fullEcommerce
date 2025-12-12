@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
             'phone' => '679324517',
             'address' => '123 seller St, City, Country',
             'email' => 'seller@gmail.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('seller123'),
             'role' => 'seller',
             'status' => 'active',
         ]);
@@ -43,7 +43,7 @@ class AdminSeeder extends Seeder
             'phone' => '679324517',
             'address' => '123 User St, City, Country',
             'email' => 'user@gmail.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('user123'),
             'role' => 'user',
             'status' => 'active',
         ]);
