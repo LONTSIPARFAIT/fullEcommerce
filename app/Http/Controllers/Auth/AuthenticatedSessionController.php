@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request): Response
     {
-        return Inertia::render('auth/login', [
+        return Inertia::render('auth/userlogin', [
             'canResetPassword' => Route::has('password.request'),
             'status' => $request->session()->get('status'),
         ]);
@@ -45,7 +45,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = $request->user();
+
+        if($user->role !== 'user') {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')
+            ->withErrors(['email' => 'This login is only for regular users.']);
+        }
+
+        return redirect()->intended(route('user.dashboard', absolute: false));
     }
 
     /**

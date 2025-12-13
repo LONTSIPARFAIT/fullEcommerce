@@ -41,10 +41,23 @@ class AdminAuthController extends Controller
             }
 
             $request->session()->regenerate();
-            return redirect;
+            return redirect()->intended('admin/dashboard');
         }
-        return Inertia::render('auth/login', [
-            'isAdmin' => true,
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    /**
+     * Handle admin logout
+     */
+    public function  logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login');
     }
 }

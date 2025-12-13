@@ -4,11 +4,19 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/product/{slug}', [HomeController::class, 'productDetail']);
-// Route::get('/', function () {
-//     return Inertia::render('welcome');
-// })->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/product/{slug}', [HomeController::class, 'productDetail'])->name('product.detail');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/',  'index')->name('home');
+    Route::get('/product/{slug}',  'productDetail')->name('product.detail');
+});
+
+// card rout
+// Route::controller(CartController::class)->group(function () {
+//     Route::get('/cart',  'index')->name('home');
+//     Route::get('/product/{slug}',  'productDetail')->name('product.detail');
+// });
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
