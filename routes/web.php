@@ -11,7 +11,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/product/{slug}',  'productDetail')->name('product.detail');
 });
 
-// card rout
+// card route
 // Route::controller(CartController::class)->group(function () {
 //     Route::get('/cart',  'index')->name('home');
 //     Route::get('/product/{slug}',  'productDetail')->name('product.detail');
