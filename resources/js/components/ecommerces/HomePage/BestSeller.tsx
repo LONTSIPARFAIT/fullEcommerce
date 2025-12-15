@@ -6,7 +6,7 @@ export default function BestSeller() {
     const { bestSellingProducts } = usePage().props as any;
     // console.log('bestSellingProducts',bestSellingProducts);
 
-  retur (
+  retu (
     <div className="bg-white py-12">
       <div className="container mx-auto px-4">
         <div className="container flex justify-between items-center mx-auto px-4">
