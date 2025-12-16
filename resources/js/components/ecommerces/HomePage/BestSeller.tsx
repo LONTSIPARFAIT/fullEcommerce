@@ -11,7 +11,7 @@ export default function BestSeller() {
       <div className="container mx-auto px-4">
         <div className="container flex justify-between items-center mx-auto px-4">
           <h2 className="mb-8 text-center text-2xl font-bold">Best Sellers</h2>
-          <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">Vll</Link>
+          <Link prefetch href="#" className="text-indigo-600 hover:text-indigo-800">VAll</Link>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {bestSellingProducts.length > 0 ?
