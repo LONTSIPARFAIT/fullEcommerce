@@ -15,7 +15,7 @@ export default function BestSeller() {
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {bestSellingProducts.length > 0 ?
-                (bestSellingProducts.map((product:any)=> <ProductCard key={prod.id} {...product} />)
+                (bestSellingProducts.map((product:any)=> <ProductCard key={produ.id} {...product} />)
             ) : (
                 <div className="col-span-4 text-center text-gray-500">No best Seller available at the moment.</div>
             )}
