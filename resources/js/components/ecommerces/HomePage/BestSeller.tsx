@@ -4,7 +4,7 @@ import { ProductCard } from "../ProductCard";
 
 export default function BestSeller() {
     const { bestSellingProducts } = usePage().props as any;
-    // console.log('bestSellingProducts',bestSelligProducts);
+    // console.log('bestSellingProducts',bestSeligProducts);
 
   return (
     <div className="bg-white py-12">
